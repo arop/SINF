@@ -39,6 +39,103 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ADODB, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\ADODB.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.AdmBS800">
+      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.AdmBS800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.BasBE800">
+      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.BasBE800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.CblBE800">
+      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.CblBE800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.CblCtlMovs800">
+      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.CblCtlMovs800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.CrmBE800">
+      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.CrmBE800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.EapBE800">
+      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.EapBE800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.ErpBS800">
+      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.ErpBS800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.FacBE800">
+      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.FacBE800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.GcpBE800">
+      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.GcpBE800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.IBasBS800">
+      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.IBasBS800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.ICblBS800">
+      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.ICblBS800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.ICrmBS800">
+      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.ICrmBS800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.ICrmDS800">
+      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.ICrmDS800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.IEapBS800">
+      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.IEapBS800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.IFacBS800">
+      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.IFacBS800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.IGcpBS800">
+      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.IGcpBS800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.IRhpBS800">
+      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.IRhpBS800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.Primavera.BusinessData.ERPEngine800">
+      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.Primavera.BusinessData.ERPEngine800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.Primavera.Platform.Caching800">
+      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.Primavera.Platform.Caching800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.RhpBE800">
+      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.RhpBE800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.StdBE800">
+      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.StdBE800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.StdPlatBE800">
+      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.StdPlatBE800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.StdPlatBS800">
+      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.StdPlatBS800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -160,12 +257,30 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\ArtigosController.cs" />
+    <Compile Include="Controllers\ClientesController.cs" />
+    <Compile Include="Controllers\DocCompraController.cs" />
+    <Compile Include="Controllers\DocVendaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Lib_Primavera\Model\LinhaDocVenda.cs" />
+    <Compile Include="Lib_Primavera\Model\LinhaDocCompra.cs" />
+    <Compile Include="Lib_Primavera\Model\DocVenda.cs" />
+    <Compile Include="Lib_Primavera\Model\DocCompra.cs" />
+    <Compile Include="Lib_Primavera\PriIntegration.cs" />
+    <Compile Include="Lib_Primavera\PriEngine.cs" />
+    <Compile Include="Lib_Primavera\Model\RespostaErro.cs" />
+    <Compile Include="Lib_Primavera\Model\Cliente.cs" />
+    <Compile Include="Lib_Primavera\Model\Artigo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -236,6 +351,10 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\HelpPageApiModel.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings1.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
