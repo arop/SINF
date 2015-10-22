@@ -18,6 +18,26 @@ namespace SINF.Lib_Primavera.Model
             get;
             set;
         }
+        public double PVP
+        {
+            get;
+            set;
+        }
+        public string Marca
+        {
+            get;
+            set;
+        }
+        public string Modelo
+        {
+            get;
+            set;
+        }
+        public double Peso
+        {
+            get;
+            set;
+        }
 
     }
 }

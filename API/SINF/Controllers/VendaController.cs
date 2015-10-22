@@ -5,6 +5,7 @@ using System.Web;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Script.Serialization;
 
 namespace SINF.Controllers
 {
@@ -24,6 +25,7 @@ namespace SINF.Controllers
         //[{"CodArtigo":"A0001","DescArtigo":"Pentium D925 Dual Core"},{"CodArtigo":"A0002","DescArtigo":"Pentium 4 945+ Dual Core 3.4GHZ"}]
         public HttpResponseMessage Post(List<Lib_Primavera.Model.Artigo> artigos)
         {
+            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", "http://localhost:49192");
             Lib_Primavera.Model.RespostaErro erro = new Lib_Primavera.Model.RespostaErro();
 
             Console.WriteLine("asdfghjkl");
@@ -46,8 +48,11 @@ namespace SINF.Controllers
             }
             */
 
-            //var response = Request.CreateResponse(HttpStatusCode.OK, artigos.Count);
-            var response = Request.CreateResponse(HttpStatusCode.OK, "[{\"CodArtigo\":\"A0001\",\"DescArtigo\":\"Pentium D925 Dual Core\"}]");
+
+            var json = new JavaScriptSerializer().Serialize(artigos.Count);
+
+            var response = Request.CreateResponse(HttpStatusCode.OK, json);
+            //var response = Request.CreateResponse(HttpStatusCode.Created, "[{\"CodArtigo\":\"A0001\",\"DescArtigo\":\"Pentium D925 Dual Core\"}]");
 
             return response;
 

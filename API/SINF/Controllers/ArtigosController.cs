@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using SINF.Lib_Primavera.Model;
+using System.Web.Script.Serialization;
 
 
 namespace SINF.Controllers
@@ -34,6 +35,24 @@ namespace SINF.Controllers
             else
             {
                 return artigo;
+            }
+        }
+
+        [System.Web.Http.HttpPost]
+        public HttpResponseMessage Categoria(string id)
+        {
+            List<Artigo> produtosCategoria = Lib_Primavera.PriIntegration.GetCategoria(id);
+            if (produtosCategoria == null)
+            {
+                throw new HttpResponseException(
+                  Request.CreateResponse(HttpStatusCode.NotFound));
+            }
+            else
+            {
+                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", "http://localhost:49192");
+                var json = new JavaScriptSerializer().Serialize(produtosCategoria);
+                var response = Request.CreateResponse(HttpStatusCode.OK, json);
+                return response;
             }
         }
 
