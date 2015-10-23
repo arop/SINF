@@ -8,9 +8,10 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
-        <div id="info"></div>
-    </div>
+        <div>
+            <div id="info"></div>
+        </div>
+        <input type="submit" value="Obter produtos" />
     </form>
 </body>
      <script type="text/javascript" src="Scripts/jquery-1.10.2.js"></script>

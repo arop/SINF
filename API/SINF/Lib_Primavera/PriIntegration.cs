@@ -342,8 +342,31 @@ namespace SINF.Lib_Primavera
             else
                 return null;
         }
-        
-        
+
+        public static Model.Categoria GetCategoria(string cod)
+        {
+
+            StdBELista objList;
+
+            if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
+            {
+
+                //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
+
+                objList = PriEngine.Engine.Consulta("SELECT Familia, Descricao FROM Familias WHERE Familia = '" + cod + "'");
+
+                Model.Categoria categoria = new Model.Categoria
+                {
+                    CodCategoria = objList.Valor("Familia"),
+                    DescCategoria = objList.Valor("Descricao")
+                };
+                objList.Seguinte();
+
+                return categoria;
+            }
+            else
+                return null;
+        }
         
         
         #endregion Artigo
@@ -383,30 +406,7 @@ namespace SINF.Lib_Primavera
         }
 
 
-        public static Model.Categoria GetCategoria(string cod)
-        {
-
-            StdBELista objList;
-
-            if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
-            {
-
-                //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
-
-                objList = PriEngine.Engine.Consulta("SELECT Familia, Descricao FROM Familias WHERE Familia = '" + cod + "'");
-                     
-                Model.Categoria categoria = new Model.Categoria
-                        {
-                            CodCategoria = objList.Valor("Familia"),
-                            DescCategoria = objList.Valor("Descricao")
-                        };
-                objList.Seguinte();
-
-                return categoria;
-            }
-            else
-                return null;
-        }
+        
 
         #endregion Categoria
 

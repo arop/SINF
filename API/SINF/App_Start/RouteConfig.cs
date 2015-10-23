@@ -13,10 +13,6 @@ namespace SINF
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute(
-               name: "Categoria",
-               url: "artigos/categoria/{id}"               
-           );
 
             routes.MapRoute(
                 name: "Default",

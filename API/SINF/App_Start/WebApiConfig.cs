@@ -9,6 +9,12 @@ namespace SINF
     {
         public static void Register(HttpConfiguration config)
         {
+
+            config.Routes.MapHttpRoute(
+                name: "DefaultApiAction",
+                routeTemplate: "api/{controller}/{action}/{id}"
+            );
+
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",

@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     var categorias = [];
-    var artigos = [];
+    var artigos = null;
 
     
     $.ajax({
@@ -19,10 +19,9 @@
                 categorias = $.parseJSON(msg);
                 for (var i in categorias) {
                     //$("#info").append("<p>"+artigo['CodArtigo']+"</p>");
-                    $("#form1").append("<input type=\"radio\" name=\"cat_group[]\" value=\"" +
+                    $("#form1 input[type='submit']").before("<input type=\"radio\" name=\"cat_group[]\" value=\"" +
                         categorias[i].CodCategoria + "\"/>" + categorias[i].CodCategoria + " - " + categorias[i].DescCategoria + "<br />");
                 }
-                $("#form1").after($('<input type="button" value="Obter produtos">'));
 
             } else {
                 console.log("msg not good");
@@ -30,8 +29,14 @@
         }
     });
 
-    $("#form1").submit(function () {
-        
+    $("#form1").submit(function (e) {
+        e.preventDefault();
+        console.log("submiting form?");
+        var selected = $("input[type='radio']:checked");
+        if (selected.length > 0) {
+            selectedCategory = selected.val();
+            getProductsOfCategory(selectedCategory);
+        }
     });
     
 
@@ -69,7 +74,8 @@
 function getProductsOfCategory(codCat) {
     //get products of category
 
-    var urlCat = 'http://localhost:49526/api/artigos/' + codCat;
+    var urlCat = 'http://localhost:49526/api/artigos/categoria/' + codCat;
+    console.log(urlCat);
 
     $.ajax({
         type: "POST",
@@ -79,24 +85,27 @@ function getProductsOfCategory(codCat) {
 
         error: function (xhr, status, error) {
             console.log("Error: " + error);
+            artigos = "erro";
         },
 
         success: function (msg) {
             if (msg) {
                 //$('#info').html("Response: " + msg);
                 artigos = $.parseJSON(msg);
-                $("#info").append("<form>")
+                //$("#info").append("<form>")
+                $("#form1 input[type='radio']").remove();
                 for (var i in artigos) {
                     //$("#info").append("<p>"+artigo['CodArtigo']+"</p>");
-                    $("#form1").append("<input type=\"checkbox\" name=\"prod_group[]\" value=\"" +
+                    $("#form1 input[type='submit']").before("<input type=\"checkbox\" name=\"prod_group[]\" value=\"" +
                         artigos[i].CodArtigo + "\"/>" + artigos[i].DescArtigo + " - " + artigos[i].PVP + "<br />");
                 }
 
+                console.log(artigos);
+
             } else {
                 console.log("msg not good");
+                artigos = "erro";
             }
-        },
-
-        data: sendInfo
+        }
     });
 }

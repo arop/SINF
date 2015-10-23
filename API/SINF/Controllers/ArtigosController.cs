@@ -38,6 +38,9 @@ namespace SINF.Controllers
             }
         }
 
+
+
+
         [System.Web.Http.HttpPost]
         public HttpResponseMessage Categoria(string id)
         {
@@ -45,7 +48,7 @@ namespace SINF.Controllers
             if (produtosCategoria == null)
             {
                 throw new HttpResponseException(
-                  Request.CreateResponse(HttpStatusCode.NotFound));
+                  Request.CreateResponse(HttpStatusCode.Forbidden));
             }
             else
             {
