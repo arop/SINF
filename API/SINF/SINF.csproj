@@ -39,101 +39,288 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ADODB, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <Reference Include="ADODB, Version=2.8.0.0, Culture=neutral, PublicKeyToken=e076e239d0e78a42, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
-      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\ADODB.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\ADODB.dll</HintPath>
     </Reference>
-    <Reference Include="Interop.AdmBS800">
-      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.AdmBS800.dll</HintPath>
+    <Reference Include="Interop.AdmBE800, Version=8.1007.0.0, Culture=neutral, PublicKeyToken=e076e239d0e78a42, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.AdmBE800.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.AdmBS800, Version=8.1007.0.0, Culture=neutral, PublicKeyToken=e076e239d0e78a42, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.AdmBS800.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.AdmDS800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.AdmDS800.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Interop.BasBE800">
-      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.BasBE800.dll</HintPath>
+    <Reference Include="Interop.AdmEngine800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.AdmEngine800.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Interop.CblBE800">
-      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.CblBE800.dll</HintPath>
+    <Reference Include="Interop.AtpBE800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.AtpBE800.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Interop.CblCtlMovs800">
-      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.CblCtlMovs800.dll</HintPath>
+    <Reference Include="Interop.BasBE800, Version=8.1007.0.0, Culture=neutral, PublicKeyToken=e076e239d0e78a42, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.BasBE800.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.CblBE800, Version=8.1007.0.0, Culture=neutral, PublicKeyToken=e076e239d0e78a42, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.CblBE800.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.CblCtlMovs800, Version=8.1007.0.0, Culture=neutral, PublicKeyToken=e076e239d0e78a42, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.CblCtlMovs800.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.CblData800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.CblData800.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Interop.CrmBE800">
-      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.CrmBE800.dll</HintPath>
+    <Reference Include="Interop.CnoBE800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.CnoBE800.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Interop.EapBE800">
-      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.EapBE800.dll</HintPath>
+    <Reference Include="Interop.COMSVCSLib">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.COMSVCSLib.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Interop.ErpBS800">
-      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.ErpBS800.dll</HintPath>
+    <Reference Include="Interop.CrmBE800, Version=8.1007.0.0, Culture=neutral, PublicKeyToken=e076e239d0e78a42, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.CrmBE800.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.EapBE800, Version=8.1007.0.0, Culture=neutral, PublicKeyToken=e076e239d0e78a42, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.EapBE800.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.ErpBE800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.ErpBE800.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Interop.FacBE800">
-      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.FacBE800.dll</HintPath>
+    <Reference Include="Interop.ErpBS800, Version=8.1007.0.0, Culture=neutral, PublicKeyToken=e076e239d0e78a42, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.ErpBS800.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.ErpDS800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.ErpDS800.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Interop.GcpBE800">
-      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.GcpBE800.dll</HintPath>
+    <Reference Include="Interop.FacBE800, Version=8.1007.0.0, Culture=neutral, PublicKeyToken=e076e239d0e78a42, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.FacBE800.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.FilBE800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.FilBE800.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Interop.IBasBS800">
-      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.IBasBS800.dll</HintPath>
+    <Reference Include="Interop.FilBS800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.FilBS800.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Interop.ICblBS800">
-      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.ICblBS800.dll</HintPath>
+    <Reference Include="Interop.FPSpreadADO">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.FPSpreadADO.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Interop.ICrmBS800">
-      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.ICrmBS800.dll</HintPath>
+    <Reference Include="Interop.GabBE800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.GabBE800.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Interop.ICrmDS800">
-      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.ICrmDS800.dll</HintPath>
+    <Reference Include="Interop.GcpBE800, Version=8.1007.0.0, Culture=neutral, PublicKeyToken=e076e239d0e78a42, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.GcpBE800.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.GprBE800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.GprBE800.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Interop.IEapBS800">
-      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.IEapBS800.dll</HintPath>
+    <Reference Include="Interop.GprPlataformaCOM800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.GprPlataformaCOM800.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Interop.IFacBS800">
-      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.IFacBS800.dll</HintPath>
+    <Reference Include="Interop.IAtpBS800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.IAtpBS800.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Interop.IGcpBS800">
-      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.IGcpBS800.dll</HintPath>
+    <Reference Include="Interop.IBasBS800, Version=8.1007.0.0, Culture=neutral, PublicKeyToken=e076e239d0e78a42, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.IBasBS800.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.ICblBS800, Version=8.1007.0.0, Culture=neutral, PublicKeyToken=e076e239d0e78a42, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.ICblBS800.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.ICnoBS800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.ICnoBS800.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Interop.IRhpBS800">
-      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.IRhpBS800.dll</HintPath>
+    <Reference Include="Interop.ICrmBS800, Version=8.1007.0.0, Culture=neutral, PublicKeyToken=e076e239d0e78a42, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.ICrmBS800.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.IEapBS800, Version=8.1007.0.0, Culture=neutral, PublicKeyToken=e076e239d0e78a42, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.IEapBS800.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.IFacBS800, Version=8.1007.0.0, Culture=neutral, PublicKeyToken=e076e239d0e78a42, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.IFacBS800.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.IGabBS800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.IGabBS800.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Interop.Primavera.BusinessData.ERPEngine800">
-      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.Primavera.BusinessData.ERPEngine800.dll</HintPath>
+    <Reference Include="Interop.IGcpBS800, Version=8.1007.0.0, Culture=neutral, PublicKeyToken=e076e239d0e78a42, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.IGcpBS800.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.IGprBS800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.IGprBS800.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Interop.Primavera.Platform.Caching800">
-      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.Primavera.Platform.Caching800.dll</HintPath>
+    <Reference Include="Interop.IRhpBS800, Version=8.1007.0.0, Culture=neutral, PublicKeyToken=e076e239d0e78a42, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.IRhpBS800.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.ITteBS800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.ITteBS800.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Interop.RhpBE800">
-      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.RhpBE800.dll</HintPath>
+    <Reference Include="Interop.MSComCtl2">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.MSComCtl2.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Interop.StdBE800">
-      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.StdBE800.dll</HintPath>
+    <Reference Include="Interop.MSScriptControl">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.MSScriptControl.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Interop.StdPlatBE800">
-      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.StdPlatBE800.dll</HintPath>
+    <Reference Include="Interop.PbiBE800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.PbiBE800.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Interop.StdPlatBS800">
-      <HintPath>..\..\..\..\..\..\Program Files\PRIMAVERA\SG800\Apl\Interop.StdPlatBS800.dll</HintPath>
+    <Reference Include="Interop.PbiBS800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.PbiBS800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.Primavera.BusinessData.ERPEngine800, Version=8.1007.0.0, Culture=neutral, PublicKeyToken=e076e239d0e78a42, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.Primavera.BusinessData.ERPEngine800.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.Primavera.Platform.Caching800, Version=8.1007.0.0, Culture=neutral, PublicKeyToken=e076e239d0e78a42, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.Primavera.Platform.Caching800.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.PWSAlrExec800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.PWSAlrExec800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.PWSBakExec800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.PWSBakExec800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.PWSEmlExec800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.PWSEmlExec800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.PWSFilExec800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.PWSFilExec800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.PWSLicExec800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.PWSLicExec800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.PWSPanExec800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.PWSPanExec800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.PWSPbiExec800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.PWSPbiExec800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.PWSProExec800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.PWSProExec800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.PWSSmsExec800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.PWSSmsExec800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.RhpBE800, Version=8.1007.0.0, Culture=neutral, PublicKeyToken=e076e239d0e78a42, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.RhpBE800.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.StdBackgrWorker800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.StdBackgrWorker800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.StdBE800, Version=8.1007.0.0, Culture=neutral, PublicKeyToken=e076e239d0e78a42, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.StdBE800.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.StdBESql800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.StdBESql800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.StdBSSql800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.StdBSSql800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.StdClasses800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.StdClasses800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.StdDS800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.StdDS800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.StdDSSql800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.StdDSSql800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.StdPlatBE800, Version=8.1007.0.0, Culture=neutral, PublicKeyToken=e076e239d0e78a42, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.StdPlatBE800.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.StdPlatBS800, Version=8.1007.0.0, Culture=neutral, PublicKeyToken=e076e239d0e78a42, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.StdPlatBS800.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.StdPlatDS800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.StdPlatDS800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.StdServices800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.StdServices800.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.TteBE800">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\PRIMAVERA\SG800\Interop.TteBE800.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -234,10 +421,6 @@
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.3.0\lib\WebGrease.dll</HintPath>
     </Reference>
-    <Reference Include="Antlr3.Runtime">
-      <Private>True</Private>
-      <HintPath>..\packages\WebGrease.1.3.0\lib\Antlr3.Runtime.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -269,6 +452,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="IP\LocalhostIP.cs" />
     <Compile Include="Lib_Primavera\Model\Categoria.cs" />
     <Compile Include="Lib_Primavera\Model\LinhaDocVenda.cs" />
     <Compile Include="Lib_Primavera\Model\LinhaDocCompra.cs" />
