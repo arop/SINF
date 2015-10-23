@@ -41,7 +41,7 @@ namespace SINF.Controllers
         [System.Web.Http.HttpPost]
         public HttpResponseMessage Categoria(string id)
         {
-            List<Artigo> produtosCategoria = Lib_Primavera.PriIntegration.GetCategoria(id);
+            List<Artigo> produtosCategoria = Lib_Primavera.PriIntegration.GetArtigosCategoria(id);
             if (produtosCategoria == null)
             {
                 throw new HttpResponseException(

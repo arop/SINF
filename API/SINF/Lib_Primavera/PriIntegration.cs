@@ -306,7 +306,7 @@ namespace SINF.Lib_Primavera
 
 
 
-        public static List<Model.Artigo> GetCategoria(string categoria)
+        public static List<Model.Artigo> GetArtigosCategoria(string categoria)
         {
 
 
@@ -348,9 +348,67 @@ namespace SINF.Lib_Primavera
         
         #endregion Artigo
 
+        #region Categoria
+
+        public static List<Model.Categoria> ListaCategorias()
+        {
+
+            StdBELista objList;
+
+            List<Model.Categoria> listCategorias = new List<Model.Categoria>();
+
+            if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
+            {
+
+                //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
+
+                objList = PriEngine.Engine.Consulta("SELECT Familia, Descricao FROM Familias");
 
 
+                while (!objList.NoFim())
+                {
+                    listCategorias.Add(new Model.Categoria
+                    {
+                        CodCategoria = objList.Valor("Familia"),
+                        DescCategoria  = objList.Valor("Descricao")
+                    });
+                    objList.Seguinte();
 
+                }
+
+                return listCategorias;
+            }
+            else
+                return null;
+        }
+
+
+        public static Model.Categoria GetCategoria(string cod)
+        {
+
+            StdBELista objList;
+
+            if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
+            {
+
+                //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
+
+                objList = PriEngine.Engine.Consulta("SELECT Familia, Descricao FROM Familias WHERE Familia = '" + cod + "'");
+                     
+                Model.Categoria categoria = new Model.Categoria
+                        {
+                            CodCategoria = objList.Valor("Familia"),
+                            DescCategoria = objList.Valor("Descricao")
+                        };
+                objList.Seguinte();
+
+                return categoria;
+            }
+            else
+                return null;
+        }
+
+        #endregion Categoria
 
 
         #region DocCompra
