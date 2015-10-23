@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Web.Http;
 using SINF.Lib_Primavera.Model;
 using System.Web.Script.Serialization;
+using SINF.IP;
 
 
 namespace SINF.Controllers
@@ -52,7 +53,7 @@ namespace SINF.Controllers
             }
             else
             {
-                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", "http://localhost:49192");
+                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", LocalhostIP.localhostIP());
                 var json = new JavaScriptSerializer().Serialize(produtosCategoria);
                 var response = Request.CreateResponse(HttpStatusCode.OK, json);
                 return response;
