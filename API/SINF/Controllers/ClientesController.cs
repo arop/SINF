@@ -6,6 +6,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using SINF.Lib_Primavera.Model;
+using SINF.IP;
+using System.Web.Script.Serialization;
 
 namespace SINF.Controllers
 {
@@ -14,9 +16,22 @@ namespace SINF.Controllers
         //
         // GET: /Clientes/
 
-        public IEnumerable<Lib_Primavera.Model.Cliente> Get()
+        public HttpResponseMessage Get()
         {
-            return Lib_Primavera.PriIntegration.ListaClientes();
+            IEnumerable<Lib_Primavera.Model.Cliente> listaClientes = Lib_Primavera.PriIntegration.ListaClientes();
+
+            if (listaClientes == null)
+            {
+                throw new HttpResponseException(
+                  Request.CreateResponse(HttpStatusCode.Forbidden));
+            }
+            else
+            {
+                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", LocalhostIP.localhostIP());
+                var json = new JavaScriptSerializer().Serialize(listaClientes);
+                var response = Request.CreateResponse(HttpStatusCode.OK, json);
+                return response;
+            }
         }
 
 

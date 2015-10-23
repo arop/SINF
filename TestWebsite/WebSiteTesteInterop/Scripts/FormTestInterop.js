@@ -1,7 +1,9 @@
-﻿$(document).ready(function () {
-    var categorias = [];
-    var artigos = null;
+﻿var categorias = [];
+var artigos = null;
+var carrinho = [];
 
+$(document).ready(function () {
+    
     
     $.ajax({
         type: "POST",
@@ -93,19 +95,87 @@ function getProductsOfCategory(codCat) {
                 //$('#info').html("Response: " + msg);
                 artigos = $.parseJSON(msg);
                 //$("#info").append("<form>")
-                $("#form1 input[type='radio']").remove();
+
+                clearForm();
+                        
+                //inserir produtos da categoria
                 for (var i in artigos) {
                     //$("#info").append("<p>"+artigo['CodArtigo']+"</p>");
                     $("#form1 input[type='submit']").before("<input type=\"checkbox\" name=\"prod_group[]\" value=\"" +
                         artigos[i].CodArtigo + "\"/>" + artigos[i].DescArtigo + " - " + artigos[i].PVP + "<br />");
                 }
 
-                console.log(artigos);
+                //alterar texto do botao de submit
+                $("input[type='submit']").attr("value", "Comprar");
+
+                //console.log(artigos);
+
+                //nova acção no submit do form
+                $("#form1").submit(function (e) {
+                    e.preventDefault();
+
+                    //1 - guardar produtos escolhidos em array
+                    $('#form1 input:checked').each(function () {
+                        carrinho.push($(this).attr('value'));
+                    });
+
+                    console.log(carrinho);
+
+                    //2 - mostrar novo form. inserir dados cliente, ou escolher cliente existente de lista (?) 
+                    //para já acho que fica só escolher da lista
+
+                    getListaClientes();
+
+                });
 
             } else {
                 console.log("msg not good");
-                artigos = "erro";
             }
         }
     });
+}
+
+function getListaClientes() {
+    $.ajax({
+        type: "GET",
+        url: 'http://localhost:49526/api/clientes',
+        dataType: "json",
+        crossDomain: true,
+
+        error: function (xhr, status, error) {
+            console.log("Error: " + error);
+            artigos = "erro";
+        },
+
+        success: function (msg) {
+            if (msg) {
+                clientes = $.parseJSON(msg);
+
+                clearForm();
+
+                for (var i in clientes) {
+                    //$("#info").append("<p>"+artigo['CodArtigo']+"</p>");
+                    $("#form1 input[type='submit']").before("<input type=\"radio\" name=\"cli_group[]\" value=\"" +
+                        clientes[i].CodCliente + "\"/>" + clientes[i].CodCliente + " - " + clientes[i].NomeCliente + "<br />");
+                }
+            }
+            else {
+                console.log("msg not good in get clientes")
+            }
+
+        }
+
+    });
+
+}
+
+
+function clearForm() {
+    //clear all elements in form, except the submit button
+    $("#form1 input[type='radio']").remove(); //remover categorias/clientes
+    $("#form1 input[type='checkbox']").remove(); //remover produtos
+    $("#form1 br").remove();//remover breaks
+    $("#form1").contents().filter(function () { //remover texto
+        return this.nodeType === 3;
+    }).remove();
 }
