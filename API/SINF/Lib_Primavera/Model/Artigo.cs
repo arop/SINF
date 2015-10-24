@@ -7,6 +7,12 @@ namespace SINF.Lib_Primavera.Model
 {
     public class Artigo
     {
+        public string Moeda
+        {
+            get;
+            set;
+        }
+        
         public string CodArtigo
         {
             get;
@@ -19,6 +25,11 @@ namespace SINF.Lib_Primavera.Model
             set;
         }
         public double PVP
+        {
+            get;
+            set;
+        }
+        public string UnidadeBase
         {
             get;
             set;

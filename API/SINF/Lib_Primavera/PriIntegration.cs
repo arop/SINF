@@ -318,8 +318,10 @@ namespace SINF.Lib_Primavera
             {
 
                 //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
-
-                objList = PriEngine.Engine.Consulta("SELECT Artigo, Descricao, Marca, Modelo, Peso FROM ARTIGO WHERE Familia = '"+categoria+"'");
+                string query = "SELECT a.Artigo, a.Descricao, a.Marca, a.Modelo, a.Peso, a.UnidadeBase," +
+                        " m.PVP1, m.Moeda" +
+                        " FROM Artigo AS a JOIN ArtigoMoeda AS m ON a.Artigo = m.Artigo  WHERE a.Familia = '" + categoria + "'";
+                objList = PriEngine.Engine.Consulta(query);
 
 
                 while (!objList.NoFim())
@@ -328,7 +330,9 @@ namespace SINF.Lib_Primavera
                     {
                         CodArtigo = objList.Valor("Artigo"),
                         DescArtigo = objList.Valor("Descricao"),
-                        PVP = 1,
+                        PVP = objList.Valor("PVP1"),
+                        Moeda = objList.Valor("Moeda"),
+                        UnidadeBase = objList.Valor("UnidadeBase"),
                         Marca = objList.Valor("Marca"),
                         Modelo = objList.Valor("Modelo"),
                         Peso = objList.Valor("Peso")
