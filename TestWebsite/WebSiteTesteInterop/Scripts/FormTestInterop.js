@@ -1,6 +1,8 @@
 ﻿var categorias = [];
-var artigos = null;
+var artigos = [];
 var carrinho = [];
+var clientes = [];
+var cliente;
 
 $(document).ready(function () {
     
@@ -42,35 +44,6 @@ $(document).ready(function () {
     });
     
 
-
-
-    /*
-
-    var sendInfo = '[{"CodArtigo":"A0001","DescArtigo":"Pentium D925 Dual Core"},{"CodArtigo":"A0002","DescArtigo":"Pentium 4 945+ Dual Core 3.4GHZ"}]';
-    console.log("gg");
-
-    $.ajax({
-        type: "POST",
-        url: 'http://localhost:49526/api/venda',
-        dataType: "json",
-        crossDomain: true,
-
-        error: function (xhr, status, error) {
-            console.log("Error: " + error);
-        },
-
-        success: function (msg) {
-            if (msg) {
-                $('#info').html("Response: " + msg);                 
-            } else {
-                console.log("msg not good");
-            }
-        },
-
-        data: sendInfo
-    });*/
-
-
 });
 
 function getProductsOfCategory(codCat) {
@@ -87,22 +60,23 @@ function getProductsOfCategory(codCat) {
 
         error: function (xhr, status, error) {
             console.log("Error: " + error);
-            artigos = "erro";
+            //artigos = "erro";
         },
 
         success: function (msg) {
             if (msg) {
                 //$('#info').html("Response: " + msg);
-                artigos = $.parseJSON(msg);
+                var artigosTemp = $.parseJSON(msg);
                 //$("#info").append("<form>")
 
-                clearForm();
+                replaceForm("Escolher produtos");
                         
                 //inserir produtos da categoria
-                for (var i in artigos) {
+                for (var i in artigosTemp) {
                     //$("#info").append("<p>"+artigo['CodArtigo']+"</p>");
                     $("#form1 input[type='submit']").before("<input type=\"checkbox\" name=\"prod_group[]\" value=\"" +
-                        artigos[i].CodArtigo + "\"/>" + artigos[i].DescArtigo + " - " + artigos[i].PVP + "<br />");
+                        artigosTemp[i].CodArtigo + "\"/>" + artigosTemp[i].DescArtigo + " - " + artigosTemp[i].PVP + "<br />");
+                    artigos[artigosTemp[i].CodArtigo] = artigosTemp[i];
                 }
 
                 //alterar texto do botao de submit
@@ -120,7 +94,7 @@ function getProductsOfCategory(codCat) {
                     });
 
                     console.log(carrinho);
-
+                    
                     //2 - mostrar novo form. inserir dados cliente, ou escolher cliente existente de lista (?) 
                     //para já acho que fica só escolher da lista
 
@@ -149,15 +123,41 @@ function getListaClientes() {
 
         success: function (msg) {
             if (msg) {
-                clientes = $.parseJSON(msg);
+                var clientesTemp = $.parseJSON(msg);
 
-                clearForm();
 
-                for (var i in clientes) {
-                    //$("#info").append("<p>"+artigo['CodArtigo']+"</p>");
+                replaceForm("Finalizar processo");
+
+                for (var i in clientesTemp) {
                     $("#form1 input[type='submit']").before("<input type=\"radio\" name=\"cli_group[]\" value=\"" +
-                        clientes[i].CodCliente + "\"/>" + clientes[i].CodCliente + " - " + clientes[i].NomeCliente + "<br />");
+                        clientesTemp[i].CodCliente + "\"/>" + clientesTemp[i].CodCliente + " - " + clientesTemp[i].NomeCliente + "<br />");
+                    clientes[clientesTemp[i].CodCliente] = clientesTemp[i];
                 }
+
+                //alterar texto do botao de submit
+                $("input[type='submit']").attr("value", "Finalizar");
+
+                //console.log(artigos);
+
+                //nova acção no submit do form
+                $("#form1").submit(function (e) {
+                    e.preventDefault();
+
+                    var selected = $("input[type='radio']:checked");
+                    if (selected.length > 0) {
+                        cliente = selected.val();
+                            
+                        enviarVenda();
+                    }
+
+                    console.log(carrinho);
+
+                    //2 - mostrar novo form. inserir dados cliente, ou escolher cliente existente de lista (?) 
+                    //para já acho que fica só escolher da lista
+
+                    getListaClientes();
+
+                });
             }
             else {
                 console.log("msg not good in get clientes")
@@ -178,4 +178,74 @@ function clearForm() {
     $("#form1").contents().filter(function () { //remover texto
         return this.nodeType === 3;
     }).remove();
+}
+
+function enviarVenda() {
+
+    var linhasDocVenda = [];
+
+    console.log("carrinho:");
+    console.log(carrinho);
+
+    console.log("Artigos:");
+    console.log(artigos);
+
+    for (var i in carrinho) {
+        console.log("i: " + i + ", carrinho[i]: " + carrinho[i]);
+        var artigo = artigos[carrinho[i]];
+        var linhaDocVenda = [];
+        linhaDocVenda['CodArtigo'] = artigo['CodArtigo'];
+        //linhaDocVenda['DescArtigo'] = artigo['DescArtigo'];
+        var quantidade = 1;
+        linhaDocVenda['Quantidade'] = quantidade;
+        //linhaDocVenda['Unidade'] = artigo['UnidadeBase'];
+        linhaDocVenda['Desconto'] = 0;
+        linhaDocVenda['PrecoUnitario'] = artigo['PVP'];
+
+        //var preco = artigo['PVP'] * quantidade;
+
+        //linhaDocVenda['TotalIliquido'] = preco;
+        //linhaDocVenda['TotalLiquido'] = preco * 1.23; //assumit este IVA por default. ver dps o IVA real.
+
+        linhasDocVenda.push(linhaDocVenda);
+    }
+
+    var docVenda = [];
+    docVenda['LinhasDoc'] = linhasDocVenda;
+    docVenda['Entidade'] = cliente['CodCliente'];
+    docVenda['Serie'] = "TESTE_INTEROP";
+
+    $.ajax({
+
+        type: "POST",
+        url: 'http://localhost:49526/api/docvenda',
+        dataType: "json",
+        crossDomain: true,
+
+        data: JSON.stringify(docVenda),
+
+        error: function (xhr, status, error) {
+            console.log("Error: " + error);
+        },
+
+        success: function (msg) {
+            if (msg) {
+
+                clearForm();
+                $("#form1 input[type='submit']").prepend("Created: " + msg);
+            }
+            else {
+                console.log("msg not good in send docVenda")
+            }
+
+        }
+
+
+    });
+
+};
+
+function replaceForm(buttonText) {
+    $("#form1").remove();
+    $("body").html("<form id=\"form1\" ><input type=\"submit\" value=\""+ buttonText +"\" /><form />");
 }
