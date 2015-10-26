@@ -92,17 +92,16 @@ function getProductsOfCategory(codCat) {
 
         success: function (msg) {
             if (msg) {
-                //$('#info').html("Response: " + msg);
+                console.log(msg);
+                
                 artigos = $.parseJSON(msg);
-                //$("#info").append("<form>")
-
                 clearForm();
                         
                 //inserir produtos da categoria
                 for (var i in artigos) {
                     //$("#info").append("<p>"+artigo['CodArtigo']+"</p>");
                     $("#form1 input[type='submit']").before("<input type=\"checkbox\" name=\"prod_group[]\" value=\"" +
-                        artigos[i].CodArtigo + "\"/>" + artigos[i].DescArtigo + " - " + artigos[i].PVP + "<br />");
+                        artigos[i].CodArtigo + "\"/>" + artigos[i].DescArtigo + " - " + artigos[i].PVP + "€<br />");
                 }
 
                 //alterar texto do botao de submit
