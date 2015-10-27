@@ -347,6 +347,46 @@ namespace SINF.Lib_Primavera
                 return null;
         }
 
+        public static List<Model.Artigo> ProcurarArtigos(string termoProcura)
+        {
+
+            StdBELista objList;
+            List<Model.Artigo> resultado = new List<Model.Artigo>();
+            if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
+            {
+
+                //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
+                string query = "SELECT a.Artigo, a.Descricao, a.Marca, a.Modelo, a.Peso, a.UnidadeBase," +
+                        " m.PVP1, m.Moeda" +
+                        " FROM Artigo AS a JOIN ArtigoMoeda AS m ON a.Artigo = m.Artigo  WHERE a.Artigo LIKE '%" + termoProcura + "%' OR " +
+                        " a.Descricao LIKE '%" + termoProcura + "%'";
+                objList = PriEngine.Engine.Consulta(query);
+
+
+                while (!objList.NoFim())
+                {
+                    resultado.Add(new Model.Artigo
+                    {
+                        CodArtigo = objList.Valor("Artigo"),
+                        DescArtigo = objList.Valor("Descricao"),
+                        PVP = objList.Valor("PVP1"),
+                        Moeda = objList.Valor("Moeda"),
+                        UnidadeBase = objList.Valor("UnidadeBase"),
+                        Marca = objList.Valor("Marca"),
+                        Modelo = objList.Valor("Modelo"),
+                        Peso = objList.Valor("Peso")
+                    });
+                    objList.Seguinte();
+
+                }
+
+                return resultado;
+            }
+            else
+                return null;
+        }
+
+
         public static Model.Categoria GetCategoria(string cod)
         {
 
@@ -536,7 +576,7 @@ namespace SINF.Lib_Primavera
 
         #region DocsVenda
 
-        public static Model.RespostaErro Encomendas_New(Model.DocVenda dv)
+        public static Model.RespostaErro Encomendas_New(ref Model.DocVenda dv)
         {
             Lib_Primavera.Model.RespostaErro erro = new Model.RespostaErro();
             GcpBEDocumentoVenda myEnc = new GcpBEDocumentoVenda();
@@ -561,6 +601,8 @@ namespace SINF.Lib_Primavera
                     // Linhas do documento para a lista de linhas
                     lstlindv = dv.LinhasDoc;
                     PriEngine.Engine.Comercial.Vendas.PreencheDadosRelacionados(myEnc, rl);
+                    dv.Data = myEnc.get_DataDoc();
+                    dv.id = myEnc.get_ID();
                     foreach (Model.LinhaDocVenda lin in lstlindv)
                     {
                         PriEngine.Engine.Comercial.Vendas.AdicionaLinha(myEnc, lin.CodArtigo, lin.Quantidade, "", "", lin.PrecoUnitario, lin.Desconto);
@@ -699,5 +741,7 @@ namespace SINF.Lib_Primavera
         }
 
         #endregion DocsVenda
+
+        
     }
 }

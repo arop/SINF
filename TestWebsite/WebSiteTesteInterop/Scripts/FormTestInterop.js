@@ -6,42 +6,9 @@ var cliente;
 
 $(document).ready(function () {
     
+    setSearchFormAction();
     
-    $.ajax({
-        type: "POST",
-        url: 'http://localhost:49526/api/categorias',
-        dataType: "json",
-        crossDomain: true,
-
-        error: function (xhr, status, error) {
-            console.log("Error: " + error);
-        },
-
-        success: function (msg) {
-            if (msg) {
-                //$('#info').html("Response: " + msg);
-                categorias = $.parseJSON(msg);
-                for (var i in categorias) {
-                    //$("#info").append("<p>"+artigo['CodArtigo']+"</p>");
-                    $("#form1 input[type='submit']").before("<input type=\"radio\" name=\"cat_group[]\" value=\"" +
-                        categorias[i].CodCategoria + "\"/>" + categorias[i].CodCategoria + " - " + categorias[i].DescCategoria + "<br />");
-                }
-
-            } else {
-                console.log("msg not good");
-            }
-        }
-    });
-
-    $("#form1").submit(function (e) {
-        e.preventDefault();
-        console.log("submiting form?");
-        var selected = $("input[type='radio']:checked");
-        if (selected.length > 0) {
-            selectedCategory = selected.val();
-            getProductsOfCategory(selectedCategory);
-        }
-    });
+    initializePurchaseSimulation();
     
 
 });
@@ -186,14 +153,8 @@ function enviarVenda() {
 
     var linhasDocVenda = [];
 
-    console.log("carrinho:");
-    console.log(carrinho);
-
-    console.log("Artigos:");
-    console.log(artigos);
-
     for (var i in carrinho) {
-        console.log("i: " + i + ", carrinho[i]: " + carrinho[i]);
+        //console.log("i: " + i + ", carrinho[i]: " + carrinho[i]);
         var artigo = artigos[carrinho[i]];
         var linhaDocVenda = {};
         linhaDocVenda.CodArtigo = artigo['CodArtigo'];
@@ -213,10 +174,8 @@ function enviarVenda() {
     var docVenda = {};
     docVenda.LinhasDoc = linhasDocVenda;
     docVenda.Entidade = cliente['CodCliente'];
-    docVenda.Serie = "TESTE_INTEROP";
+    docVenda.Serie = "A";
 
-    console.log(docVenda);
-    console.log(JSON.stringify(docVenda));
 
     $.ajax({
 
@@ -234,8 +193,14 @@ function enviarVenda() {
         success: function (msg) {
             if (msg) {
 
-                clearForm();
-                $("#form1 input[type='submit']").prepend("Created: " + msg);
+                var responseDocVenda = $.parseJSON(msg);
+
+                console.log("resp venda: " + msg);
+                replaceForm("Recomeçar");
+                $("#form1 input[type='submit']").before("Id DocVenda criado: " + responseDocVenda.id + "<br>");
+                $("#form1").submit(function () {
+                    initializePurchaseSimulation();
+                });
             }
             else {
                 console.log("msg not good in send docVenda")
@@ -250,5 +215,91 @@ function enviarVenda() {
 
 function replaceForm(buttonText) {
     $("#form1").remove();
-    $("body").html("<form id=\"form1\" ><input type=\"submit\" value=\""+ buttonText +"\" /><form />");
+    $("#form1-container").html("<form id=\"form1\" ><input type=\"submit\" value=\""+ buttonText +"\" /><form />");
+}
+
+
+function initializePurchaseSimulation() {
+
+    replaceForm("Obter produtos");
+    $.ajax({
+        type: "POST",
+        url: 'http://localhost:49526/api/categorias',
+        dataType: "json",
+        crossDomain: true,
+
+        error: function (xhr, status, error) {
+            console.log("Error: " + error);
+        },
+
+        success: function (msg) {
+            if (msg) {
+                //$('#info').html("Response: " + msg);
+                categorias = $.parseJSON(msg);
+                for (var i in categorias) {
+                    //$("#info").append("<p>"+artigo['CodArtigo']+"</p>");
+                    $("#form1 input[type='submit']").before("<input type=\"radio\" name=\"cat_group[]\" value=\"" +
+                        categorias[i].CodCategoria + "\"/>" + categorias[i].CodCategoria + " - " + categorias[i].DescCategoria + "<br />");
+                }
+
+            } else {
+                console.log("msg not good");
+            }
+        }
+    });
+
+    $("#form1").submit(function (e) {
+        e.preventDefault();
+        console.log("submiting form?");
+        var selected = $("input[type='radio']:checked");
+        if (selected.length > 0) {
+            selectedCategory = selected.val();
+            getProductsOfCategory(selectedCategory);
+        }
+    });
+}
+
+
+function setSearchFormAction() {
+    $("#form2").submit(function (e) {
+        e.preventDefault();
+
+        var termoProcura = $("#form2 input[type='text']").val();
+        if (termoProcura) {
+
+            var link = "http://localhost:49526/api/pesquisa/artigos/" + termoProcura;
+            $.ajax({
+
+                type: "POST",
+                url: link,
+                dataType: "json",
+                crossDomain: true,
+
+                data: termoProcura,
+
+                error: function (xhr, status, error) {
+                    console.log("Error: " + error);
+                },
+
+                success: function (msg) {
+                    if (msg) {
+                        var artigosTemp = $.parseJSON(msg);
+                        $("#search-results").html("<ul></ul>");
+                        for (var i in artigosTemp) {
+                            $("#search-results ul").append("<li>" + artigosTemp[i].CodArtigo + " - " +
+                                artigosTemp[i].DescArtigo + " - " + artigosTemp[i].PVP + "€</li>");
+                        }
+                    }
+                    else {
+                        console.log("msg not good in search")
+                    }
+
+                }
+
+
+            });
+        }
+
+        
+    })
 }
