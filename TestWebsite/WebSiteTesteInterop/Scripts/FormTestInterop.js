@@ -213,7 +213,7 @@ function enviarVenda() {
     var docVenda = {};
     docVenda.LinhasDoc = linhasDocVenda;
     docVenda.Entidade = cliente['CodCliente'];
-    docVenda.Serie = "TESTE_INTEROP";
+    docVenda.Serie = "A";
 
     console.log(docVenda);
     console.log(JSON.stringify(docVenda));

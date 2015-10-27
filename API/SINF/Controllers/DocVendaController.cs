@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using SINF.Lib_Primavera.Model;
+using SINF.IP;
 
 
 namespace SINF.Controllers
@@ -41,6 +42,7 @@ namespace SINF.Controllers
 
         public HttpResponseMessage Post(Lib_Primavera.Model.DocVenda dv)
         {
+            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", LocalhostIP.localhostIP());
             Lib_Primavera.Model.RespostaErro erro = new Lib_Primavera.Model.RespostaErro();
             erro = Lib_Primavera.PriIntegration.Encomendas_New(dv);
 
