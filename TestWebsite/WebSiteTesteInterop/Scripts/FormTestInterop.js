@@ -9,8 +9,6 @@ $(document).ready(function () {
     setSearchFormAction();
     
     initializePurchaseSimulation();
-    
-
 });
 
 function getProductsOfCategory(codCat) {
@@ -93,8 +91,6 @@ function getListaClientes() {
         success: function (msg) {
             if (msg) {
                 var clientesTemp = $.parseJSON(msg);
-
-
                 replaceForm("Finalizar processo");
 
                 for (var i in clientesTemp) {
@@ -293,13 +289,8 @@ function setSearchFormAction() {
                     else {
                         console.log("msg not good in search")
                     }
-
                 }
-
-
             });
         }
-
-        
     })
 }

@@ -34,7 +34,6 @@ namespace SINF.Controllers
             }
         }
 
-
         // GET api/cliente/5    
         public Cliente Get(string id)
         {
@@ -50,7 +49,6 @@ namespace SINF.Controllers
                 return cliente;
             }
         }
-
 
         public HttpResponseMessage Post(Lib_Primavera.Model.Cliente cliente)
         {
@@ -72,7 +70,6 @@ namespace SINF.Controllers
             }
 
         }
-
 
         public HttpResponseMessage Put(string id, Lib_Primavera.Model.Cliente cliente)
         {
@@ -98,12 +95,8 @@ namespace SINF.Controllers
             }
         }
 
-
-
         public HttpResponseMessage Delete(string id)
         {
-
-
             Lib_Primavera.Model.RespostaErro erro = new Lib_Primavera.Model.RespostaErro();
 
             try
@@ -130,6 +123,41 @@ namespace SINF.Controllers
 
         }
 
+        // get all orders
+        // api/clientes/id/encomendas
+        public HttpResponseMessage Get(string id, string encomendas)
+        {
+            Console.Write("entrou no bom");
 
+            if (encomendas.Equals("encomendas"))
+            {
+                IEnumerable<Lib_Primavera.Model.DocVenda> listaEncomendas = Lib_Primavera.PriIntegration.Encomendas_List(id);
+
+                if (listaEncomendas == null)
+                {
+
+                    //throw new HttpResponseException(
+                    //Request.CreateResponse(HttpStatusCode.Forbidden));
+                    HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", LocalhostIP.localhostIP());
+                    var response = Request.CreateResponse(HttpStatusCode.OK, "it worked");
+                    return response;
+                }
+                else
+                {
+                    HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", LocalhostIP.localhostIP());
+                    var json = new JavaScriptSerializer().Serialize(listaEncomendas);
+                    var response = Request.CreateResponse(HttpStatusCode.OK, json);
+                    return response;
+                }
+            }
+            else
+            {   
+                //throw new HttpResponseException(
+                //  Request.CreateResponse(HttpStatusCode.Forbidden));
+                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", LocalhostIP.localhostIP());
+                var response1 = Request.CreateResponse(HttpStatusCode.OK, "forbidden");
+                return response1;
+            }
+        }
     }
 }
