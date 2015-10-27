@@ -57,6 +57,9 @@ _ReSharper*/
 packages/
 *.nupkg
 
+#IP 
+SINF/IP/
+
 #ncrunch
 *ncrunch*
 *crunch*.local.xml
