@@ -65,29 +65,20 @@ function getProductsOfCategory(codCat) {
 
         success: function (msg) {
             if (msg) {
-<<<<<<< HEAD
                 console.log(msg);
-                
-                artigos = $.parseJSON(msg);
-                clearForm();
-=======
+
                 //$('#info').html("Response: " + msg);
                 var artigosTemp = $.parseJSON(msg);
                 //$("#info").append("<form>")
 
                 replaceForm("Escolher produtos");
->>>>>>> 57244073dbbc80e76db88a5c139ebeec67e6a806
                         
                 //inserir produtos da categoria
                 for (var i in artigosTemp) {
                     //$("#info").append("<p>"+artigo['CodArtigo']+"</p>");
                     $("#form1 input[type='submit']").before("<input type=\"checkbox\" name=\"prod_group[]\" value=\"" +
-<<<<<<< HEAD
-                        artigos[i].CodArtigo + "\"/>" + artigos[i].DescArtigo + " - " + artigos[i].PVP + "€<br />");
-=======
-                        artigosTemp[i].CodArtigo + "\"/>" + artigosTemp[i].DescArtigo + " - " + artigosTemp[i].PVP + "<br />");
+                        artigosTemp[i].CodArtigo + "\"/>" + artigosTemp[i].DescArtigo + " - " + artigosTemp[i].PVP + "€<br />");
                     artigos[artigosTemp[i].CodArtigo] = artigosTemp[i];
->>>>>>> 57244073dbbc80e76db88a5c139ebeec67e6a806
                 }
 
                 //alterar texto do botao de submit
@@ -156,7 +147,7 @@ function getListaClientes() {
 
                     var selected = $("input[type='radio']:checked");
                     if (selected.length > 0) {
-                        cliente = selected.val();
+                        cliente = clientes[selected.val()];
                             
                         enviarVenda();
                     }
@@ -204,27 +195,28 @@ function enviarVenda() {
     for (var i in carrinho) {
         console.log("i: " + i + ", carrinho[i]: " + carrinho[i]);
         var artigo = artigos[carrinho[i]];
-        var linhaDocVenda = [];
-        linhaDocVenda['CodArtigo'] = artigo['CodArtigo'];
-        //linhaDocVenda['DescArtigo'] = artigo['DescArtigo'];
+        var linhaDocVenda = {};
+        linhaDocVenda.CodArtigo = artigo['CodArtigo'];
         var quantidade = 1;
-        linhaDocVenda['Quantidade'] = quantidade;
-        //linhaDocVenda['Unidade'] = artigo['UnidadeBase'];
-        linhaDocVenda['Desconto'] = 0;
-        linhaDocVenda['PrecoUnitario'] = artigo['PVP'];
+        linhaDocVenda.Quantidade = quantidade;
+        linhaDocVenda.Desconto = 0;
+        linhaDocVenda.PrecoUnitario = artigo['PVP'];
 
         //var preco = artigo['PVP'] * quantidade;
 
         //linhaDocVenda['TotalIliquido'] = preco;
-        //linhaDocVenda['TotalLiquido'] = preco * 1.23; //assumit este IVA por default. ver dps o IVA real.
+        //linhaDocVenda['TotalLiquido'] = preco * 1.23; //assumir este IVA por default. ver dps o IVA real.
 
         linhasDocVenda.push(linhaDocVenda);
     }
 
-    var docVenda = [];
-    docVenda['LinhasDoc'] = linhasDocVenda;
-    docVenda['Entidade'] = cliente['CodCliente'];
-    docVenda['Serie'] = "TESTE_INTEROP";
+    var docVenda = {};
+    docVenda.LinhasDoc = linhasDocVenda;
+    docVenda.Entidade = cliente['CodCliente'];
+    docVenda.Serie = "TESTE_INTEROP";
+
+    console.log(docVenda);
+    console.log(JSON.stringify(docVenda));
 
     $.ajax({
 
@@ -233,7 +225,7 @@ function enviarVenda() {
         dataType: "json",
         crossDomain: true,
 
-        data: JSON.stringify(docVenda),
+        data: docVenda,
 
         error: function (xhr, status, error) {
             console.log("Error: " + error);
