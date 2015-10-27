@@ -8,7 +8,6 @@ using System.Net.Http;
 using System.Web.Http;
 using SINF.Lib_Primavera.Model;
 using SINF.IP;
-using System.Web.Script.Serialization;
 
 
 namespace SINF.Controllers
@@ -45,14 +44,14 @@ namespace SINF.Controllers
         {
             HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", LocalhostIP.localhostIP());
             Lib_Primavera.Model.RespostaErro erro = new Lib_Primavera.Model.RespostaErro();
-            erro = Lib_Primavera.PriIntegration.Encomendas_New(ref dv);
+            erro = Lib_Primavera.PriIntegration.Encomendas_New(dv);
 
             if (erro.Erro == 0)
             {
-                var json = new JavaScriptSerializer().Serialize(dv);
-                var response = Request.CreateResponse(HttpStatusCode.Created, json);
-                //string uri = Url.Link("DefaultApi", new { DocId = dv.id });
-                //response.Headers.Location = new Uri(uri);
+                var response = Request.CreateResponse(
+                   HttpStatusCode.Created, dv.id);
+                string uri = Url.Link("DefaultApi", new { DocId = dv.id });
+                response.Headers.Location = new Uri(uri);
                 return response;
             }
 
