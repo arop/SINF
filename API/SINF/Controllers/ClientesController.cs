@@ -42,7 +42,6 @@ namespace SINF.Controllers
             {
                 throw new HttpResponseException(
                         Request.CreateResponse(HttpStatusCode.NotFound));
-
             }
             else
             {
@@ -127,20 +126,13 @@ namespace SINF.Controllers
         // api/clientes/id/encomendas
         public HttpResponseMessage Get(string id, string encomendas)
         {
-            Console.Write("entrou no bom");
-
             if (encomendas.Equals("encomendas"))
             {
                 IEnumerable<Lib_Primavera.Model.DocVenda> listaEncomendas = Lib_Primavera.PriIntegration.Encomendas_List(id);
 
                 if (listaEncomendas == null)
                 {
-
-                    //throw new HttpResponseException(
-                    //Request.CreateResponse(HttpStatusCode.Forbidden));
-                    HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", LocalhostIP.localhostIP());
-                    var response = Request.CreateResponse(HttpStatusCode.OK, "it worked");
-                    return response;
+                    throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.Conflict));
                 }
                 else
                 {
@@ -151,12 +143,9 @@ namespace SINF.Controllers
                 }
             }
             else
-            {   
-                //throw new HttpResponseException(
-                //  Request.CreateResponse(HttpStatusCode.Forbidden));
-                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", LocalhostIP.localhostIP());
-                var response1 = Request.CreateResponse(HttpStatusCode.OK, "forbidden");
-                return response1;
+            {
+                throw new HttpResponseException(
+                Request.CreateResponse(HttpStatusCode.Ambiguous));
             }
         }
     }
