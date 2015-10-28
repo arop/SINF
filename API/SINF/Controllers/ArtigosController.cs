@@ -60,6 +60,24 @@ namespace SINF.Controllers
             }
         }
 
+        [System.Web.Http.HttpGet]
+        public HttpResponseMessage Top()
+        {
+            List<string> artigos = Lib_Primavera.PriIntegration.Top_artigos();
+            if (artigos == null)
+            {
+                throw new HttpResponseException(
+                  Request.CreateResponse(HttpStatusCode.Forbidden));
+            }
+            else
+            {
+                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", LocalhostIP.localhostIP());
+                var json = new JavaScriptSerializer().Serialize(artigos);
+                var response = Request.CreateResponse(HttpStatusCode.OK, json);
+                return response;
+            }
+        }
+
     }
 }
 

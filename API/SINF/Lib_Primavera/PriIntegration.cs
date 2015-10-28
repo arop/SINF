@@ -412,6 +412,35 @@ namespace SINF.Lib_Primavera
                 return null;
         }
 
+        public static List<string> Top_artigos()
+        {
+
+            StdBELista objListLin;
+            List<string> listArtigos = new List<string>();
+
+            if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
+            {
+                    string query = "SELECT TOP 20 a.Artigo, a.Descricao, a.Marca, a.Modelo, a.Peso, a.UnidadeBase," +
+                       "COUNT(*) as itemcount" +
+                       " FROM Artigo AS a JOIN LinhasDoc AS v ON v.Artigo = a.Artigo GROUP BY a.Artigo ORDER BY itemcount";
+
+             //       objListLin = PriEngine.Engine.Consulta("SELECT TOP 20 Artigo, COUNT(*) as itemcount from LinhasDoc JOIN Artigo ON Artigo.Artigo GROUP BY Artigo ORDER BY itemcount");
+
+                    objListLin = PriEngine.Engine.Consulta(query);
+                    listArtigos = new List<string>();
+
+                    
+                    while (!objListLin.NoFim())
+                    {
+                        string Artigo = objListLin.Valor("Artigo");
+                        listArtigos.Add(Artigo);
+                        objListLin.Seguinte();
+                    }
+  
+            }
+            return listArtigos;
+        }
+
 
         #endregion Artigo
 

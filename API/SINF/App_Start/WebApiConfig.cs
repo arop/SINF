@@ -10,6 +10,12 @@ namespace SINF
         public static void Register(HttpConfiguration config)
         {
             config.Routes.MapHttpRoute(
+               name: "TopArtigos",
+               routeTemplate: "api/artigos/top",
+               defaults: new { controller = "Artigos", action = "Top" }
+            );
+
+            config.Routes.MapHttpRoute(
                 name: "GetEncomendasDoCliente",
                 routeTemplate: "api/clientes/{id}/{encomendas}",
                 defaults: new { controller = "Clientes" }
@@ -25,6 +31,7 @@ namespace SINF
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
 
             // Uncomment the following line of code to enable query support for actions with an IQueryable or IQueryable<T> return type.
             // To avoid processing unexpected or malicious queries, use the validation settings on QueryableAttribute to validate incoming queries.
