@@ -420,9 +420,12 @@ namespace SINF.Lib_Primavera
 
             if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
             {
-                    string query = "SELECT TOP 20 a.Artigo, a.Descricao, a.Marca, a.Modelo, a.Peso, a.UnidadeBase," +
-                       "COUNT(*) as itemcount" +
-                       " FROM Artigo AS a JOIN LinhasDoc AS v ON v.Artigo = a.Artigo GROUP BY a.Artigo ORDER BY itemcount";
+                    string query = "SELECT TOP 20 a.Artigo, a.Descricao, a.Marca, a.Modelo, a.Peso, a.UnidadeBase, v.itemcount"+
+                                        " FROM Artigo as a JOIN (SELECT Artigo, COUNT(*) as itemcount"+
+						                                        " FROM  LinhasDoc"+
+						                                        " GROUP BY Artigo) as v"+
+                                        " ON a.Artigo = v.Artigo"+
+                                        " ORDER BY itemcount DESC";
 
              //       objListLin = PriEngine.Engine.Consulta("SELECT TOP 20 Artigo, COUNT(*) as itemcount from LinhasDoc JOIN Artigo ON Artigo.Artigo GROUP BY Artigo ORDER BY itemcount");
 
@@ -432,7 +435,7 @@ namespace SINF.Lib_Primavera
                     
                     while (!objListLin.NoFim())
                     {
-                        string Artigo = objListLin.Valor("Artigo");
+                        string Artigo = objListLin.Valor("Artigo") + " # " + objListLin.Valor("Descricao") + " # " + objListLin.Valor("itemcount");
                         listArtigos.Add(Artigo);
                         objListLin.Seguinte();
                     }
