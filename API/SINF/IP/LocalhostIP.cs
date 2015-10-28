@@ -18,7 +18,7 @@ namespace SINF.IP
 
         public static String localhostIP()
         {
-            return "http://localhost:50664";
+            return "http://localhost:49253";
         }
 
     }
