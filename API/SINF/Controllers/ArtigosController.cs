@@ -63,7 +63,25 @@ namespace SINF.Controllers
         [System.Web.Http.HttpGet]
         public HttpResponseMessage Top(string id)
         {
-            List<Lib_Primavera.Model.Artigo> artigos = Lib_Primavera.PriIntegration.Top_artigos(Int32.Parse(id));
+            List<Lib_Primavera.Model.Artigo> artigos = Lib_Primavera.PriIntegration.Top_artigos(Int32.Parse(id),null);
+            if (artigos == null)
+            {
+                throw new HttpResponseException(
+                  Request.CreateResponse(HttpStatusCode.Forbidden));
+            }
+            else
+            {
+                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", LocalhostIP.localhostIP());
+                var json = new JavaScriptSerializer().Serialize(artigos);
+                var response = Request.CreateResponse(HttpStatusCode.OK, json);
+                return response;
+            }
+        }
+
+        [System.Web.Http.HttpGet]
+        public HttpResponseMessage Top(string id, string categoria)
+        {
+            List<Lib_Primavera.Model.Artigo> artigos = Lib_Primavera.PriIntegration.Top_artigos(Int32.Parse(id), categoria);
             if (artigos == null)
             {
                 throw new HttpResponseException(

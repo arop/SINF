@@ -23,7 +23,8 @@ namespace SINF
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApiAction",
-                routeTemplate: "api/{controller}/{action}/{id}"
+                routeTemplate: "api/{controller}/{action}/{id}/{categoria}",
+                defaults: new { categoria = RouteParameter.Optional }
             );
 
             config.Routes.MapHttpRoute(

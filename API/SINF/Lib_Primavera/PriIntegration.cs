@@ -414,7 +414,8 @@ namespace SINF.Lib_Primavera
                 return null;
         }
 
-        public static List<Lib_Primavera.Model.Artigo> Top_artigos(int quantidade)
+
+        public static List<Lib_Primavera.Model.Artigo> Top_artigos(int quantidade , string categoria)
         {
 
             StdBELista objListLin;
@@ -423,39 +424,41 @@ namespace SINF.Lib_Primavera
             if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
             {
                 string query = "SELECT TOP " + quantidade + " a.Artigo, a.Descricao, a.Marca, a.Modelo, a.Peso, a.UnidadeBase, m.PVP1, m.moeda, a.Familia, a.SubFamilia, v.itemcount" +
-                                        " FROM Artigo as a JOIN (SELECT Artigo, COUNT(*) as itemcount"+
-						                                        " FROM  LinhasDoc"+
-						                                        " GROUP BY Artigo) as v"+
+                                        " FROM Artigo as a JOIN (SELECT Artigo, COUNT(*) as itemcount" +
+                                                                " FROM  LinhasDoc" +
+                                                                " GROUP BY Artigo) as v" +
                                         " ON a.Artigo = v.Artigo JOIN ArtigoMoeda AS m ON a.Artigo = m.Artigo" +
+                                        ((categoria == null) ? " " : " WHERE a.Familia = '" + categoria + "' ") +
                                         " ORDER BY itemcount DESC";
 
-             //       objListLin = PriEngine.Engine.Consulta("SELECT TOP 20 Artigo, COUNT(*) as itemcount from LinhasDoc JOIN Artigo ON Artigo.Artigo GROUP BY Artigo ORDER BY itemcount");
+                //       objListLin = PriEngine.Engine.Consulta("SELECT TOP 20 Artigo, COUNT(*) as itemcount from LinhasDoc JOIN Artigo ON Artigo.Artigo GROUP BY Artigo ORDER BY itemcount");
 
-                    objListLin = PriEngine.Engine.Consulta(query);
-                                        
-                    while (!objListLin.NoFim())
+                objListLin = PriEngine.Engine.Consulta(query);
+
+                while (!objListLin.NoFim())
+                {
+                    string Artigo = objListLin.Valor("Artigo") + " # " + objListLin.Valor("Descricao") + " # " + objListLin.Valor("itemcount");
+                    listArtigos.Add(new Model.Artigo
                     {
-                        string Artigo = objListLin.Valor("Artigo") + " # " + objListLin.Valor("Descricao") + " # " + objListLin.Valor("itemcount");
-                        listArtigos.Add(new Model.Artigo
-                        {
-                            CodArtigo = objListLin.Valor("Artigo"),
-                            DescArtigo = objListLin.Valor("Descricao"),
-                            Categoria = objListLin.Valor("Familia"),
-                            SubCategoria = objListLin.Valor("SubFamilia"),
-                            PVP = objListLin.Valor("PVP1"),
-                            Moeda = objListLin.Valor("Moeda"),
-                            UnidadeBase = objListLin.Valor("UnidadeBase"),
-                            Marca = objListLin.Valor("Marca"),
-                            Modelo = objListLin.Valor("Modelo"),
-                            Peso = objListLin.Valor("Peso")
-                        });
-                        
-                        objListLin.Seguinte();
-                    }
-  
+                        CodArtigo = objListLin.Valor("Artigo"),
+                        DescArtigo = objListLin.Valor("Descricao"),
+                        Categoria = objListLin.Valor("Familia"),
+                        SubCategoria = objListLin.Valor("SubFamilia"),
+                        PVP = objListLin.Valor("PVP1"),
+                        Moeda = objListLin.Valor("Moeda"),
+                        UnidadeBase = objListLin.Valor("UnidadeBase"),
+                        Marca = objListLin.Valor("Marca"),
+                        Modelo = objListLin.Valor("Modelo"),
+                        Peso = objListLin.Valor("Peso")
+                    });
+
+                    objListLin.Seguinte();
+                }
+
             }
             return listArtigos;
         }
+
 
 
         #endregion Artigo
