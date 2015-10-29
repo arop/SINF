@@ -54,6 +54,11 @@ namespace SINF.Lib_Primavera.Model
             get;
             set;
         }
+        public string SubCategoria
+        {
+            get;
+            set;
+        }
 
 
     }

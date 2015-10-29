@@ -9,11 +9,11 @@ namespace SINF
     {
         public static void Register(HttpConfiguration config)
         {
-            config.Routes.MapHttpRoute(
+            /*config.Routes.MapHttpRoute(
                name: "TopArtigos",
                routeTemplate: "api/artigos/top",
                defaults: new { controller = "Artigos", action = "Top" }
-            );
+            );*/
 
             config.Routes.MapHttpRoute(
                 name: "GetEncomendasDoCliente",

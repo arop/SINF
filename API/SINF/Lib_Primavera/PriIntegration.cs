@@ -356,7 +356,7 @@ namespace SINF.Lib_Primavera
             {
 
                 //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
-                string query = "SELECT a.Artigo, a.Descricao, a.Marca, a.Modelo, a.Peso, a.UnidadeBase," +
+                string query = "SELECT a.Artigo, a.Descricao, a.Marca, a.Modelo, a.Peso, a.UnidadeBase, a.Familia, a.SubFamilia, " +
                         " m.PVP1, m.Moeda" +
                         " FROM Artigo AS a JOIN ArtigoMoeda AS m ON a.Artigo = m.Artigo  WHERE a.Artigo LIKE '%" + termoProcura + "%' OR " +
                         " a.Descricao LIKE '%" + termoProcura + "%'";
@@ -369,6 +369,8 @@ namespace SINF.Lib_Primavera
                     {
                         CodArtigo = objList.Valor("Artigo"),
                         DescArtigo = objList.Valor("Descricao"),
+                        Categoria = objList.Valor("Familia"),
+                        SubCategoria = objList.Valor("SubFamilia"),
                         PVP = objList.Valor("PVP1"),
                         Moeda = objList.Valor("Moeda"),
                         UnidadeBase = objList.Valor("UnidadeBase"),
@@ -412,31 +414,42 @@ namespace SINF.Lib_Primavera
                 return null;
         }
 
-        public static List<string> Top_artigos()
+        public static List<Lib_Primavera.Model.Artigo> Top_artigos(int quantidade)
         {
 
             StdBELista objListLin;
-            List<string> listArtigos = new List<string>();
+            List<Lib_Primavera.Model.Artigo> listArtigos = new List<Lib_Primavera.Model.Artigo>();
 
             if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
             {
-                    string query = "SELECT TOP 20 a.Artigo, a.Descricao, a.Marca, a.Modelo, a.Peso, a.UnidadeBase, v.itemcount"+
+                string query = "SELECT TOP " + quantidade + " a.Artigo, a.Descricao, a.Marca, a.Modelo, a.Peso, a.UnidadeBase, m.PVP1, m.moeda, a.Familia, a.SubFamilia, v.itemcount" +
                                         " FROM Artigo as a JOIN (SELECT Artigo, COUNT(*) as itemcount"+
 						                                        " FROM  LinhasDoc"+
 						                                        " GROUP BY Artigo) as v"+
-                                        " ON a.Artigo = v.Artigo"+
+                                        " ON a.Artigo = v.Artigo JOIN ArtigoMoeda AS m ON a.Artigo = m.Artigo" +
                                         " ORDER BY itemcount DESC";
 
              //       objListLin = PriEngine.Engine.Consulta("SELECT TOP 20 Artigo, COUNT(*) as itemcount from LinhasDoc JOIN Artigo ON Artigo.Artigo GROUP BY Artigo ORDER BY itemcount");
 
                     objListLin = PriEngine.Engine.Consulta(query);
-                    listArtigos = new List<string>();
-
-                    
+                                        
                     while (!objListLin.NoFim())
                     {
                         string Artigo = objListLin.Valor("Artigo") + " # " + objListLin.Valor("Descricao") + " # " + objListLin.Valor("itemcount");
-                        listArtigos.Add(Artigo);
+                        listArtigos.Add(new Model.Artigo
+                        {
+                            CodArtigo = objListLin.Valor("Artigo"),
+                            DescArtigo = objListLin.Valor("Descricao"),
+                            Categoria = objListLin.Valor("Familia"),
+                            SubCategoria = objListLin.Valor("SubFamilia"),
+                            PVP = objListLin.Valor("PVP1"),
+                            Moeda = objListLin.Valor("Moeda"),
+                            UnidadeBase = objListLin.Valor("UnidadeBase"),
+                            Marca = objListLin.Valor("Marca"),
+                            Modelo = objListLin.Valor("Modelo"),
+                            Peso = objListLin.Valor("Peso")
+                        });
+                        
                         objListLin.Seguinte();
                     }
   

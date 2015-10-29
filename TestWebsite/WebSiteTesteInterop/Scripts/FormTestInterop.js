@@ -30,7 +30,7 @@ function getProductsOfCategory(codCat) {
 
         success: function (msg) {
             if (msg) {
-                console.log(msg);
+                //console.log(msg);
 
                 //$('#info').html("Response: " + msg);
                 var artigosTemp = $.parseJSON(msg);
@@ -60,7 +60,7 @@ function getProductsOfCategory(codCat) {
                         carrinho.push($(this).attr('value'));
                     });
 
-                    console.log(carrinho);
+                    //console.log(carrinho);
                     
                     //2 - mostrar novo form. inserir dados cliente, ou escolher cliente existente de lista (?) 
                     //para já acho que fica só escolher da lista
@@ -115,7 +115,7 @@ function getListaClientes() {
                         enviarVenda();
                     }
 
-                    console.log(carrinho);
+                    //console.log(carrinho);
 
                     //2 - mostrar novo form. inserir dados cliente, ou escolher cliente existente de lista (?) 
                     //para já acho que fica só escolher da lista
@@ -188,10 +188,10 @@ function enviarVenda() {
 
         success: function (msg) {
             if (msg) {
-
+                
                 var responseDocVenda = $.parseJSON(msg);
 
-                console.log("resp venda: " + msg);
+                //console.log("resp venda: " + msg);
                 replaceForm("Recomeçar");
                 $("#form1 input[type='submit']").before("Id DocVenda criado: " + responseDocVenda.id + "<br>");
                 $("#form1").submit(function () {
