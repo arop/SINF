@@ -61,9 +61,9 @@ namespace SINF.Controllers
         }
 
         [System.Web.Http.HttpGet]
-        public HttpResponseMessage Top(string id)
+        public HttpResponseMessage Top(string number)
         {
-            List<Lib_Primavera.Model.Artigo> artigos = Lib_Primavera.PriIntegration.Top_artigos(Int32.Parse(id),null);
+            List<Lib_Primavera.Model.Artigo> artigos = Lib_Primavera.PriIntegration.Top_artigos(Int32.Parse(number), null);
             if (artigos == null)
             {
                 throw new HttpResponseException(
