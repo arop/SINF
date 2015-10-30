@@ -15,7 +15,7 @@ function getProductsOfCategory(codCat) {
     //get products of category
 
     var urlCat = 'http://localhost:49526/api/artigos/categoria/' + codCat;
-    console.log(urlCat);
+    //console.log(urlCat);
 
     $.ajax({
         type: "POST",
@@ -170,7 +170,7 @@ function enviarVenda() {
     var docVenda = {};
     docVenda.LinhasDoc = linhasDocVenda;
     docVenda.Entidade = cliente['CodCliente'];
-    docVenda.Serie = "A";
+    docVenda.Serie = "C";
 
 
     $.ajax({
@@ -183,6 +183,9 @@ function enviarVenda() {
         data: docVenda,
 
         error: function (xhr, status, error) {
+            console.log("Error: " + xhr);
+            console.log(xhr);
+            console.log("Error: " + status);
             console.log("Error: " + error);
         },
 
@@ -246,7 +249,7 @@ function initializePurchaseSimulation() {
 
     $("#form1").submit(function (e) {
         e.preventDefault();
-        console.log("submiting form?");
+        
         var selected = $("input[type='radio']:checked");
         if (selected.length > 0) {
             selectedCategory = selected.val();

@@ -636,6 +636,7 @@ namespace SINF.Lib_Primavera
             PreencheRelacaoVendas rl = new PreencheRelacaoVendas();
             List<Model.LinhaDocVenda> lstlindv = new List<Model.LinhaDocVenda>();
 
+            bool iniciouTransaccao = false;
             try
             {
                 if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
@@ -643,25 +644,46 @@ namespace SINF.Lib_Primavera
                     // Atribui valores ao cabecalho do doc
                     //myEnc.set_DataDoc(dv.Data);
                     myEnc.set_Entidade(dv.Entidade);
-                    myEnc.set_Serie(dv.Serie);
-                    myEnc.set_Tipodoc("ECL");
+                    myEnc.set_Serie("A");
+                    
+                    myEnc.set_Tipodoc("ECL"); //encomenda cliente
                     myEnc.set_TipoEntidade("C");
                     // Linhas do documento para a lista de linhas
                     lstlindv = dv.LinhasDoc;
                     PriEngine.Engine.Comercial.Vendas.PreencheDadosRelacionados(myEnc, rl);
                     dv.Data = myEnc.get_DataDoc();
                     dv.id = myEnc.get_ID();
+                    
                     foreach (Model.LinhaDocVenda lin in lstlindv)
                     {
                         PriEngine.Engine.Comercial.Vendas.AdicionaLinha(myEnc, lin.CodArtigo, lin.Quantidade, "", "", lin.PrecoUnitario, lin.Desconto);
                     }
 
-
                     // PriEngine.Engine.Comercial.Compras.TransformaDocumento(
 
+                    
+                    /*GcpBEDocumentoVenda myFac = new GcpBEDocumentoVenda();
+                    myFac.set_Entidade(dv.Entidade);
+                    myFac.set_Serie("A");
+                    myEnc.set_Tipodoc("FS"); //factura simplificada
+                    myFac.set_TipoEntidade("C");
+                    myFac.set_IdDocOrigem(dv.id);
+                    PriEngine.Engine.Comercial.Vendas.PreencheDadosRelacionados(myFac, rl);
+                    foreach (Model.LinhaDocVenda lin in lstlindv)
+                    {
+                        PriEngine.Engine.Comercial.Vendas.AdicionaLinha(myFac, lin.CodArtigo, lin.Quantidade, "", "", lin.PrecoUnitario, lin.Desconto);
+                    }*/
+
+
                     PriEngine.Engine.IniciaTransaccao();
+                    iniciouTransaccao = true;
                     PriEngine.Engine.Comercial.Vendas.Actualiza(myEnc, "Teste");
+                    //PriEngine.Engine.Comercial.Vendas.Actualiza(myFac, "Teste");
                     PriEngine.Engine.TerminaTransaccao();
+                    iniciouTransaccao = false;
+
+                    //dv.IdFactura = myFac.get_ID();
+
                     erro.Erro = 0;
                     erro.Descricao = "Sucesso";
                     return erro;
@@ -677,7 +699,8 @@ namespace SINF.Lib_Primavera
             }
             catch (Exception ex)
             {
-                PriEngine.Engine.DesfazTransaccao();
+                if(iniciouTransaccao)
+                    PriEngine.Engine.DesfazTransaccao();
                 erro.Erro = 1;
                 erro.Descricao = ex.Message;
                 return erro;

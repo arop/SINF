@@ -50,6 +50,13 @@ namespace SINF.Lib_Primavera.Model
             set;
         }
 
+        public string IdFactura
+        {
+            get;
+            set;
+        }
+
+
 
     }
 }
