@@ -11,26 +11,10 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery.turbolinks
+//tirei o jquery turbolinks
 //= require jquery_ujs
-//= require turbolinks
+//tirei o turbolinks
 //= require bootstrap-sprockets
-//= require_tree .
+//= require ./utilities
+//= require_tree ./common
 
-$(document).ready(function () {
-    /*$('.navbar-nav li a').click(function(event) {
-        $(".navbar-collapse").collapse('hide');
-    });
-    $('.navbar-toggle').click(function(event){
-        event.preventDefault();
-        if($('.navbar-collapse').hasClass('in')) {
-            $(".navbar-collapse").collapse('hide');
-            console.log('remove');
-        }
-        else{
-            $('.navbar-collapse').addClass('in');
-            //$(".navbar-collapse").collapse('show');
-            console.log('add');
-        }
-    });*/
-});

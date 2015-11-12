@@ -1,0 +1,37 @@
+<%= render 'common/header' %>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+</head>
+<body>
+<%= render 'common/navbar' %>
+
+<!-- Page Content -->
+<div class="container">
+
+  <!-- Title -->
+  <div class="row">
+    <div class="col-lg-12">
+      <h3 id="titulo-categoria" data-id-categoria=<%= @id_categoria %>></h3>
+
+    </div>
+  </div>
+  <!-- /.row -->
+
+  <!-- Page Features -->
+  <div id="artigos-container" class="row text-center">
+
+
+  </div>
+  <!-- /.row -->
+
+  <hr>
+
+
+
+</div>
+<!-- /.container -->
+
+
+
+<%= render 'common/footer' %>
+<%= javascript_include_tag "categoria" %>
