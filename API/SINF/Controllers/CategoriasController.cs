@@ -27,22 +27,22 @@ namespace SINF.Controllers
 
 
         // GET api/categorias/H01   
-        /*public HttpResponseMessage Get(string id)
+        public HttpResponseMessage Get(string id)
         {
             Categoria categoria = Lib_Primavera.PriIntegration.GetCategoria(id);
             if (categoria == null)
             {
-                throw new HttpResponseException(
-                  Request.CreateResponse(HttpStatusCode.NotFound));
+                var response = Request.CreateResponse(HttpStatusCode.NotFound);
+                return response;
             }
             else
             {
-                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", "http://localhost:49192");
+                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", LocalhostIP.localhostIP());
                 var json = new JavaScriptSerializer().Serialize(categoria);
                 var response = Request.CreateResponse(HttpStatusCode.OK, json);
                 return response;
             }
-        }*/
+        }
 
 
         /*[System.Web.Http.HttpPost]

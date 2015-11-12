@@ -400,15 +400,19 @@ namespace SINF.Lib_Primavera
                 //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
 
                 objList = PriEngine.Engine.Consulta("SELECT Familia, Descricao FROM Familias WHERE Familia = '" + cod + "'");
-
-                Model.Categoria categoria = new Model.Categoria
+                if (!objList.NoFim())
                 {
-                    CodCategoria = objList.Valor("Familia"),
-                    DescCategoria = objList.Valor("Descricao")
-                };
-                objList.Seguinte();
+                    Model.Categoria categoria = new Model.Categoria
+                    {
+                        CodCategoria = objList.Valor("Familia"),
+                        DescCategoria = objList.Valor("Descricao")
+                    };
+                    objList.Seguinte();
 
-                return categoria;
+                    return categoria;
+                }
+                return null;
+                
             }
             else
                 return null;
