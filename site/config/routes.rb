@@ -60,4 +60,5 @@ Rails.application.routes.draw do
 
 
   get 'categoria/:id' => 'categoria#index'
+  get 'product/:id' => 'product#show'
 end
