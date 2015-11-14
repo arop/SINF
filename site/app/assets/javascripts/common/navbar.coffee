@@ -1,5 +1,6 @@
 `
 var base_url_primavera = 'http://localhost:49526/api'
+var url_produto = 'http://localhost:3000/product/'
 $(document).ready(function () {
 		var url_categorias = base_url_primavera + '/categorias';
 		$.ajax({
@@ -48,7 +49,8 @@ $(document).ready(function () {
                           //'<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>'+
                           '<h5>'+top[i].PVP+'€</h5>'+
                           '<p>'+
-                            '<a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>'+
+                            '<a href="'+url_produto+top[i].CodArtigo+'" class="btn btn-primary">Buy Now!</a>' + 
+                            '<a href="'+url_produto+top[i].CodArtigo+'" class="btn btn-default">More Info</a>'+
                           '</p>'+
                         '</div>'+
                       '</div>'+

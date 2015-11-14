@@ -3,5 +3,6 @@ class ProductController < ApplicationController
 	end
 
 	def show
+		@product_id = params[:id]
 	end
 end
