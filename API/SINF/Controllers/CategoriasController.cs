@@ -20,7 +20,15 @@ namespace SINF.Controllers
         public HttpResponseMessage Post()
         {
             HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", LocalhostIP.localhostIP());
-            var json = new JavaScriptSerializer().Serialize(Lib_Primavera.PriIntegration.ListaCategorias());
+            List<Categoria> listaCategorias = Lib_Primavera.PriIntegration.ListaCategorias();
+
+            /*for (int i = 0; i < listaCategorias.Count; i++)
+            {
+                List<Categoria> subs = Lib_Primavera.PriIntegration.GetSubCategorias(listaCategorias[i].CodCategoria);
+                listaCategorias[i].SubCategorias = subs;
+            }*/
+
+            var json = new JavaScriptSerializer().Serialize(listaCategorias);
             var response = Request.CreateResponse(HttpStatusCode.OK, json);
             return response;
         }
@@ -45,12 +53,48 @@ namespace SINF.Controllers
         }
 
 
-        /*[System.Web.Http.HttpPost]
-        public HttpResponseMessage Categoria(string id)
+        /**
+         *  Obter subcategorias de uma categoria
+         */
+        [System.Web.Http.HttpGet]
+        public HttpResponseMessage Subcategorias(string id)
         {
-            
+            List<Categoria> categorias = Lib_Primavera.PriIntegration.GetSubCategorias(id);
+            if (categorias == null)
+            {
+                var response = Request.CreateResponse(HttpStatusCode.NotFound);
+                return response;
+            }
+            else
+            {
+                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", LocalhostIP.localhostIP());
+                var json = new JavaScriptSerializer().Serialize(categorias);
+                var response = Request.CreateResponse(HttpStatusCode.OK, json);
+                return response;
+            }
         }
-        */
+
+        /**
+         *  Obter subcategoria
+         */
+        [System.Web.Http.HttpGet]
+        public HttpResponseMessage Subcategoria(string id)
+        {
+            Categoria categoria = Lib_Primavera.PriIntegration.GetSubCategoria(id);
+            if (categoria == null)
+            {
+                var response = Request.CreateResponse(HttpStatusCode.NotFound);
+                return response;
+            }
+            else
+            {
+                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", LocalhostIP.localhostIP());
+                var json = new JavaScriptSerializer().Serialize(categoria);
+                var response = Request.CreateResponse(HttpStatusCode.OK, json);
+                return response;
+            }
+        }
+        
     }
 }
 

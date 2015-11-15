@@ -28,9 +28,13 @@ namespace SINF
             );
 
             config.Routes.MapHttpRoute(
+                name: "DefaultApiSingleParam",
+                routeTemplate: "api/{controller}/{id}"
+            );
+
+            config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                routeTemplate: "api/{controller}"
             );
 
 

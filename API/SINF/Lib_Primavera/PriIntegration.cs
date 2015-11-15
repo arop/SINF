@@ -391,35 +391,7 @@ namespace SINF.Lib_Primavera
         }
 
 
-        public static Model.Categoria GetCategoria(string cod)
-        {
-
-            StdBELista objList;
-
-            if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
-            {
-
-                //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
-
-                objList = PriEngine.Engine.Consulta("SELECT Familia, Descricao FROM Familias WHERE Familia = '" + cod + "'");
-                if (!objList.NoFim())
-                {
-                    Model.Categoria categoria = new Model.Categoria
-                    {
-                        CodCategoria = objList.Valor("Familia"),
-                        DescCategoria = objList.Valor("Descricao")
-                    };
-                    objList.Seguinte();
-
-                    return categoria;
-                }
-                return null;
-                
-            }
-            else
-                return null;
-        }
-
+        
 
         public static List<Lib_Primavera.Model.Artigo> Top_artigos(int quantidade , string categoria)
         {
@@ -488,9 +460,77 @@ namespace SINF.Lib_Primavera
 
                 while (!objList.NoFim())
                 {
+
+                    StdBELista objList2 = PriEngine.Engine.Consulta("SELECT SubFamilia, Descricao FROM SubFamilias WHERE Familia = '" + objList.Valor("Familia") + "'");
+                   
+                    
+                    if (objList2.NoFim())
+                    {
+                        listCategorias.Add(new Model.Categoria
+                        {
+                            CodCategoria = objList.Valor("Familia"),
+                            DescCategoria = objList.Valor("Descricao")
+                        });
+                    }
+                    else
+                    {
+                        List<Model.Categoria> subs = new List<Model.Categoria>();
+                       
+                        while (!objList2.NoFim())
+                        {
+                            Model.Categoria categoria = new Model.Categoria
+                            {
+                                CodCategoria = objList2.Valor("SubFamilia"),
+                                DescCategoria = objList2.Valor("Descricao")
+                            };
+                            subs.Add(categoria);
+                            objList2.Seguinte();
+                        }
+
+                        listCategorias.Add(new Model.Categoria
+                        {
+                            CodCategoria = objList.Valor("Familia"),
+                            DescCategoria = objList.Valor("Descricao"),
+                            SubCategorias = subs
+                        });
+
+
+                    }  
+
+
+
+
+                    
+                    objList.Seguinte();
+
+                }
+
+                return listCategorias;
+            }
+            else
+                return null;
+        }
+
+        public static List<Model.Categoria> GetSubCategorias(string idCategoria)
+        {
+
+            StdBELista objList;
+
+            List<Model.Categoria> listCategorias = new List<Model.Categoria>();
+
+            if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
+            {
+
+                //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
+
+                objList = PriEngine.Engine.Consulta("SELECT SubFamilia, Descricao FROM SubFamilias WHERE Familia = '" + idCategoria + "'");
+
+
+                while (!objList.NoFim())
+                {
                     listCategorias.Add(new Model.Categoria
                     {
-                        CodCategoria = objList.Valor("Familia"),
+                        CodCategoria = objList.Valor("SubFamilia"),
                         DescCategoria = objList.Valor("Descricao")
                     });
                     objList.Seguinte();
@@ -503,6 +543,68 @@ namespace SINF.Lib_Primavera
                 return null;
         }
 
+
+        public static Model.Categoria GetCategoria(string cod)
+        {
+
+            StdBELista objList;
+
+            if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
+            {
+
+                //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
+
+                objList = PriEngine.Engine.Consulta("SELECT Familia, Descricao FROM Familias WHERE Familia = '" + cod + "'");
+                if (!objList.NoFim())
+                {
+                    Model.Categoria categoria = new Model.Categoria
+                    {
+                        CodCategoria = objList.Valor("Familia"),
+                        DescCategoria = objList.Valor("Descricao")
+                    };
+                    objList.Seguinte();
+
+                    return categoria;
+                }
+                return null;
+
+            }
+            else
+                return null;
+        }
+
+
+        public static Model.Categoria GetSubCategoria(string idCategoria)
+        {
+
+            StdBELista objList;
+
+            if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
+            {
+
+                //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
+
+                objList = PriEngine.Engine.Consulta("SELECT SubFamilia, Descricao FROM SubFamilias WHERE SubFamilia = '" + idCategoria + "'");
+
+                if (objList.NoFim())
+                {
+                    return null;
+                }
+                else
+                {
+                    Model.Categoria categoria = new Model.Categoria
+                    {
+                        CodCategoria = objList.Valor("SubFamilia"),
+                        DescCategoria = objList.Valor("Descricao")
+                    };
+
+                    return categoria;
+                }  
+                
+            }
+            else
+                return null;
+        }
 
 
 
