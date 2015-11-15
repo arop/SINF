@@ -936,6 +936,59 @@ namespace SINF.Lib_Primavera
                     dv.Data = objListCab.Valor("Data");
                     dv.TotalMerc = objListCab.Valor("TotalMerc");
                     dv.Serie = objListCab.Valor("Serie");
+                    
+                    objListLin = PriEngine.Engine.Consulta("SELECT idCabecDoc, Artigo, Descricao, Quantidade, Unidade, PrecUnit, Desconto1, TotalILiquido, PrecoLiquido from LinhasDoc where IdCabecDoc='" + dv.id + "' order By NumLinha");
+                    listlindv = new List<Model.LinhaDocVenda>();
+
+                   /* while (!objListLin.NoFim())
+                    {
+                        lindv = new Model.LinhaDocVenda();
+                        lindv.IdCabecDoc = objListLin.Valor("idCabecDoc");
+                        lindv.CodArtigo = objListLin.Valor("Artigo");
+                        lindv.DescArtigo = objListLin.Valor("Descricao");
+                        lindv.Quantidade = objListLin.Valor("Quantidade");
+                        lindv.Unidade = objListLin.Valor("Unidade");
+                        lindv.Desconto = objListLin.Valor("Desconto1");
+                        lindv.PrecoUnitario = objListLin.Valor("PrecUnit");
+                        lindv.TotalILiquido = objListLin.Valor("TotalILiquido");
+                        lindv.TotalLiquido = objListLin.Valor("PrecoLiquido");
+
+                        listlindv.Add(lindv);
+                        objListLin.Seguinte();
+                    }
+
+                    dv.LinhasDoc = listlindv;*/
+                    listdv.Add(dv);
+                    objListCab.Seguinte();
+                }
+            }
+            return listdv;
+        }
+
+
+        //retorna encomenda feita por um cliente
+        public static Model.DocVenda Encomenda_Cliente(string clienteId, string docVendaId)
+        {
+
+            StdBELista objListCab;
+            StdBELista objListLin;
+            Model.DocVenda dv = null;            
+            Model.LinhaDocVenda lindv = new Model.LinhaDocVenda();
+            List<Model.LinhaDocVenda> listlindv = new List<Model.LinhaDocVenda>();
+
+            if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
+            {
+                objListCab = PriEngine.Engine.Consulta("SELECT id, Entidade, Data, NumDoc, TotalMerc, Serie From CabecDoc where TipoDoc='ECL' AND Entidade = '" + clienteId + "' AND id='"+docVendaId+"'");
+                if (!objListCab.NoFim())
+                {
+                    dv = new Model.DocVenda();
+                    dv.id = objListCab.Valor("id");
+                    dv.Entidade = objListCab.Valor("Entidade");
+                    dv.NumDoc = objListCab.Valor("NumDoc");
+                    dv.Data = objListCab.Valor("Data");
+                    dv.TotalMerc = objListCab.Valor("TotalMerc");
+                    dv.Serie = objListCab.Valor("Serie");
+
                     objListLin = PriEngine.Engine.Consulta("SELECT idCabecDoc, Artigo, Descricao, Quantidade, Unidade, PrecUnit, Desconto1, TotalILiquido, PrecoLiquido from LinhasDoc where IdCabecDoc='" + dv.id + "' order By NumLinha");
                     listlindv = new List<Model.LinhaDocVenda>();
 
@@ -957,11 +1010,12 @@ namespace SINF.Lib_Primavera
                     }
 
                     dv.LinhasDoc = listlindv;
-                    listdv.Add(dv);
-                    objListCab.Seguinte();
+                    return dv;
                 }
+                else return null;
             }
-            return listdv;
+            return null;
+
         }
 
         #endregion DocsVenda

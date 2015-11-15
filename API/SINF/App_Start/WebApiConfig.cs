@@ -21,6 +21,12 @@ namespace SINF
                 defaults: new { controller = "Clientes" }
             );
 
+            config.Routes.MapHttpRoute(
+                name: "GetEncomendaDoCliente",
+                routeTemplate: "api/clientes/{idCliente}/encomenda/{idEncomenda}",
+                defaults: new { controller = "Clientes", action="GetEncomenda"}
+            );
+
             //categoria
             config.Routes.MapHttpRoute(
                 name: "GetSubCategoriaDeCategoria",
