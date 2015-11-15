@@ -3,6 +3,8 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 `
 var base_url_primavera = 'http://localhost:49526/api';
+var url_categoria = 'http://localhost:3000/categoria/';
+var url_subcategoria = 'http://localhost:3000/subcategoria/';
 
 $(document).ready(function () {
 	var id_produto = $("#prod-title").attr('data-id-product');
@@ -24,11 +26,14 @@ function getProduto(id){
             console.log(err);
         },
         success: function(data) {
-            //var artigo_temp = $.parseJSON(data);
-            //console.log(artigo_temp);
-
             $('#prod-title').html(data.DescArtigo);
-            $('#prod-price').html(data.PVP+'€');
+            var price = data.PVP;
+            if(data.Moeda == 'EUR') price+='€';
+            $('#prod-price').html(price);
+            $('#prod-categoria em').html(data.Categoria);
+            $('#prod-categoria').attr('href',url_categoria + data.Categoria);
+            $('#prod-subcategoria em').html(data.SubCategoria);
+            $('#prod-subcategoria').attr('href',url_subcategoria + data.SubCategoria);
         }
 	});
 }
