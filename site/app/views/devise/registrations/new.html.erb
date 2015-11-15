@@ -13,9 +13,16 @@
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
+
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true %>
+  </div>
+
+
+  <div class="field">
+    <%= f.label :nome %><br />
+    <%= f.text_field :nome, autocomplete: "off" %>
   </div>
 
   <div class="field">
@@ -29,6 +36,22 @@
   <div class="field">
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
+  </div>
+
+
+    <div class="field">
+    <%= f.label :nif %><br />
+    <%= f.number_field :nif, autocomplete: "off" %>
+  </div>
+
+    <div class="field">
+    <%= f.label :morada %><br />
+    <%= f.text_field :morada %>
+  </div>
+
+  <div class="field">
+    <%= f.label :moeda %><br />
+    <%= f.select :moeda, options_for_select([["Select One", ""], "EUR", "USD", "GBP"]), :class => 'genForm_dropBox' %>
   </div>
 
   <div class="actions">

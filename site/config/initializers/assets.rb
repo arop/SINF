@@ -13,3 +13,4 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w( categoria.js )
 Rails.application.config.assets.precompile += %w( product.js )
 Rails.application.config.assets.precompile += %w( product.css )
+Rails.application.config.assets.precompile += %w( profiles.js )
