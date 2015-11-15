@@ -242,32 +242,34 @@ namespace SINF.Lib_Primavera
 
         public static Lib_Primavera.Model.Artigo GetArtigo(string codArtigo)
         {
-
-            GcpBEArtigo objArtigo = new GcpBEArtigo();
-            Model.Artigo myArt = new Model.Artigo();
+            StdBELista objListLin;
+            Lib_Primavera.Model.Artigo artigo = new Lib_Primavera.Model.Artigo();
 
             if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
             {
+                string query = "SELECT * FROM Artigo as a, ArtigoMoeda as m where a.Artigo = m.Artigo AND a.Artigo='" + codArtigo+"'";
 
-                if (PriEngine.Engine.Comercial.Artigos.Existe(codArtigo) == false)
-                {
-                    return null;
-                }
-                else
-                {
-                    objArtigo = PriEngine.Engine.Comercial.Artigos.Edita(codArtigo);
-                    myArt.CodArtigo = objArtigo.get_Artigo();
-                    myArt.DescArtigo = objArtigo.get_Descricao();
+                objListLin = PriEngine.Engine.Consulta(query);
 
-                    return myArt;
+                while (!objListLin.NoFim())
+                {
+                    artigo.CodArtigo = objListLin.Valor("Artigo");
+                    artigo.DescArtigo = objListLin.Valor("Descricao");
+                    artigo.Categoria = objListLin.Valor("Familia");
+                    artigo.SubCategoria = objListLin.Valor("SubFamilia");
+                    artigo.PVP = objListLin.Valor("PVP1");
+                    artigo.Moeda = objListLin.Valor("Moeda");
+                    artigo.UnidadeBase = objListLin.Valor("UnidadeBase");
+                    artigo.Marca = objListLin.Valor("Marca");
+                    artigo.Modelo = objListLin.Valor("Modelo");
+                    artigo.Peso = objListLin.Valor("Peso");
+
+                    objListLin.Seguinte();
                 }
 
             }
-            else
-            {
-                return null;
-            }
 
+            return artigo;
         }
 
         public static List<Model.Artigo> ListaArtigos()
