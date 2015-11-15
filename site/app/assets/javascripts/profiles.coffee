@@ -4,18 +4,21 @@
 
 `
 var base_url_primavera = 'http://localhost:49526/api';
-var url_produto = 'http://localhost:3000/product/'
+//var url_produto = 'http://localhost:3000/product/'
 var artigos = [];
 
 $(document).ready(function () {
-		window.alert('lol');
+	window.alert($('#user-id').html());
 	getProdutosCliente($('#user-id').html());
 });
 
 function getProdutosCliente(id_cliente){
-	var url_prods_categoria = base_url_primavera + '/clientes/'+ id_cliente + '/encomendas';
+	var url_prods_cliente = base_url_primavera + '/clientes/'+ id_cliente + '/encomendas';
+	
+	window.alert(url_prods_cliente);
+
 	$.ajax({
-        url: url_prods_categoria,
+        url: url_prods_cliente,
         error: function(err) {
             console.log("error fetching products of client");
             console.log(err);
@@ -40,7 +43,7 @@ function getProdutosCliente(id_cliente){
            $('#compras-container').append('</table>');
 
         },
-        type: 'POST'
+        type: 'GET'
 	});
 }
 

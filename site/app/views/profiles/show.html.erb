@@ -16,7 +16,7 @@
       <p> Morada: <%= current_user.morada %> </p>
       <p> NIF: <%= current_user.nif %> </p>
       <p> Email: <%= current_user.email %> </p>
-	  <p id="user-id"> Entidade: <%= current_user.entidade %> </p>
+	  Entidade <p id="user-id"><%= current_user.entidade %></p>
 
 	  <%= link_to "Editar informação", edit_user_registration_path %>
 
@@ -32,7 +32,7 @@
   <!-- /.row -->
 
   <!-- Page Features -->
-  <div id="top-container" class="row text-center">
+  <div id="compras-container" class="row text-center">
 
     <!--<div class="col-md-3 col-sm-6 hero-feature">
       <div class="thumbnail">
@@ -57,3 +57,4 @@
 <%= render 'common/footer' %>
 
 
+<%= javascript_include_tag 'profiles' %>
