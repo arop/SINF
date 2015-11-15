@@ -6,7 +6,7 @@
 var base_url_primavera = 'http://localhost:49526/api';
 var url_produto = 'http://localhost:3000/product/'
 var artigos = [];
-console.log(encodeURIComponent('http://localhost:49526/api/categorias/subcategoria/H01.001'));
+
 $(document).ready(function () {
 		var id_categoria = $("#titulo-categoria").attr('data-id-categoria');
 		

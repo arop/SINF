@@ -21,6 +21,28 @@ namespace SINF
                 defaults: new { controller = "Clientes" }
             );
 
+            //categoria
+            config.Routes.MapHttpRoute(
+                name: "GetSubCategoriaDeCategoria",
+                routeTemplate: "api/categorias/{id}/subcategorias",
+                defaults: new { controller = "Categorias", action = "Subcategorias" }
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "GetSubCategoria",
+                routeTemplate: "api/categorias/subcategoria/{id}",
+                defaults: new { controller = "Categorias", action = "Subcategoria" }
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "GetCategoria",
+                routeTemplate: "api/categorias/{id}/",
+                defaults: new { controller = "Categorias", action = "Get" }
+            );
+            //fim categoria
+
+
+            //geral
             config.Routes.MapHttpRoute(
                 name: "DefaultApiAction",
                 routeTemplate: "api/{controller}/{action}/{id}/{categoria}",
@@ -28,13 +50,9 @@ namespace SINF
             );
 
             config.Routes.MapHttpRoute(
-                name: "DefaultApiSingleParam",
-                routeTemplate: "api/{controller}/{id}"
-            );
-
-            config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}"
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
             );
 
 
