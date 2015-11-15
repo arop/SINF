@@ -8,15 +8,14 @@ var base_url_primavera = 'http://localhost:49526/api';
 var artigos = [];
 
 $(document).ready(function () {
-	window.alert($('#user-id').html());
 	getProdutosCliente($('#user-id').html());
 });
 
 function getProdutosCliente(id_cliente){
 	var url_prods_cliente = base_url_primavera + '/clientes/'+ id_cliente + '/encomendas';
 	
-	window.alert(url_prods_cliente);
-
+    var re = /-?\d+/;
+ 
 	$.ajax({
         url: url_prods_cliente,
         error: function(err) {
@@ -28,23 +27,32 @@ function getProdutosCliente(id_cliente){
             //console.log("success.");
             //console.log(data);
             var artigos_temp = $.parseJSON(data);
-            $('#compras-container').html('<table style="width: 60%"><tr><th> Data </th> <th> Total </th></tr>');
+
+            $('#compras-container').html('<table class="table" style="width: 50%; align:left"><tr><th>Data</th><th> Nº produtos</th> <th>Total </th></tr></table>');
             for(var  i in artigos_temp){
-                artigos[artigos_temp[i].CodArtigo] = artigos_temp[i];       
+                artigos[artigos_temp[i].CodArtigo] = artigos_temp[i];
+              
+
+                var m = re.exec(artigos_temp[i].Data);
+                var d = new Date(parseInt(m[0]));
+
                 var top_element = 
                     '<tr>'+
-                          '<td>'+artigos_temp[i].Data+'</td>'+
+                          '<td>'+ d.format("dd/mm/yyyy") +'</td>'+
+                            '<td>'+ artigos_temp[i].NumDoc +'</td>'+
                           '<td>'+artigos_temp[i].TotalMerc+'€</td>'+
+
                         //  '<td> href="'+url_produto+artigos_temp[i].CodArtigo+'" class="btn btn-primary">Buy Now!</td>'+ 
                     '</tr>';
-                $('#compras-container').append(top_element);
+                $('#compras-container table').append(top_element);
             }
-
-           $('#compras-container').append('</table>');
 
         },
         type: 'GET'
 	});
 }
+
+
+
 
 `
