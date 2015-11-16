@@ -39,6 +39,11 @@ namespace SINF.Lib_Primavera.Model
             get;
             set;
         }
+        public string MarcaDesc
+        {
+            get;
+            set;
+        }
         public string Modelo
         {
             get;

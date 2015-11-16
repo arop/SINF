@@ -263,7 +263,6 @@ namespace SINF.Lib_Primavera
 
                     artigo.CategoriaDesc = objListLin.Valor("familiaDesc");
                     
-
                     artigo.PVP = objListLin.Valor("PVP1");
                     artigo.Moeda = objListLin.Valor("Moeda");
                     artigo.UnidadeBase = objListLin.Valor("UnidadeBase");
@@ -276,6 +275,13 @@ namespace SINF.Lib_Primavera
                         StdBELista subfam = PriEngine.Engine.Consulta(querySubFamilia);
                         if(!subfam.NoFim())
                             artigo.SubCategoriaDesc = subfam.Valor("Descricao");
+                    }
+                    if (artigo.Marca != "")
+                    {
+                        string queryMarca = "SELECT Descricao FROM Marcas WHERE Marcas.Marca = '" + artigo.Marca + "'";
+                        StdBELista marca = PriEngine.Engine.Consulta(queryMarca);
+                        if (!marca.NoFim())
+                            artigo.MarcaDesc = marca.Valor("Descricao");
                     }
                 }
                 else return null;
