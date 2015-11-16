@@ -59,7 +59,16 @@ namespace SINF.Lib_Primavera.Model
             get;
             set;
         }
-
+        public string CategoriaDesc
+        {
+            get;
+            set;
+        }
+        public string SubCategoriaDesc
+        {
+            get;
+            set;
+        }
 
     }
 }

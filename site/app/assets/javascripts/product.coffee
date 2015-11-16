@@ -28,12 +28,16 @@ function getProduto(id){
         success: function(data) {
             $('#prod-title').html(data.DescArtigo);
             var price = data.PVP;
-            if(data.Moeda == 'EUR') price+='€';
+            if(data.Moeda == 'EUR') price+='€'; 
+            else price+='$';
             $('#prod-price').html(price);
-            $('#prod-categoria em').html(data.Categoria);
+            $('#prod-categoria em').html(data.CategoriaDesc);
             $('#prod-categoria').attr('href',url_categoria + data.Categoria);
-            $('#prod-subcategoria em').html(data.SubCategoria);
-            $('#prod-subcategoria').attr('href',url_subcategoria + data.SubCategoria);
+            if(data.SubCategoriaDesc != null) {
+            	$('#prod-subcategoria').before(' / ');
+            	$('#prod-subcategoria em').html(data.SubCategoriaDesc);
+            	$('#prod-subcategoria').attr('href',url_subcategoria + data.SubCategoria);
+            }
         }
 	});
 }

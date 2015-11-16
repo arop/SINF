@@ -247,16 +247,23 @@ namespace SINF.Lib_Primavera
 
             if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
             {
-                string query = "SELECT * FROM Artigo as a, ArtigoMoeda as m where a.Artigo = m.Artigo AND a.Artigo='" + codArtigo+"'";
+                string query = "SELECT a.*, m.*, f.Descricao as familiaDesc "+
+                    "FROM Artigo as a, ArtigoMoeda as m, Familias as f "+
+                    "where a.Artigo = m.Artigo AND a.Artigo='" + codArtigo+"' "+
+                    "AND a.Familia = f.Familia";
 
                 objListLin = PriEngine.Engine.Consulta(query);
 
-                while (!objListLin.NoFim())
+                if (!objListLin.NoFim())
                 {
                     artigo.CodArtigo = objListLin.Valor("Artigo");
                     artigo.DescArtigo = objListLin.Valor("Descricao");
                     artigo.Categoria = objListLin.Valor("Familia");
                     artigo.SubCategoria = objListLin.Valor("SubFamilia");
+
+                    artigo.CategoriaDesc = objListLin.Valor("familiaDesc");
+                    
+
                     artigo.PVP = objListLin.Valor("PVP1");
                     artigo.Moeda = objListLin.Valor("Moeda");
                     artigo.UnidadeBase = objListLin.Valor("UnidadeBase");
@@ -264,8 +271,14 @@ namespace SINF.Lib_Primavera
                     artigo.Modelo = objListLin.Valor("Modelo");
                     artigo.Peso = objListLin.Valor("Peso");
 
-                    objListLin.Seguinte();
+                    if (artigo.SubCategoria != "") {
+                        string querySubFamilia = "SELECT * FROM SubFamilias WHERE SubFamilias.SubFamilia = '" + artigo.SubCategoria + "'";
+                        StdBELista subfam = PriEngine.Engine.Consulta(querySubFamilia);
+                        if(!subfam.NoFim())
+                            artigo.SubCategoriaDesc = subfam.Valor("Descricao");
+                    }
                 }
+                else return null;
 
             }
 
