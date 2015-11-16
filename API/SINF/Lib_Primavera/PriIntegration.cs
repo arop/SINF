@@ -263,7 +263,6 @@ namespace SINF.Lib_Primavera
 
                     artigo.CategoriaDesc = objListLin.Valor("familiaDesc");
                     
-
                     artigo.PVP = objListLin.Valor("PVP1");
                     artigo.Moeda = objListLin.Valor("Moeda");
                     artigo.UnidadeBase = objListLin.Valor("UnidadeBase");

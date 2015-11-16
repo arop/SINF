@@ -61,4 +61,4 @@ gem 'autoprefixer-rails'
 #gem 'jquery-turbolinks'
 
 # images
-gem 'carrierwave'
+gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
