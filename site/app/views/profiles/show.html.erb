@@ -16,7 +16,7 @@
       <p> Morada: <%= current_user.morada %> </p>
       <p> NIF: <%= current_user.nif %> </p>
       <p> Email: <%= current_user.email %> </p>
-	  Entidade <p id="user-id"><%= current_user.entidade %></p>
+      <p>Entidade: <span id="user-id"><%= current_user.entidade %></span></p>
 
 	  <%= link_to "Editar informação", edit_user_registration_path %>
 
@@ -33,20 +33,6 @@
 
   <!-- Page Features -->
   <div id="compras-container" class="row text-center">
-
-    <!--<div class="col-md-3 col-sm-6 hero-feature">
-      <div class="thumbnail">
-        <img src="http://placehold.it/800x500" alt="">
-        <div class="caption">
-          <h3>Feature Label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-          <p>
-            <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-          </p>
-        </div>
-      </div>
-    </div> -->
-
   </div>
 
 
