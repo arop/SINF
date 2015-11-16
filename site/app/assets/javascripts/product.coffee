@@ -4,7 +4,6 @@
 `
 var base_url_primavera = 'http://localhost:49526/api';
 var url_categoria = 'http://localhost:3000/categoria/';
-var url_subcategoria = 'http://localhost:3000/subcategoria/';
 
 $(document).ready(function () {
 	var id_produto = $("#prod-title").attr('data-id-product');
@@ -31,12 +30,15 @@ function getProduto(id){
             if(data.Moeda == 'EUR') price+='€'; 
             else price+='$';
             $('#prod-price').html(price);
+            if(data.MarcaDesc != null) {
+            	$('#prod-marca').html('Marca: ' + data.MarcaDesc);
+            } else $('#prod-marca').remove();
             $('#prod-categoria em').html(data.CategoriaDesc);
             $('#prod-categoria').attr('href',url_categoria + data.Categoria);
             if(data.SubCategoriaDesc != null) {
             	$('#prod-subcategoria').before(' / ');
             	$('#prod-subcategoria em').html(data.SubCategoriaDesc);
-            	$('#prod-subcategoria').attr('href',url_subcategoria + data.SubCategoria);
+            	$('#prod-subcategoria').attr('href',url_categoria + data.Categoria + '/' + data.SubCategoria);
             }
         }
 	});
