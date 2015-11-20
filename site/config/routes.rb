@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get 'product/:id' => 'product#show', :id => /.*/
   get 'client' => 'profiles#show'
 
+  get 'carrinho' => 'cart_product#index'
+
 
 devise_for :users, :controllers => { registrations: 'registration' }
 
