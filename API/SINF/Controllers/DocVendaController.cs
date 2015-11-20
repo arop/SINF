@@ -19,6 +19,7 @@ namespace SINF.Controllers
 
         public IEnumerable<Lib_Primavera.Model.DocVenda> Get()
         {
+            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", LocalhostIP.localhostIP());
             return Lib_Primavera.PriIntegration.Encomendas_List();
         }
 

@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'admin/new'
+
+  get 'admin/show'
+
   devise_for :users
   resources :profiles
   get 'home/index'
@@ -63,4 +67,7 @@ Rails.application.routes.draw do
 
   get 'categoria/:id' => 'categoria#index'
   get 'product/:id' => 'product#show'
+
+  get 'admins' => 'admin#index'
+
 end
