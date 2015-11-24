@@ -49,21 +49,7 @@ function getProdutosCategoria(id_cat){
             $('#artigos-container').html('');
             for(var  i in artigos_temp){
                 artigos[artigos_temp[i].CodArtigo] = artigos_temp[i];       
-                var top_element = 
-                    '<div class="col-md-3 col-sm-6 hero-feature">'+
-                      '<div class="thumbnail">'+
-                        '<img src="http://placehold.it/800x500" alt="">'+
-                        '<div class="caption">'+
-                          '<h4>'+artigos_temp[i].DescArtigo+'</h4>'+
-                          '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>'+
-                          '<h4>'+artigos_temp[i].PVP+'€</h4>'+
-                          '<p>'+
-                            '<a href="'+url_produto+artigos_temp[i].CodArtigo+'" class="btn btn-primary">Buy Now!</a>'+ 
-                            '<a href="'+url_produto+artigos_temp[i].CodArtigo+'" class="btn btn-default">More Info</a>'+
-                          '</p>'+
-                        '</div>'+
-                      '</div>'+
-                    '</div>';
+                var top_element = getProductContainer2(artigos_temp[i], null);//utilities.coffee
                 $('#artigos-container').append(top_element);
             }
         },

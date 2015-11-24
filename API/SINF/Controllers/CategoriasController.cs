@@ -52,7 +52,6 @@ namespace SINF.Controllers
             }
         }
 
-
         /**
          *  Obter subcategorias de uma categoria
          */

@@ -1,0 +1,30 @@
+<%= render 'common/header' %>
+</head>
+<body>
+<%= render 'common/navbar' %>
+
+<div class="container">
+	<h1>Carrinho de compras</h1>
+	<table class="table table-hover table-striped">
+		<tr>
+			<th class="col-md-1">Cód.</th>
+			<th class="col-md-6">Produto</th>
+			<th class="col-md-1">Quant.</th>
+			<th class="col-md-2">PVP unit.</th>
+			<th class="col-md-2">Total</th>
+		</tr>
+
+		<% current_user.cart_products.each do | product | %>
+			<tr>
+				<td><%=product.id_produto%></td>
+				<td>Temp</td>
+				<td><%=product.quantity%></td>
+				<td></td>
+				<td></td>
+			</tr>
+		<% end %>
+	</table>
+
+</div>
+
+<%= render 'common/footer' %>
