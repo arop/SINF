@@ -1,4 +1,44 @@
+@getProductContainer = (product, img_path) ->
+    if (img_path == null)
+        img_path = 'http://placehold.it/800x500'
+    return '<div class="col-md-3 col-sm-6 hero-feature product-in-grid">'+'<div class="thumbnail">'+'<img src="'+img_path+'" alt="Foto de '+product.DescArtigo+'">'+'<div class="caption">'+'<h4>'+product.DescArtigo+'</h4>'+'<h5>'+product.PVP+'€</h5>'+'<p>'+'<a href="/product/'+product.CodArtigo+'" class="btn btn-primary">More Info</a>'+'</p>'+'</div>'+'</div>'+'</div>'
+
+@getProductContainer2 = (product, img_path) ->
+    return '<div class="item  col-xs-12 col-sm-4 col-lg-4">
+            <div class="thumbnail">
+                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                <div class="caption">
+                    <a href="/product/'+product.CodArtigo+'"><h4 class="group inner list-group-item-heading">'+
+                        product.DescArtigo+'</h4></a>
+                    <p class="group inner list-group-item-text">
+                        Product description... Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+                        sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <p class="lead">'+
+                                product.PVP+'€</p>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <a class="btn btn-success" href="/carrinho/adicionar/'+product.CodArtigo+'/1">Add to cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>'
+
 `
+$(document).ready(function() {
+    console.log('gg');
+    $('#list').click(function(event){event.preventDefault();$('#artigos-container .item').removeClass('grid-group-item');$('#artigos-container .item').addClass('list-group-item');});
+    $('#grid').click(function(event){event.preventDefault();$('#artigos-container .item').removeClass('list-group-item');$('#artigos-container .item').addClass('grid-group-item');});
+});
+
+$('body').bind("DOMSubtreeModified",function(){
+    $('#list').click(function(event){event.preventDefault();$('#artigos-container .item').removeClass('grid-group-item');$('#artigos-container .item').addClass('list-group-item');});
+    $('#grid').click(function(event){event.preventDefault();$('#artigos-container .item').removeClass('list-group-item');$('#artigos-container .item').addClass('grid-group-item');});
+});
+
+
 botao_load = '<button class="btn btn-lg btn-warning"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> A carregar...</button>';
 
 var dateFormat = function () {
@@ -113,6 +153,27 @@ Date.prototype.format = function (mask, utc) {
     return dateFormat(this, mask, utc);
 };
 
+
+/*function getProductContainer(product, img_path){
+    if (img_path == null)
+        img_path = 'http://placehold.it/800x500';
+
+    return 
+        '<div class="col-md-3 col-sm-6 hero-feature">'+
+            '<div class="thumbnail">'+
+                '<img src="'+img_path+'" alt="Foto de '+product.DescArtigo+'">'+
+                '<div class="caption">'+
+                    '<h4>'+product.DescArtigo+'</h4>'+
+                    //'<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>'+
+                    '<h5>'+product.PVP+'€</h5>'+
+                    '<p>'+
+                        //'<a href="/product/'+product.CodArtigo+'" class="btn btn-primary">Buy Now!</a>' + 
+                        '<a href="/product/'+product.CodArtigo+'" class="btn btn-default">More Info</a>'+
+                    '</p>'+
+                '</div>'+
+            '</div>'+
+        '</div>';
+}*/
 
 
 `

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<nav id="navbar-custom" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/">SINF</a>
+      <a class="navbar-brand" href="/">SINF.online</a>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -31,6 +31,18 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
+        
+        <li>
+          <div class="dropdown-container">
+            <a href="/carrinho">
+              <button type="button" class="custom-btn">
+                  <%= content_tag(:span, '', class: 'glyphicon glyphicon-shopping-cart') %>
+              </button>
+            </a>
+          </div>
+        </li>
+        
+
         <li>
           <div class="dropdown-container">
             <button type="button" class="dropdown-toggle custom-btn" data-toggle="dropdown">

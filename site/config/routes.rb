@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   resources :profiles
+
+  resources :cart
   
   root 'home#index'
 
@@ -8,7 +10,9 @@ Rails.application.routes.draw do
   get 'product/:id' => 'product#show', :id => /.*/
   get 'client' => 'profiles#show'
 
-  get 'carrinho' => 'cart_product#index'
+  get 'carrinho' => 'cart#index'
+
+  get 'carrinho/adicionar/:id_produto/:quantity' => 'cart_product#add', :id_produto => /.*/
 
 
 devise_for :users, :controllers => { registrations: 'registration' }

@@ -1,6 +1,7 @@
 .custom-btn{
 	background-color: transparent;
-	color: rgb(119,119,119);
+	//color: rgb(119,119,119);
+    color: #FFF;
 	border: 0;
 }
 
@@ -67,4 +68,34 @@
     -webkit-border-radius: 6px 0 6px 6px;
     -moz-border-radius: 6px 0 6px 6px;
     border-radius: 6px 0 6px 6px;
+}
+
+#navbar-custom{
+    background-color: rgb(239, 108, 0);
+
+    color: white;
+    a{
+        color: #FFF;
+    }
+    button{
+        color: #FFF;
+    }
+    .navbar-toggle{
+        color: #FFF;
+        border-color: #fff;
+    }
+
+    ul.navbar-nav{
+        .open{
+            a{
+                color: black;    
+            }
+            
+        }
+    }
+}
+
+#navbar-custom{
+   background-color: rgb(239, 108, 0);
+   border-color: white;
 }
