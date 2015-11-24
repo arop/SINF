@@ -18,6 +18,11 @@ namespace SINF.Lib_Primavera.Model
             get;
             set;
         }
+        public List<Categoria> SubCategorias
+        {
+            get;
+            set;
+        }
        
     }
 }

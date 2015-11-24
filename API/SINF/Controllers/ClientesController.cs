@@ -133,7 +133,8 @@ namespace SINF.Controllers
 
                 if (listaEncomendas == null)
                 {
-                    throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.Conflict));
+                    var response = Request.CreateResponse(HttpStatusCode.NotFound);
+                    return response;
                 }
                 else
                 {
@@ -148,6 +149,31 @@ namespace SINF.Controllers
                 throw new HttpResponseException(
                 Request.CreateResponse(HttpStatusCode.Ambiguous));
             }
+        }
+
+
+        // get order
+        // api/clientes/id/encomendas/id_encomenda
+        [System.Web.Http.HttpGet]
+        public HttpResponseMessage GetEncomenda(string idCliente, string idEncomenda)
+        {
+
+            Lib_Primavera.Model.DocVenda encomenda = Lib_Primavera.PriIntegration.Encomenda_Cliente(idCliente, idEncomenda);
+
+            if (encomenda == null)
+            {
+                var response = Request.CreateResponse(HttpStatusCode.NotFound);
+                return response;
+            }
+            else
+            {
+                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", LocalhostIP.localhostIP());
+                var json = new JavaScriptSerializer().Serialize(encomenda);
+                var response = Request.CreateResponse(HttpStatusCode.OK, json);
+                return response;
+            }
+            
+            
         }
     }
 }

@@ -63,6 +63,19 @@ namespace SINF.Controllers
 
         }
 
+        [System.Web.Http.HttpPost]
+        public HttpResponseMessage GetEncomendasCliente(String id)
+        {
+            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", LocalhostIP.localhostIP());
+            List<Lib_Primavera.Model.DocVenda> lista = Lib_Primavera.PriIntegration.Encomendas_List(id);
+            var json = new JavaScriptSerializer().Serialize(lista);
+            var response = Request.CreateResponse(HttpStatusCode.Created, json);
+            //string uri = Url.Link("DefaultApi", new { DocId = dv.id });
+            //response.Headers.Location = new Uri(uri);
+            return response;
+    
+        }
+
 
         public HttpResponseMessage Put(int id, Lib_Primavera.Model.Cliente cliente)
         {

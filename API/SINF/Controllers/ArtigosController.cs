@@ -20,11 +20,12 @@ namespace SINF.Controllers
 
         public IEnumerable<Lib_Primavera.Model.Artigo> Get()
         {
+            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", LocalhostIP.localhostIP());
             return Lib_Primavera.PriIntegration.ListaArtigos();
         }
 
 
-        // GET api/artigo/5    
+        // GET api/artigos/5    
         public Artigo Get(string id)
         {
             Lib_Primavera.Model.Artigo artigo = Lib_Primavera.PriIntegration.GetArtigo(id);
@@ -35,12 +36,10 @@ namespace SINF.Controllers
             }
             else
             {
+                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", LocalhostIP.localhostIP());
                 return artigo;
             }
         }
-
-
-
 
         [System.Web.Http.HttpPost]
         public HttpResponseMessage Categoria(string id)

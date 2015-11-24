@@ -1,4 +1,46 @@
-<p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_profile_path(@profile) %> |
-<%= link_to 'Back', profiles_path %>
+
+<%= render 'common/header' %>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+</head>
+<body>
+<%= render 'common/navbar' %>
+
+<div class="container">
+
+	<div class="row">
+
+    <div class="col-lg-12">
+      <h2> <%= current_user.nome %> </h2>
+      <p> Morada: <%= current_user.morada %> </p>
+      <p> NIF: <%= current_user.nif %> </p>
+      <p> Email: <%= current_user.email %> </p>
+      <p>Entidade: <span id="user-id"><%= current_user.entidade %></span></p>
+
+	  <%= link_to "Editar informação", edit_user_registration_path %>
+
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <h3> As minhas encomendas </h3>
+    </div>
+  </div>
+  <!-- /.row -->
+
+  <!-- Page Features -->
+  <div id="compras-container" class="row text-center">
+  </div>
+
+
+</div>
+
+</body>
+
+<%= render 'common/footer' %>
+
+
+<%= javascript_include_tag 'profiles' %>

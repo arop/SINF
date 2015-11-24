@@ -4,6 +4,7 @@
 
 `
 var base_url_primavera = 'http://localhost:49526/api';
+var url_produto = 'http://localhost:3000/product/'
 var artigos = [];
 
 $(document).ready(function () {
@@ -30,10 +31,6 @@ $(document).ready(function () {
 	        },
 	        type: 'GET'
 		});
-
-
-		
-
 });
 
 function getProdutosCategoria(id_cat){
@@ -61,7 +58,8 @@ function getProdutosCategoria(id_cat){
                           '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>'+
                           '<h4>'+artigos_temp[i].PVP+'€</h4>'+
                           '<p>'+
-                            '<a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>'+
+                            '<a href="'+url_produto+artigos_temp[i].CodArtigo+'" class="btn btn-primary">Buy Now!</a>'+ 
+                            '<a href="'+url_produto+artigos_temp[i].CodArtigo+'" class="btn btn-default">More Info</a>'+
                           '</p>'+
                         '</div>'+
                       '</div>'+

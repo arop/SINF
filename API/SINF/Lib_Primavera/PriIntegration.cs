@@ -242,32 +242,53 @@ namespace SINF.Lib_Primavera
 
         public static Lib_Primavera.Model.Artigo GetArtigo(string codArtigo)
         {
-
-            GcpBEArtigo objArtigo = new GcpBEArtigo();
-            Model.Artigo myArt = new Model.Artigo();
+            StdBELista objListLin;
+            Lib_Primavera.Model.Artigo artigo = new Lib_Primavera.Model.Artigo();
 
             if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
             {
+                string query = "SELECT a.*, m.*, f.Descricao as familiaDesc "+
+                    "FROM Artigo as a, ArtigoMoeda as m, Familias as f "+
+                    "where a.Artigo = m.Artigo AND a.Artigo='" + codArtigo+"' "+
+                    "AND a.Familia = f.Familia";
 
-                if (PriEngine.Engine.Comercial.Artigos.Existe(codArtigo) == false)
-                {
-                    return null;
-                }
-                else
-                {
-                    objArtigo = PriEngine.Engine.Comercial.Artigos.Edita(codArtigo);
-                    myArt.CodArtigo = objArtigo.get_Artigo();
-                    myArt.DescArtigo = objArtigo.get_Descricao();
+                objListLin = PriEngine.Engine.Consulta(query);
 
-                    return myArt;
+                if (!objListLin.NoFim())
+                {
+                    artigo.CodArtigo = objListLin.Valor("Artigo");
+                    artigo.DescArtigo = objListLin.Valor("Descricao");
+                    artigo.Categoria = objListLin.Valor("Familia");
+                    artigo.SubCategoria = objListLin.Valor("SubFamilia");
+
+                    artigo.CategoriaDesc = objListLin.Valor("familiaDesc");
+                    
+                    artigo.PVP = objListLin.Valor("PVP1");
+                    artigo.Moeda = objListLin.Valor("Moeda");
+                    artigo.UnidadeBase = objListLin.Valor("UnidadeBase");
+                    artigo.Marca = objListLin.Valor("Marca");
+                    artigo.Modelo = objListLin.Valor("Modelo");
+                    artigo.Peso = objListLin.Valor("Peso");
+
+                    if (artigo.SubCategoria != "") {
+                        string querySubFamilia = "SELECT * FROM SubFamilias WHERE SubFamilias.SubFamilia = '" + artigo.SubCategoria + "'";
+                        StdBELista subfam = PriEngine.Engine.Consulta(querySubFamilia);
+                        if(!subfam.NoFim())
+                            artigo.SubCategoriaDesc = subfam.Valor("Descricao");
+                    }
+                    if (artigo.Marca != "")
+                    {
+                        string queryMarca = "SELECT Descricao FROM Marcas WHERE Marcas.Marca = '" + artigo.Marca + "'";
+                        StdBELista marca = PriEngine.Engine.Consulta(queryMarca);
+                        if (!marca.NoFim())
+                            artigo.MarcaDesc = marca.Valor("Descricao");
+                    }
                 }
+                else return null;
 
             }
-            else
-            {
-                return null;
-            }
 
+            return artigo;
         }
 
         public static List<Model.Artigo> ListaArtigos()
@@ -389,35 +410,7 @@ namespace SINF.Lib_Primavera
         }
 
 
-        public static Model.Categoria GetCategoria(string cod)
-        {
-
-            StdBELista objList;
-
-            if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
-            {
-
-                //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
-
-                objList = PriEngine.Engine.Consulta("SELECT Familia, Descricao FROM Familias WHERE Familia = '" + cod + "'");
-                if (!objList.NoFim())
-                {
-                    Model.Categoria categoria = new Model.Categoria
-                    {
-                        CodCategoria = objList.Valor("Familia"),
-                        DescCategoria = objList.Valor("Descricao")
-                    };
-                    objList.Seguinte();
-
-                    return categoria;
-                }
-                return null;
-                
-            }
-            else
-                return null;
-        }
-
+        
 
         public static List<Lib_Primavera.Model.Artigo> Top_artigos(int quantidade , string categoria)
         {
@@ -486,9 +479,77 @@ namespace SINF.Lib_Primavera
 
                 while (!objList.NoFim())
                 {
+
+                    StdBELista objList2 = PriEngine.Engine.Consulta("SELECT SubFamilia, Descricao FROM SubFamilias WHERE Familia = '" + objList.Valor("Familia") + "'");
+                   
+                    
+                    if (objList2.NoFim())
+                    {
+                        listCategorias.Add(new Model.Categoria
+                        {
+                            CodCategoria = objList.Valor("Familia"),
+                            DescCategoria = objList.Valor("Descricao")
+                        });
+                    }
+                    else
+                    {
+                        List<Model.Categoria> subs = new List<Model.Categoria>();
+                       
+                        while (!objList2.NoFim())
+                        {
+                            Model.Categoria categoria = new Model.Categoria
+                            {
+                                CodCategoria = objList2.Valor("SubFamilia"),
+                                DescCategoria = objList2.Valor("Descricao")
+                            };
+                            subs.Add(categoria);
+                            objList2.Seguinte();
+                        }
+
+                        listCategorias.Add(new Model.Categoria
+                        {
+                            CodCategoria = objList.Valor("Familia"),
+                            DescCategoria = objList.Valor("Descricao"),
+                            SubCategorias = subs
+                        });
+
+
+                    }  
+
+
+
+
+                    
+                    objList.Seguinte();
+
+                }
+
+                return listCategorias;
+            }
+            else
+                return null;
+        }
+
+        public static List<Model.Categoria> GetSubCategorias(string idCategoria)
+        {
+
+            StdBELista objList;
+
+            List<Model.Categoria> listCategorias = new List<Model.Categoria>();
+
+            if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
+            {
+
+                //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
+
+                objList = PriEngine.Engine.Consulta("SELECT SubFamilia, Descricao FROM SubFamilias WHERE Familia = '" + idCategoria + "'");
+
+
+                while (!objList.NoFim())
+                {
                     listCategorias.Add(new Model.Categoria
                     {
-                        CodCategoria = objList.Valor("Familia"),
+                        CodCategoria = objList.Valor("SubFamilia"),
                         DescCategoria = objList.Valor("Descricao")
                     });
                     objList.Seguinte();
@@ -501,6 +562,68 @@ namespace SINF.Lib_Primavera
                 return null;
         }
 
+
+        public static Model.Categoria GetCategoria(string cod)
+        {
+
+            StdBELista objList;
+
+            if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
+            {
+
+                //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
+
+                objList = PriEngine.Engine.Consulta("SELECT Familia, Descricao FROM Familias WHERE Familia = '" + cod + "'");
+                if (!objList.NoFim())
+                {
+                    Model.Categoria categoria = new Model.Categoria
+                    {
+                        CodCategoria = objList.Valor("Familia"),
+                        DescCategoria = objList.Valor("Descricao")
+                    };
+                    objList.Seguinte();
+
+                    return categoria;
+                }
+                return null;
+
+            }
+            else
+                return null;
+        }
+
+
+        public static Model.Categoria GetSubCategoria(string idCategoria)
+        {
+
+            StdBELista objList;
+
+            if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
+            {
+
+                //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
+
+                objList = PriEngine.Engine.Consulta("SELECT SubFamilia, Descricao FROM SubFamilias WHERE SubFamilia = '" + idCategoria + "'");
+
+                if (objList.NoFim())
+                {
+                    return null;
+                }
+                else
+                {
+                    Model.Categoria categoria = new Model.Categoria
+                    {
+                        CodCategoria = objList.Valor("SubFamilia"),
+                        DescCategoria = objList.Valor("Descricao")
+                    };
+
+                    return categoria;
+                }  
+                
+            }
+            else
+                return null;
+        }
 
 
 
@@ -832,6 +955,59 @@ namespace SINF.Lib_Primavera
                     dv.Data = objListCab.Valor("Data");
                     dv.TotalMerc = objListCab.Valor("TotalMerc");
                     dv.Serie = objListCab.Valor("Serie");
+                    
+                    objListLin = PriEngine.Engine.Consulta("SELECT idCabecDoc, Artigo, Descricao, Quantidade, Unidade, PrecUnit, Desconto1, TotalILiquido, PrecoLiquido from LinhasDoc where IdCabecDoc='" + dv.id + "' order By NumLinha");
+                    listlindv = new List<Model.LinhaDocVenda>();
+
+                   /* while (!objListLin.NoFim())
+                    {
+                        lindv = new Model.LinhaDocVenda();
+                        lindv.IdCabecDoc = objListLin.Valor("idCabecDoc");
+                        lindv.CodArtigo = objListLin.Valor("Artigo");
+                        lindv.DescArtigo = objListLin.Valor("Descricao");
+                        lindv.Quantidade = objListLin.Valor("Quantidade");
+                        lindv.Unidade = objListLin.Valor("Unidade");
+                        lindv.Desconto = objListLin.Valor("Desconto1");
+                        lindv.PrecoUnitario = objListLin.Valor("PrecUnit");
+                        lindv.TotalILiquido = objListLin.Valor("TotalILiquido");
+                        lindv.TotalLiquido = objListLin.Valor("PrecoLiquido");
+
+                        listlindv.Add(lindv);
+                        objListLin.Seguinte();
+                    }
+
+                    dv.LinhasDoc = listlindv;*/
+                    listdv.Add(dv);
+                    objListCab.Seguinte();
+                }
+            }
+            return listdv;
+        }
+
+
+        //retorna encomenda feita por um cliente
+        public static Model.DocVenda Encomenda_Cliente(string clienteId, string docVendaId)
+        {
+
+            StdBELista objListCab;
+            StdBELista objListLin;
+            Model.DocVenda dv = null;            
+            Model.LinhaDocVenda lindv = new Model.LinhaDocVenda();
+            List<Model.LinhaDocVenda> listlindv = new List<Model.LinhaDocVenda>();
+
+            if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
+            {
+                objListCab = PriEngine.Engine.Consulta("SELECT id, Entidade, Data, NumDoc, TotalMerc, Serie From CabecDoc where TipoDoc='ECL' AND Entidade = '" + clienteId + "' AND id='"+docVendaId+"'");
+                if (!objListCab.NoFim())
+                {
+                    dv = new Model.DocVenda();
+                    dv.id = objListCab.Valor("id");
+                    dv.Entidade = objListCab.Valor("Entidade");
+                    dv.NumDoc = objListCab.Valor("NumDoc");
+                    dv.Data = objListCab.Valor("Data");
+                    dv.TotalMerc = objListCab.Valor("TotalMerc");
+                    dv.Serie = objListCab.Valor("Serie");
+
                     objListLin = PriEngine.Engine.Consulta("SELECT idCabecDoc, Artigo, Descricao, Quantidade, Unidade, PrecUnit, Desconto1, TotalILiquido, PrecoLiquido from LinhasDoc where IdCabecDoc='" + dv.id + "' order By NumLinha");
                     listlindv = new List<Model.LinhaDocVenda>();
 
@@ -853,11 +1029,12 @@ namespace SINF.Lib_Primavera
                     }
 
                     dv.LinhasDoc = listlindv;
-                    listdv.Add(dv);
-                    objListCab.Seguinte();
+                    return dv;
                 }
+                else return null;
             }
-            return listdv;
+            return null;
+
         }
 
         #endregion DocsVenda

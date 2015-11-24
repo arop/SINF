@@ -22,6 +22,34 @@ namespace SINF
             );
 
             config.Routes.MapHttpRoute(
+                name: "GetEncomendaDoCliente",
+                routeTemplate: "api/clientes/{idCliente}/encomenda/{idEncomenda}",
+                defaults: new { controller = "Clientes", action="GetEncomenda"}
+            );
+
+            //categoria
+            config.Routes.MapHttpRoute(
+                name: "GetSubCategoriaDeCategoria",
+                routeTemplate: "api/categorias/{id}/subcategorias",
+                defaults: new { controller = "Categorias", action = "Subcategorias" }
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "GetSubCategoria",
+                routeTemplate: "api/categorias/subcategoria/{id}",
+                defaults: new { controller = "Categorias", action = "Subcategoria" }
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "GetCategoria",
+                routeTemplate: "api/categorias/{id}/",
+                defaults: new { controller = "Categorias", action = "Get" }
+            );
+            //fim categoria
+
+
+            //geral
+            config.Routes.MapHttpRoute(
                 name: "DefaultApiAction",
                 routeTemplate: "api/{controller}/{action}/{id}/{categoria}",
                 defaults: new { categoria = RouteParameter.Optional }

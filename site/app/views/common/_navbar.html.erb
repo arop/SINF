@@ -29,6 +29,25 @@
           </div>
         </li>
       </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <div class="dropdown-container">
+            <button type="button" class="dropdown-toggle custom-btn" data-toggle="dropdown">
+              <%= content_tag(:span, '', class: 'glyphicon glyphicon-user') %><span class="caret"></span>
+            </button>
+            <ul id="dropdown-ul" class="dropdown-menu" role="menu">
+              <% if user_signed_in? %>
+                  <li><%= link_to "Conta", client_path %></li>
+                  <li> <%= link_to('Logout', destroy_user_session_path, :method => 'delete') %> </li>
+              <% else %>
+                  <li> <%= link_to('Login', new_user_session_path) %> </li>
+              <% end %>
+            </ul>
+          </div>
+        </li>
+      </ul>
+
     </div>
     <!-- /.navbar-collapse -->
   </div>
