@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'encomenda/new'
+
+  get 'encomenda/show'
+
   resources :profiles
 
   resources :cart
@@ -14,7 +18,11 @@ Rails.application.routes.draw do
 
   get 'carrinho/adicionar/:id_produto/:quantity' => 'cart_product#add', :id_produto => /.*/
 
+  get 'admins' => 'admin#index'
 
-devise_for :users, :controllers => { registrations: 'registration' }
+  get 'encomenda/:id' => 'encomenda#show', :id => /.*/
 
+
+  devise_for :users, :controllers => { registrations: 'registration' }
+       
 end

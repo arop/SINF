@@ -27,7 +27,7 @@ $(document).ready(function () {
 	            	for(var i in data){
 	            		var tr = $('<tr></tr>');
 	            		tr.append('<td>'+data[i]['Entidade']+'</td>');
-	            		tr.append('<td>'+data[i]['NumDoc']+'</td>');
+	            		tr.append('<td><a href="encomenda/'+data[i]['NumDoc']+'">'+data[i]['NumDoc']+'</a></td>');
 	            		tr.append('<td>'+data[i]['Data']+'</td>');
 	            		tr.append('<td>'+'Estado'+'</td>');
 	            		tr.append('<td>'+data[i]['TotalMerc']+' €</td>');
