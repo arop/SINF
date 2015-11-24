@@ -1,4 +1,5 @@
-﻿var cliente; //cliente escolhido
+﻿/// <reference path="EncomendasDumCliente.js" />
+var cliente; //cliente escolhido
 var clientes = []; //todos os clientes
 var encomendas = []; //todas as encomendas
 var codigoCliente;

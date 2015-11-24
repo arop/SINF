@@ -19,3 +19,7 @@ Rails.application.config.assets.precompile += %w( cart.js )
 
 Rails.application.config.assets.precompile += %w( product.css )
 Rails.application.config.assets.precompile += %w( categoria.css )
+
+Rails.application.config.assets.precompile += %w( admin.js )
+
+Rails.application.config.assets.precompile += %w( encomenda.js )
