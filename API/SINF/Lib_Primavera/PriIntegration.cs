@@ -291,6 +291,64 @@ namespace SINF.Lib_Primavera
             return artigo;
         }
 
+
+        public static List<Lib_Primavera.Model.Artigo> GetArtigos(IEnumerable<String> id)
+        {
+            StdBELista objListLin;
+            List<Lib_Primavera.Model.Artigo> artigos = new List<Lib_Primavera.Model.Artigo>();
+
+            if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
+            {
+                foreach(String codArtigo in id){
+                    Lib_Primavera.Model.Artigo artigo = new Lib_Primavera.Model.Artigo();
+
+                    string query = "SELECT a.*, m.*, f.Descricao as familiaDesc " +
+                    "FROM Artigo as a, ArtigoMoeda as m, Familias as f " +
+                    "where a.Artigo = m.Artigo AND a.Artigo='" + codArtigo + "' " +
+                    "AND a.Familia = f.Familia";
+
+                    objListLin = PriEngine.Engine.Consulta(query);
+
+                    if (!objListLin.NoFim())
+                    {
+                        artigo.CodArtigo = objListLin.Valor("Artigo");
+                        artigo.DescArtigo = objListLin.Valor("Descricao");
+                        artigo.Categoria = objListLin.Valor("Familia");
+                        artigo.SubCategoria = objListLin.Valor("SubFamilia");
+
+                        artigo.CategoriaDesc = objListLin.Valor("familiaDesc");
+
+                        artigo.PVP = objListLin.Valor("PVP1");
+                        artigo.Moeda = objListLin.Valor("Moeda");
+                        artigo.UnidadeBase = objListLin.Valor("UnidadeBase");
+                        artigo.Marca = objListLin.Valor("Marca");
+                        artigo.Modelo = objListLin.Valor("Modelo");
+                        artigo.Peso = objListLin.Valor("Peso");
+
+                        if (artigo.SubCategoria != "")
+                        {
+                            string querySubFamilia = "SELECT * FROM SubFamilias WHERE SubFamilias.SubFamilia = '" + artigo.SubCategoria + "'";
+                            StdBELista subfam = PriEngine.Engine.Consulta(querySubFamilia);
+                            if (!subfam.NoFim())
+                                artigo.SubCategoriaDesc = subfam.Valor("Descricao");
+                        }
+                        if (artigo.Marca != "")
+                        {
+                            string queryMarca = "SELECT Descricao FROM Marcas WHERE Marcas.Marca = '" + artigo.Marca + "'";
+                            StdBELista marca = PriEngine.Engine.Consulta(queryMarca);
+                            if (!marca.NoFim())
+                                artigo.MarcaDesc = marca.Valor("Descricao");
+                        }
+                    }
+                    else artigo = null;
+
+                    artigos.Add(artigo);
+                }
+
+            }
+            return artigos;
+        }
+
         public static List<Model.Artigo> ListaArtigos()
         {
 

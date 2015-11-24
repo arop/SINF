@@ -26,6 +26,13 @@ namespace SINF
                 routeTemplate: "api/clientes/{idCliente}/encomenda/{idEncomenda}",
                 defaults: new { controller = "Clientes", action="GetEncomenda"}
             );
+            
+            // carrinho
+            config.Routes.MapHttpRoute(
+                name: "GetDetalheArtigosCarrinho",
+                routeTemplate: "api/carrinho",
+                defaults: new { controller = "Carrinho", action = "GetDetalheArtigosCarrinho" }
+            );
 
             //categoria
             config.Routes.MapHttpRoute(

@@ -22,8 +22,7 @@ namespace SINF.Controllers
 
             if (listaClientes == null)
             {
-                throw new HttpResponseException(
-                  Request.CreateResponse(HttpStatusCode.Forbidden));
+                return Request.CreateResponse(HttpStatusCode.Forbidden);
             }
             else
             {

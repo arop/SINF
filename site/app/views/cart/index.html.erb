@@ -16,7 +16,7 @@
 
 		<% current_user.cart_products.each do | product | %>
 			<tr>
-				<td><%=product.id_produto%></td>
+				<td class="codigo-artigo-cart"><%=product.id_produto%></td>
 				<td>Temp</td>
 				<td><%=product.quantity%></td>
 				<td></td>
@@ -28,3 +28,4 @@
 </div>
 
 <%= render 'common/footer' %>
+<%= javascript_include_tag "cart" %>

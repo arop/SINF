@@ -47,8 +47,7 @@ namespace SINF.Controllers
             List<Artigo> produtosCategoria = Lib_Primavera.PriIntegration.GetArtigosCategoria(id);
             if (produtosCategoria == null)
             {
-                throw new HttpResponseException(
-                  Request.CreateResponse(HttpStatusCode.Forbidden));
+                return Request.CreateResponse(HttpStatusCode.Forbidden);
             }
             else
             {
@@ -65,8 +64,7 @@ namespace SINF.Controllers
             List<Lib_Primavera.Model.Artigo> artigos = Lib_Primavera.PriIntegration.Top_artigos(Int32.Parse(number), null);
             if (artigos == null)
             {
-                throw new HttpResponseException(
-                  Request.CreateResponse(HttpStatusCode.Forbidden));
+                return Request.CreateResponse(HttpStatusCode.Forbidden);
             }
             else
             {
