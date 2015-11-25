@@ -21,7 +21,7 @@
     <%= f.input :email, required:true %>
     <%= f.input :password, required:true, hint: ("#{@minimum_password_length} caracteres no minimo" if @minimum_password_length) %>
     <%= f.input :password_confirmation, :label => "Confirmação da password" , required:true %>
-    <%= f.input :entidade, required:true, autofocus:true %>
+    <%= f.input :nome, required:true, autofocus:true %>
     <%= f.input :nif, :label => "NIF" , required:true %>
     <%= f.input :morada, :label => "Morada", required:true %>
     <%= f.input :codigo, :label => "Código Postal", required:true %>
