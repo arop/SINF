@@ -12,6 +12,11 @@ class ImageController < ApplicationController
    	end
   end
 
+  def productImg
+    @img = Imagem.where(idProduto: params[:id]).take
+    render :json => @img
+  end
+
   private
   def img_params
 	params.require(:imagem).permit(:image,:idProduto)

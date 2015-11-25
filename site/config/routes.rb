@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get 'home/index'
 
   put 'image' => 'image#create'
+  get 'image/id_produto/:id' => 'image#productImg', :id => /.*/
 
   get 'categoria/:id' => 'categoria#index', :id => /.*/
   get 'product/:id' => 'product#show', :id => /.*/
@@ -26,7 +27,6 @@ Rails.application.routes.draw do
   get 'admins' => 'admin#index'
 
   get 'encomenda/:id' => 'encomenda#show', :id => /.*/
-
 
   devise_for :users, :controllers => { registrations: 'registration' }
        

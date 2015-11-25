@@ -25,12 +25,13 @@ $(document).ready(function () {
             for(var  i in top){
                 var top_element = getProductContainer2(top[i], null);
                 $('#artigos-container').append(top_element);
+
+                getImageFromProduct(top[i].CodArtigo);
             }
         },
         type: 'GET'
         });
 
 });
-
 
 `
