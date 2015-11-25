@@ -78,13 +78,16 @@ function getProdutosCategoria(id_cat){
             //console.log(data);
             var artigos_temp = $.parseJSON(data);
             $('#artigos-container').html('');
-            for(var  i in artigos_temp){
-                artigos[artigos_temp[i].CodArtigo] = artigos_temp[i];       
-                var top_element = getProductContainer2(artigos_temp[i], null);//utilities.coffee
-                $('#artigos-container').append(top_element);
-                
-                getImageFromProduct(artigos_temp[i].CodArtigo);
-            }
+            if(artigos_temp.length == 0)
+            	$('#artigos-container').append('<i>Não existem artigos nesta categoria...</i>');
+            else
+	            for(var  i in artigos_temp){
+	                artigos[artigos_temp[i].CodArtigo] = artigos_temp[i];       
+	                var top_element = getProductContainer2(artigos_temp[i], null);//utilities.coffee
+	                $('#artigos-container').append(top_element);
+	                
+	                getImageFromProduct(artigos_temp[i].CodArtigo);
+	            }
         },
         type: 'POST'
 	});
