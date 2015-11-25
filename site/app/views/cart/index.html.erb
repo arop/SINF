@@ -5,34 +5,49 @@
 
 <div class="container">
 	<h1>Carrinho de compras</h1>
-	<table class="table table-hover table-striped">
-		<tr>
-			<th class="col-md-1">Cód.</th>
-			<th class="col-md-6">Produto</th>
-			<th class="col-md-1">Quant.</th>
-			<th class="col-md-2">Preço unit.</th>
-			<th class="col-md-2">Preço total</th>
-		</tr>
-
-		<% current_user.cart_products.each do | product | %>
-			<tr id="artigo-<%=product.id_produto%>">
-				<td class="codigo-artigo-cart"><%=product.id_produto%></td>
-				<td class="descricao">Temp</td>
-				<td class="quantidade"><%=product.quantity%></td>
-				<td class="pvp"></td>
-				<td class="total"></td>
+	<form method="POST" action="/carrinho">
+		<%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
+		<table class="table table-hover table-striped">
+			<tr>
+				<th class="col-md-1">Cód.</th>
+				<th class="col-md-6">Produto</th>
+				<th class="col-md-1">Quant.</th>
+				<th class="col-md-2">Preço unit.</th>
+				<th class="col-md-2">Preço total</th>
 			</tr>
+				<% if current_user.cart_products.length == 0 %>
+					<tr>
+						<td class="codigo-artigo-cart"></td>
+						<td class="descricao"><i>Carrinho vazio...</i></td>
+						<td class="quantidade"></td>
+						<td class="pvp"></td>
+						<td class="total"></td>
+					</tr>
+				<% else %>
+					<% current_user.cart_products.each do | product | %>
+						<tr id="artigo-<%=product.id_produto%>">
+							<td class="codigo-artigo-cart"><%=product.id_produto%></td>
+							<td class="descricao"></td>
+							<td class="quantidade"><%=product.quantity%></td>
+							<td class="pvp"></td>
+							<td class="total"></td>
+						</tr>
+						<%= tag(:input, :type => "hidden", :name => 'artigo[]', :value => product.id_produto) %>
+						<%= tag(:input, :type => "hidden", :name => 'quantidade[]', :value => product.quantity) %>
+					<% end %>
+				<% end %>
+			<tr>
+				<th class="col-md-1"></th>
+				<th class="col-md-6"></th>
+				<th class="col-md-1"></th>
+				<th class="col-md-2">Total</th>
+				<th id="total-carrinho"></th>
+			</tr>
+		</table>
+		<% if current_user.cart_products.length != 0 %>
+			<input type="submit" class="btn btn-success" />
 		<% end %>
-
-		<tr>
-			<th class="col-md-1"></th>
-			<th class="col-md-6"></th>
-			<th class="col-md-1"></th>
-			<th class="col-md-2">Total</th>
-			<th id="total-carrinho"></th>
-		</tr>
-	</table>
-
+	</form>
 </div>
 
 <%= render 'common/footer' %>
