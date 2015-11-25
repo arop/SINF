@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get 'image/id_produto/:id' => 'image#productImg', :id => /.*/
 
   get 'categoria/:id' => 'categoria#index', :id => /.*/
+
   get 'product/:id' => 'product#show', :id => /.*/
   get 'client' => 'profiles#show'
 

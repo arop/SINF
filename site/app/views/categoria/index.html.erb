@@ -141,7 +141,13 @@
 
   <!-- Title -->
   <div class="well well-sm">
-    <strong id="titulo-categoria" data-id-categoria=<%= @id_categoria %>>Category Title</strong>
+    
+    <% if (defined?(@id_subcategoria)).nil? %>
+        <a href="/categoria/<%= @id_categoria %>"><strong id="titulo-categoria" data-id-categoria=<%= @id_categoria %>></strong></a>
+    <% else %>    
+        <a href="/categoria/<%= @id_categoria %>"><strong id="titulo-categoria" data-id-categoria=<%= @id_categoria %>></strong></a> > <a href="/categoria/<%= @id_categoria %>/<%= @id_categoria %>"><strong id="titulo-subcategoria" data-id-subcategoria=<%= @id_subcategoria %>></strong></a>
+    <% end %>
+
     <div class="btn-group">
         <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list"></span>List</a> 
         <a href="#" id="grid" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th"></span>Grid</a>
