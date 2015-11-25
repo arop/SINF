@@ -7,6 +7,8 @@ $(document).ready(function () {
 
 	var url_encomendas = base_url_primavera + '/DocVenda/'+encomenda_id;	
 	console.log(url_encomendas);	
+	var table = $("#compras"); 
+	$("#loading").html(botao_load);
 
 	$.ajax({
 		url: url_encomendas,
@@ -17,6 +19,7 @@ $(document).ready(function () {
 		success: function(data) {
 	            //console.log("success.");
 	            //console.log(data);
+	            $("#loading").html("");
 
 	            var title=$("#title");
 	            var entidade=$("#entidade");
@@ -26,23 +29,26 @@ $(document).ready(function () {
 
 	            title.append(encomenda_id);
 	            entidade.append(data['Entidade']);
-	            date.append(data['Data']);
+	            var data_array=(""+data['Data']).split("-");
+	            date.append(data_array[0]+"-"+data_array[1]+"-"+data_array[2].split("T")[0]);
 	            factura.append(data['IdFactura']);
 	            total.append(data['TotalMerc']+"€");
 
 
-	            var table = $("#compras"); 
+
+
+
 	            for(var i in data['LinhasDoc'])
 	            {
 	            	var obj = data['LinhasDoc'][i];
 	            	var tr = $('<tr></tr>');
-	            	tr.append('<td>'+obj['CodArtigo']+'</td>');
+	            	tr.append('<td><a href="product/'+obj['CodArtigo']+'">'+obj['CodArtigo']+'</a></td>');
 	            	tr.append('<td>'+obj['DescArtigo']+'</td>');
 	            	tr.append('<td>'+obj['PrecoUnitario']+'€ </td>');
 	            	tr.append('<td>'+obj['Desconto']+'</td>');
 	            	tr.append('<td>'+obj['Quantidade']+'</td>');
-	            	tr.append('<td>'+obj['TotalILiquido']+'€ </td>');
 	            	tr.append('<td>'+obj['TotalLiquido']+'€ </td>');
+	            	tr.append('<td>'+obj['TotalILiquido']+'€ </td>');
 	            	table.append(tr);
 
 
