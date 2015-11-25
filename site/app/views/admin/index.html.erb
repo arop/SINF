@@ -5,6 +5,7 @@
 <body>
   <%= render 'common/navbar_admin' %>
 
+<% if current_user.try(:admin?) %>
   <!-- Page Content -->
   <div class="container">
 
@@ -28,19 +29,28 @@
         </table>
       </div>
 
-      
+      <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Top Artigos</div>
 
+        <!-- Table -->
+        <table class="table" id="produto_tabela">
+          <thead>
+            <th>Código do Artigo</th>
+            <th>Nome</th>
+            <th>Marca</th>
+            <th>PVP</th>
+          </thead>
+
+        </table>
+      </div>
     </div>
-
-
   </div>
-
-
   <hr>
-
-
-
 </div>
+
+<% end %>
+
 <!-- /.container -->
 
 
