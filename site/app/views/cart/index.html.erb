@@ -10,19 +10,27 @@
 			<th class="col-md-1">Cód.</th>
 			<th class="col-md-6">Produto</th>
 			<th class="col-md-1">Quant.</th>
-			<th class="col-md-2">PVP unit.</th>
-			<th class="col-md-2">Total</th>
+			<th class="col-md-2">Preço unit.</th>
+			<th class="col-md-2">Preço total</th>
 		</tr>
 
 		<% current_user.cart_products.each do | product | %>
-			<tr>
+			<tr id="artigo-<%=product.id_produto%>">
 				<td class="codigo-artigo-cart"><%=product.id_produto%></td>
-				<td>Temp</td>
-				<td><%=product.quantity%></td>
-				<td></td>
-				<td></td>
+				<td class="descricao">Temp</td>
+				<td class="quantidade"><%=product.quantity%></td>
+				<td class="pvp"></td>
+				<td class="total"></td>
 			</tr>
 		<% end %>
+
+		<tr>
+			<th class="col-md-1"></th>
+			<th class="col-md-6"></th>
+			<th class="col-md-1"></th>
+			<th class="col-md-2">Total</th>
+			<th id="total-carrinho"></th>
+		</tr>
 	</table>
 
 </div>
