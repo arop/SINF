@@ -46,11 +46,49 @@ $(document).ready(function(){
             		total += parseFloat(string_temp);
             	})
             	$("#total-carrinho").html(total+"€"); 
+
+            	//sendDocVenda();
             }
             else {
                 console.log("msg not good in send docVenda");
             }
         }
     });
+
+
+	
+
 });
+
+function sendDocVenda(){
+	
+	var linhasDocVenda = [];
+
+	var docVenda = {};
+    docVenda.LinhasDoc = linhasDocVenda;
+    //docVenda.Entidade = cliente['CodCliente'];
+    docVenda.Serie = "C";
+
+	$.ajax({
+	    type: "POST",
+	    url: '/carrinho',
+	    crossDomain: true,
+	    data: docVenda,
+	    error: function (xhr, status, error) {
+	        console.log("Error: " + xhr);
+	        console.log(xhr);
+	        console.log(xhr.responseText);
+	        console.log("Error: " + status);
+	        console.log("Error: " + error);
+	    },
+	    success: function (msg) {
+	        if (msg) {           
+	        	console.log(msg);
+	        }
+	        else {
+	            console.log("msg not good in send docVenda");
+	        }
+	    }
+	});
+}
 `

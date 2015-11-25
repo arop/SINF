@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get 'client' => 'profiles#show'
 
   get 'carrinho' => 'cart#index'
+  post 'carrinho' => 'cart#send_cart_primavera'
 
   get 'carrinho/adicionar/:id_produto/:quantity' => 'cart_product#add', :id_produto => /.*/
 

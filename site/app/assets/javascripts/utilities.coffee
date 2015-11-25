@@ -12,16 +12,16 @@
                 <div class="caption">
                     <a href="/product/'+product.CodArtigo+'"><h4 class="group inner list-group-item-heading">'+
                         product.DescArtigo+'</h4></a>
-                    <p class="group inner list-group-item-text">
-                        Product description... Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                        sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                    <div class="row">
-                        <div class="col-xs-12 col-md-6">
-                            <p class="lead">'+
-                                product.PVP+'€</p>
-                        </div>
-                        <div class="col-xs-12 col-md-6">
-                            <a class="btn btn-success" href="/carrinho/adicionar/'+product.CodArtigo+'/1">Add to cart</a>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <p class="lead">'+
+                                    product.PVP+'€</p>
+                            </div>
+
+                            <div class="col-xs-12 col-md-6">
+                                <a class="btn btn-success" href="/carrinho/adicionar/'+product.CodArtigo+'/1">Add to cart</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -42,6 +42,7 @@
                 catch e then console.log(e)
 
 `
+//<div class="col-xs-6">Quantidade:<input class="form-control" step="1" min="1" max="150" required="required" type="number" value="1"></div>
 $(document).ready(function() {
     $('#list').click(function(event){event.preventDefault();$('#artigos-container .item').removeClass('grid-group-item');$('#artigos-container .item').addClass('list-group-item');});
     $('#grid').click(function(event){event.preventDefault();$('#artigos-container .item').removeClass('list-group-item');$('#artigos-container .item').addClass('grid-group-item');});
