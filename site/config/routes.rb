@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'image/new'
+
   get 'encomenda/new'
 
   get 'encomenda/show'
@@ -10,6 +12,9 @@ Rails.application.routes.draw do
   root 'home#index'
 
   get 'home/index'
+
+  put 'image' => 'image#create'
+
   get 'categoria/:id' => 'categoria#index', :id => /.*/
   get 'product/:id' => 'product#show', :id => /.*/
   get 'client' => 'profiles#show'
