@@ -20,9 +20,8 @@ namespace SINF.Controllers
          * por isso fica POST
          */
         [System.Web.Http.HttpPost]
-        public HttpResponseMessage GetDetalheArtigosCarrinho(IEnumerable<String> id)
+        public HttpResponseMessage GetDetalheArtigosCarrinho(Carrinho id)
         {
-            Console.WriteLine("gg");
             HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", LocalhostIP.localhostIP());
             List<Artigo> produtos = Lib_Primavera.PriIntegration.GetArtigos(id);
             if (produtos == null)

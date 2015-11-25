@@ -454,6 +454,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="IP\LocalhostIP.cs" />
+    <Compile Include="Lib_Primavera\Model\Carrinho.cs" />
     <Compile Include="Lib_Primavera\Model\Categoria.cs" />
     <Compile Include="Lib_Primavera\Model\LinhaDocVenda.cs" />
     <Compile Include="Lib_Primavera\Model\LinhaDocCompra.cs" />

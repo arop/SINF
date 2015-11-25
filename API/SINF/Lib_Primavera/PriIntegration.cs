@@ -292,14 +292,14 @@ namespace SINF.Lib_Primavera
         }
 
 
-        public static List<Lib_Primavera.Model.Artigo> GetArtigos(IEnumerable<String> id)
+        public static List<Lib_Primavera.Model.Artigo> GetArtigos(Lib_Primavera.Model.Carrinho car)
         {
             StdBELista objListLin;
             List<Lib_Primavera.Model.Artigo> artigos = new List<Lib_Primavera.Model.Artigo>();
 
             if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
             {
-                foreach(String codArtigo in id){
+                foreach(String codArtigo in car.Produtos_id){
                     Lib_Primavera.Model.Artigo artigo = new Lib_Primavera.Model.Artigo();
 
                     string query = "SELECT a.*, m.*, f.Descricao as familiaDesc " +
