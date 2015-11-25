@@ -4,9 +4,11 @@
     return '<div class="col-md-3 col-sm-6 hero-feature product-in-grid">'+'<div class="thumbnail">'+'<img src="'+img_path+'" alt="Foto de '+product.DescArtigo+'">'+'<div class="caption">'+'<h4>'+product.DescArtigo+'</h4>'+'<h5>'+product.PVP+'€</h5>'+'<p>'+'<a href="/product/'+product.CodArtigo+'" class="btn btn-primary">More Info</a>'+'</p>'+'</div>'+'</div>'+'</div>'
 
 @getProductContainer2 = (product, img_path) ->
+    if (img_path == null)
+        img_path = 'http://placehold.it/400x250/000/fff'
     return '<div class="item  col-xs-12 col-sm-4 col-lg-4">
             <div class="thumbnail">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                <img id="img-artigo-'+product.CodArtigo+'" class="group list-group-image" src="'+img_path+'" alt="" />
                 <div class="caption">
                     <a href="/product/'+product.CodArtigo+'"><h4 class="group inner list-group-item-heading">'+
                         product.DescArtigo+'</h4></a>
@@ -26,10 +28,22 @@
             </div>
         </div>'
 
+@getImageFromProduct = (idProduct) ->
+    url_img = 'http://localhost:3000/image/id_produto/' + idProduct
+    $.ajax url_img,
+            type: 'GET'
+            dataType: 'json'
+            error: (err) ->
+                console.log("error fetching top.")
+                console.log(err)
+            success: (data) ->
+                try if(data != null)
+                    $('#img-artigo-' + idProduct).attr('src', data.image.url)
+                catch e then console.log(e)
+
 `
 //<div class="col-xs-6">Quantidade:<input class="form-control" step="1" min="1" max="150" required="required" type="number" value="1"></div>
 $(document).ready(function() {
-    console.log('gg');
     $('#list').click(function(event){event.preventDefault();$('#artigos-container .item').removeClass('grid-group-item');$('#artigos-container .item').addClass('list-group-item');});
     $('#grid').click(function(event){event.preventDefault();$('#artigos-container .item').removeClass('list-group-item');$('#artigos-container .item').addClass('grid-group-item');});
 });

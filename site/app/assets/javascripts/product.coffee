@@ -9,6 +9,18 @@ $(document).ready(function () {
 	var id_produto = $("#prod-title").attr('data-id-product');
 
 	getProduto(id_produto);
+
+    $('.product-img').click(function(){
+        $('#product-img-input').click(); 
+    });
+
+    $('#product-img-input').change(function() {
+        addImgToProduct($('#product-img-input')[0].files[0],
+            $('#product-img-input').attr('data-id-product'))
+    });
+
+    $('#product-del-img').click(deleteImg);
+    
 });
 
 
@@ -43,4 +55,34 @@ function getProduto(id){
         }
 	});
 }
+
+function addImgToProduct(img,productId) {
+    var formData = new FormData();
+    formData.append('imagem[image]',img);
+    formData.append('imagem[idProduto]',productId);
+
+    $.ajax({
+      url: '/image',
+      data: formData,
+      cache: false,
+      contentType: false,
+      processData: false,
+      type: 'PUT',
+      success: function () {
+        location.reload();
+      }
+    });
+}
+
+function deleteImg() {
+    imgId = $('.product-img-div.active').attr('data-img-id');
+    $.ajax({
+      url: '/image/'+imgId,
+      type: 'DELETE',
+      success: function () {
+        location.reload();
+      }
+    });
+}
+
 `

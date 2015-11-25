@@ -51,6 +51,8 @@ function getProdutosCategoria(id_cat){
                 artigos[artigos_temp[i].CodArtigo] = artigos_temp[i];       
                 var top_element = getProductContainer2(artigos_temp[i], null);//utilities.coffee
                 $('#artigos-container').append(top_element);
+                
+                getImageFromProduct(artigos_temp[i].CodArtigo);
             }
         },
         type: 'POST'
