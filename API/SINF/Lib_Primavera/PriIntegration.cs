@@ -426,6 +426,45 @@ namespace SINF.Lib_Primavera
                 return null;
         }
 
+        public static List<Model.Artigo> GetArtigosSubCategoria(string categoria)
+        {
+            StdBELista objList;
+
+            List<Model.Artigo> listArtigos = new List<Model.Artigo>();
+
+            if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
+            {
+
+                //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
+                string query = "SELECT a.Artigo, a.Descricao, a.Marca, a.Modelo, a.Peso, a.UnidadeBase," +
+                        " m.PVP1, m.Moeda" +
+                        " FROM Artigo AS a JOIN ArtigoMoeda AS m ON a.Artigo = m.Artigo  WHERE a.SubFamilia = '" + categoria + "'";
+                objList = PriEngine.Engine.Consulta(query);
+
+
+                while (!objList.NoFim())
+                {
+                    listArtigos.Add(new Model.Artigo
+                    {
+                        CodArtigo = objList.Valor("Artigo"),
+                        DescArtigo = objList.Valor("Descricao"),
+                        PVP = objList.Valor("PVP1"),
+                        Moeda = objList.Valor("Moeda"),
+                        UnidadeBase = objList.Valor("UnidadeBase"),
+                        Marca = objList.Valor("Marca"),
+                        Modelo = objList.Valor("Modelo"),
+                        Peso = objList.Valor("Peso")
+                    });
+                    objList.Seguinte();
+
+                }
+
+                return listArtigos;
+            }
+            else
+                return null;
+        }
+
         public static List<Model.Artigo> ProcurarArtigos(string termoProcura)
         {
 

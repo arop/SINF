@@ -58,6 +58,24 @@ namespace SINF.Controllers
             }
         }
 
+        [System.Web.Http.HttpPost]
+        public HttpResponseMessage SubCategoria(string id)
+        {
+            List<Artigo> produtosCategoria = Lib_Primavera.PriIntegration.GetArtigosSubCategoria(id);
+            if (produtosCategoria == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.Forbidden);
+            }
+            else
+            {
+                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", LocalhostIP.localhostIP());
+                var json = new JavaScriptSerializer().Serialize(produtosCategoria);
+                var response = Request.CreateResponse(HttpStatusCode.OK, json);
+                return response;
+            }
+        }
+
+
         [System.Web.Http.HttpGet]
         public HttpResponseMessage Top(string number)
         {
