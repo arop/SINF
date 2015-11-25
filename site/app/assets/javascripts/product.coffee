@@ -18,6 +18,8 @@ $(document).ready(function () {
         addImgToProduct($('#product-img-input')[0].files[0],
             $('#product-img-input').attr('data-id-product'))
     });
+
+    $('#product-del-img').click(deleteImg);
     
 });
 
@@ -65,7 +67,21 @@ function addImgToProduct(img,productId) {
       cache: false,
       contentType: false,
       processData: false,
-      type: 'PUT'
+      type: 'PUT',
+      success: function () {
+        location.reload();
+      }
+    });
+}
+
+function deleteImg() {
+    imgId = $('.product-img-div.active').attr('data-img-id');
+    $.ajax({
+      url: '/image/'+imgId,
+      type: 'DELETE',
+      success: function () {
+        location.reload();
+      }
     });
 }
 

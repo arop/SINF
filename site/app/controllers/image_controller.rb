@@ -17,6 +17,14 @@ class ImageController < ApplicationController
     render :json => @img
   end
 
+  def destroy
+    @img = Imagem.find(params[:id])
+    @img.destroy
+
+    render :json => @img
+  end
+
+
   private
   def img_params
 	params.require(:imagem).permit(:image,:idProduto)

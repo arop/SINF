@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   get 'home/index'
 
+  delete 'image/:id' => 'image#destroy'
   put 'image' => 'image#create'
   get 'image/id_produto/:id' => 'image#productImg', :id => /.*/
 
