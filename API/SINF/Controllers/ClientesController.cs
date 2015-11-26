@@ -51,21 +51,22 @@ namespace SINF.Controllers
 
         public HttpResponseMessage Post(Lib_Primavera.Model.Cliente cliente)
         {
+            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", LocalhostIP.localhostIP());
+
             Lib_Primavera.Model.RespostaErro erro = new Lib_Primavera.Model.RespostaErro();
             erro = Lib_Primavera.PriIntegration.InsereClienteObj(cliente);
 
             if (erro.Erro == 0)
             {
-                var response = Request.CreateResponse(
-                   HttpStatusCode.Created, cliente);
-                string uri = Url.Link("DefaultApi", new { CodCliente = cliente.CodCliente });
-                response.Headers.Location = new Uri(uri);
+                var response = Request.CreateResponse(HttpStatusCode.Created, cliente);
+               /* string uri = Url.Link("DefaultApi", new { CodCliente = cliente.CodCliente });
+                response.Headers.Location = new Uri(uri);*/
                 return response;
             }
 
             else
             {
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
+                return Request.CreateResponse(HttpStatusCode.Forbidden);
             }
 
         }

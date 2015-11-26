@@ -208,6 +208,9 @@ namespace SINF.Lib_Primavera
                     myCli.set_NumContribuinte(cli.NumContribuinte);
                     myCli.set_Moeda(cli.Moeda);
                     myCli.set_Morada(cli.Morada);
+                    myCli.set_CodigoPostal(cli.CodPostal);
+                    myCli.set_Localidade(cli.Localidade);
+                    myCli.set_CondPag(cli.CondicaoPag);
 
                     PriEngine.Engine.Comercial.Clientes.Actualiza(myCli);
 

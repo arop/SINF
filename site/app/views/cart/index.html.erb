@@ -17,11 +17,11 @@
 			</tr>
 				<% if current_user.cart_products.length == 0 %>
 					<tr>
-						<td class="codigo-artigo-cart"></td>
-						<td class="descricao"><i>Carrinho vazio...</i></td>
-						<td class="quantidade"></td>
-						<td class="pvp"></td>
-						<td class="total"></td>
+						<td></td>
+						<td><i>Carrinho vazio...</i></td>
+						<td></td>
+						<td></td>
+						<td></td>
 					</tr>
 				<% else %>
 					<% current_user.cart_products.each do | product | %>
