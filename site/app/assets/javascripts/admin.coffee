@@ -14,6 +14,14 @@ $(document).ready(function () {
 	produtos();
 
 	$("#data-encomendas-botao").click(encomendas);
+
+	$("#order-data-encomendas").click(function(){
+		$("#encomendas tbody").each(function(elem,index){
+			var arr = $.makeArray($("tr",this).detach());
+			arr.reverse();
+			$(this).append(arr);
+	    });
+	});
 });
 
 function encomendas () {
