@@ -3,6 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 `
+var artigos_carrinho = [];
 $(document).ready(function(){
     var carrinho = {};
     var lista = new Array();
@@ -30,12 +31,14 @@ $(document).ready(function(){
                     console.log(msg);
                     var artigos_temp = $.parseJSON(msg);
                     for(var i in artigos_temp){
+                        artigos_carrinho[artigos_temp[i].CodArtigo] = artigos_temp[i];
                         var parent_selector = "#artigo-"+artigos_temp[i].CodArtigo;
                         
                         $(parent_selector+" .descricao").html(artigos_temp[i].DescArtigo);
                         $(parent_selector+" .pvp").html(artigos_temp[i].PVP+'€');
                         var quantidade = parseInt($(parent_selector+" .quantidade").html());
                         $(parent_selector+" .total").html(parseFloat(artigos_temp[i].PVP)*quantidade+'€');
+                        $(parent_selector+' input[name="preco[]"]').val(artigos_temp[i].PVP);
                     }
 
                     var total = 0;
@@ -56,6 +59,13 @@ $(document).ready(function(){
             }
         });
     }
+
+    $('#form-carrinho').submit(function() {
+        $("#form-carrinho tbody tr").each(function(){
+            console.log(a);
+        });
+        return true;
+    });
 
     
 

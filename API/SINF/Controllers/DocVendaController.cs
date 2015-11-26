@@ -20,10 +20,10 @@ namespace SINF.Controllers
         public IEnumerable<Lib_Primavera.Model.DocVenda> Get()
         {
             HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", LocalhostIP.localhostIP());
-            return Lib_Primavera.PriIntegration.Encomendas_List();
+            return Lib_Primavera.PriIntegration.Encomendas_List(-1, -1);
         }
 
-
+        
         // GET api/cliente/5    
         public Lib_Primavera.Model.DocVenda Get(string id)
         {
@@ -65,6 +65,32 @@ namespace SINF.Controllers
 
         }
 
+
+
+
+        /*public HttpResponseMessage Facturar(int id_dv)
+        {
+            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", LocalhostIP.localhostIP());
+            Lib_Primavera.Model.RespostaErro erro = new Lib_Primavera.Model.RespostaErro();
+            erro = Lib_Primavera.PriIntegration.Converter_Em_Factura(id_dv);
+
+            if (erro.Erro == 0)
+            {
+                
+                var response = Request.CreateResponse(HttpStatusCode.Accepted);
+                //string uri = Url.Link("DefaultApi", new { DocId = dv.id });
+                //response.Headers.Location = new Uri(uri);
+                return response;
+            }
+
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.Forbidden, erro.Descricao);
+            }
+
+        }*/
+
+
         [System.Web.Http.HttpPost]
         public HttpResponseMessage GetEncomendasCliente(String id)
         {
@@ -76,6 +102,13 @@ namespace SINF.Controllers
             //response.Headers.Location = new Uri(uri);
             return response;
     
+        }
+
+        [System.Web.Http.HttpGet]
+        public IEnumerable<Lib_Primavera.Model.DocVenda> GetEncomendasMes(int ano, int mes)
+        {
+            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", LocalhostIP.localhostIP());
+            return Lib_Primavera.PriIntegration.Encomendas_List(mes, ano);
         }
 
 

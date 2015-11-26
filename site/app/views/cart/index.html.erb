@@ -5,9 +5,10 @@
 
 <div class="container">
 	<h1>Carrinho de compras</h1>
-	<form method="POST" action="/carrinho">
+	<form id="form-carrinho" method="POST" action="/carrinho">
 		<%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
 		<table class="table table-hover table-striped">
+			<thead>
 			<tr>
 				<th class="col-md-1">Cód.</th>
 				<th class="col-md-6">Produto</th>
@@ -15,6 +16,8 @@
 				<th class="col-md-2">Preço unit.</th>
 				<th class="col-md-2">Preço total</th>
 			</tr>
+			<thead>
+			<tbody>
 				<% if current_user.cart_products.length == 0 %>
 					<tr>
 						<td></td>
@@ -31,9 +34,11 @@
 							<td class="quantidade"><%=product.quantity%></td>
 							<td class="pvp"></td>
 							<td class="total"></td>
+							<%= tag(:input, :type => "hidden", :name => 'artigo[]', :value => product.id_produto) %>
+							<%= tag(:input, :type => "hidden", :name => 'quantidade[]', :value => product.quantity) %>
+							<%= tag(:input, :type => "hidden", :name => 'preco[]') %>
 						</tr>
-						<%= tag(:input, :type => "hidden", :name => 'artigo[]', :value => product.id_produto) %>
-						<%= tag(:input, :type => "hidden", :name => 'quantidade[]', :value => product.quantity) %>
+
 					<% end %>
 				<% end %>
 			<tr>
@@ -43,6 +48,7 @@
 				<th class="col-md-2">Total</th>
 				<th id="total-carrinho"></th>
 			</tr>
+			</tbody>
 		</table>
 		<% if current_user.cart_products.length != 0 %>
 			<input type="submit" class="btn btn-success" />
