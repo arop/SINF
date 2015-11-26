@@ -14,24 +14,46 @@
       <div class="col-lg-12">
        <div class="panel panel-default">
         <!-- Default panel contents -->
-        <h2 id="loading_1"></h2>
-        <div class="panel-heading">Encomendas</div>
+        <div class="panel-heading">
+          <p>Encomendas</p> 
+          <form class="form-inline" action="#">
+            <div class="form-group"> 
+              <select id="data-encomendas-mes" class="form-control">
+                <option <% if @mes == '1' %>selected<% end %> value="1">Janeiro</option>
+                <option <% if @mes == '2' %>selected<% end %> value="2">Fevereiro</option>
+                <option <% if @mes == '3' %>selected<% end %> value="3">Março</option>
+                <option <% if @mes == '4' %>selected<% end %> value="4">Abril</option>
+                <option <% if @mes == '5' %>selected<% end %> value="5">Maio</option>
+                <option <% if @mes == '6' %>selected<% end %> value="6">Junho</option>
+                <option <% if @mes == '7' %>selected<% end %> value="7">Julho</option>
+                <option <% if @mes == '8' %>selected<% end %> value="8">Agosto</option>
+                <option <% if @mes == '9' %>selected<% end %> value="9">Setembro</option>
+                <option <% if @mes == '10' %>selected<% end %> value="10">Outubro</option>
+                <option <% if @mes == '11' %>selected<% end %> value="11">Novembro</option>
+                <option <% if @mes == '12' %>selected<% end %> value="12">Dezembro</option>
+              </select>
+              <input id="data-encomendas-ano" style="width: 100px" class="form-control" type="number" value=<%= @ano %> min="2000" max="2100" />
+              <input id="data-encomendas-botao" type="submit" class="btn btn-success" value="Ver Encomendas" />
+            </div>
+          </form>
+        </div>
 
         <!-- Table -->
-        <table class="table" id="encomendas_pendentes">
+        <table class="table" id="encomendas">
           <thead>
             <th>Utilizador</th>
             <th>Número da Encomenda</th>
-            <th>Data</th>
+            <th id="order-data-encomendas"><a>Data <span class="glyphicon glyphicon-sort" aria-hidden="true"></span></a></th>
             <th>Estado</th>
             <th>Total</th>
+            <!--<th></th>-->
           </thead>
-
+          <tbody>
+          </tbody>
         </table>
       </div>
 
-      <h2 id="loading_2"></h2>
-
+      
       <div class="panel panel-default">
         <!-- Default panel contents -->
         <div class="panel-heading">Top Artigos</div>
@@ -44,7 +66,9 @@
             <th>Marca</th>
             <th>PVP</th>
           </thead>
-
+          <tbody>
+          </tbody>
+          <tr id="loading_2"></tr>
         </table>
       </div>
     </div>
