@@ -8,5 +8,7 @@ class ProductController < ApplicationController
 			@imgs = nil
 		else @imgs = Imagem.where(idProduto: @product_id)
 		end
+
+		@desc = ProductDescription.where(idProduto: @product_id).take
 	end
 end

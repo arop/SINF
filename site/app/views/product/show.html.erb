@@ -42,13 +42,17 @@
                       </a>
                     </div>
                 <% end %>
+                <% if current_user.try(:admin?) %>
                     <div id="img-btns">
                         <br>
                         <button class="product-img btn btn-warning" data-id-product=<%= @product_id %> name="img" type="button"> Escolher imagem </button>
                         <input type="file" id="product-img-input" data-id-product=<%= @product_id %> style="display:none">
                         <button id="product-del-img" class="btn btn-danger" name="img" type="button"> Apagar esta imagem </button>
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#descricao-modal">Modificar descrição</button>
                     </div>
+                <% end %>
                     <div class="caption-full">
+                        <div id="botao-loading"></div>
                         <h4 class="pull-right" id="prod-price">€</h4>
                         <h4 id="prod-title" data-id-product=<%= @product_id %>></h4>
                         <h5 id="prod-marca">Marca:</h5>
@@ -57,11 +61,7 @@
                             <a class="inline" href="#" id="prod-subcategoria"><em></em></a>
                         </h6>
 
-                        <p>See more snippets like these online store reviews at <a target="_blank" href="http://bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.</p>
-                        <p>Want to make these reviews work? Check out
-                            <strong><a href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">this building a review system tutorial</a>
-                            </strong>over at maxoffsky.com!</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                        <div id="description"><%= @desc.description %></div>
                     </div>
                     <div class="ratings">
                         <p class="pull-right">3 reviews</p>
@@ -133,7 +133,32 @@
 
         </div>
 
+        <% if current_user.try(:admin?) %>
+        <div id="descricao-modal" class="modal fade" role="dialog">
+          <div class="modal-dialog modal-sm">
+
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modificar descrição</h4>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                    <textarea class="form-control" rows="5" id="description-input"><%= @desc.description %></textarea>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button id="btn-submit-description" type="button" class="btn btn-warning" data-dismiss="modal">Submeter descrição</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <% end %>
+
     </div>
 
     <%= render 'common/footer' %>
     <%= javascript_include_tag "product" %>
+    <%= javascript_include_tag "product_description" %>
