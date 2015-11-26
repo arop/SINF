@@ -19,7 +19,10 @@
       <p> Morada: <%= current_user.morada %> </p>
       <p> Código Postal: <%= current_user.codigo %> </p>
       <p> Localidade: <%= current_user.localidade %> </p>
- 
+      <div id="user-id" style="display: none;"><%= current_user.entidade %></div>
+
+
+
 	  <%= link_to "Editar informação", edit_user_registration_path %>
 
 
