@@ -61,7 +61,11 @@
                             <a class="inline" href="#" id="prod-subcategoria"><em></em></a>
                         </h6>
 
-                        <div id="description"><%= @desc.description %></div>
+                        <div id="description">
+                            <% if !@desc.nil? %>
+                                <%= @desc.description %>
+                            <% end %>
+                        </div>
                     </div>
                     <div class="ratings">
                         <p class="pull-right">3 reviews</p>
