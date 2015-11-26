@@ -42,7 +42,7 @@ $(document).ready(function () {
 	            {
 	            	var obj = data['LinhasDoc'][i];
 	            	var tr = $('<tr></tr>');
-	            	tr.append('<td><a href="product/'+obj['CodArtigo']+'">'+obj['CodArtigo']+'</a></td>');
+	            	tr.append('<td><a href="/product/'+obj['CodArtigo']+'">'+obj['CodArtigo']+'</a></td>');
 	            	tr.append('<td>'+obj['DescArtigo']+'</td>');
 	            	tr.append('<td>'+obj['PrecoUnitario']+'€ </td>');
 	            	tr.append('<td>'+obj['Desconto']+'</td>');

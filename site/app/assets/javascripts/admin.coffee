@@ -37,12 +37,14 @@ $(document).ready(function () {
 
 function encomendas () {
 
-	var url_encomendas = base_url_primavera + '/DocVenda';		
+	var url_encomendas = base_url_primavera + '/DocVenda';	
+	$("#loading_1").html(botao_load);
 
 	$.ajax({
 		url: url_encomendas,
 		error: function(err) {
 			console.log("error fetching category");
+			$("#loading_1").html("");
 		},
 		dataType: 'json',
 		success: function(data) {
@@ -50,7 +52,7 @@ function encomendas () {
 	            //console.log(data);
 	            // console.log(data);
 	            var table = $("#encomendas_pendentes"); 
-	           table.html(botao_load);
+	           $("#loading_1").html("");
 
 	            var arrayProdutos=[];
 
@@ -87,21 +89,24 @@ function encomendas () {
 
 function produtos () {
 
-	var url_encomendas = base_url_primavera + '/artigos/top/10';		
+	var url_encomendas = base_url_primavera + '/artigos/top/10';	
+	$("#loading_2").html(botao_load);	
 
 	$.ajax({
 		url: url_encomendas,
 		error: function(err) {
 			console.log("error fetching product");
+			$("#loading_2").html("");
 		},
 		dataType: 'json',
 		success: function(data) {
+			$("#loading_2").html("");
 	            //console.log("success.");
 	            //console.log(data);
 	            data=$.parseJSON(data);
 	            console.log(data);
 	            var table = $("#produto_tabela"); 
-	           table.html(botao_load);
+	           //table.html(botao_load);
 
 
 	             try{    

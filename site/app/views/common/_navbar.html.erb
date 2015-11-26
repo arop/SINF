@@ -31,12 +31,25 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
+
+        <% if current_user.try(:admin?) %>
+        <li>
+          <div class="dropdown-container">
+          <a href="/admins">
+              <button type="button" class="custom-btn">
+                <%= content_tag(:span, '', class: 'glyphicon glyphicon-shopping-lock') %>
+              </button>
+            </a>
+          </div>
+        </li>
+
+        <% end %>
         
         <li>
           <div class="dropdown-container">
             <a href="/carrinho">
               <button type="button" class="custom-btn">
-                  <%= content_tag(:span, '', class: 'glyphicon glyphicon-shopping-cart') %>
+                <%= content_tag(:span, '', class: 'glyphicon glyphicon-shopping-cart') %>
               </button>
             </a>
           </div>
@@ -50,10 +63,10 @@
             </button>
             <ul id="dropdown-ul" class="dropdown-menu" role="menu">
               <% if user_signed_in? %>
-                  <li><%= link_to "Conta", client_path %></li>
-                  <li> <%= link_to('Logout', destroy_user_session_path, :method => 'delete') %> </li>
+              <li><%= link_to "Conta", client_path %></li>
+              <li> <%= link_to('Logout', destroy_user_session_path, :method => 'delete') %> </li>
               <% else %>
-                  <li> <%= link_to('Login', new_user_session_path) %> </li>
+              <li> <%= link_to('Login', new_user_session_path) %> </li>
               <% end %>
             </ul>
           </div>
