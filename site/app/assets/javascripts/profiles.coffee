@@ -27,26 +27,34 @@ function getProdutosCliente(id_cliente){
             console.log(data);
             var artigos_temp = $.parseJSON(data);
 
-            $('#compras-container').html('<table id="tabela-principal" class="table table-condensed" style="border-collapse:collapse; width: 50%">'+
-                '<tr><th>Data</th><th>Total </th></tr></table>');
             for(var  i in artigos_temp){
                 artigos[artigos_temp[i].CodArtigo] = artigos_temp[i];
-
                 var m = re.exec(artigos_temp[i].Data);
                 var d = new Date(parseInt(m[0]));
-                var top_element = 
-                '<tr data-toggle="collapse" data-target="#hidden-' + i + '" class="accordion-toggle show-order" id="' +  artigos_temp[i].id + '">'+
-                '<td  bgcolor="#8c8c8c">'+ d.format("dd/mm/yyyy") +'</td>'+
-                '<td  bgcolor="#8c8c8c">'+artigos_temp[i].TotalMerc+' €</td>'+
-                '</tr>'+
-                '<tr>'+
-                '<td colspan="2" class="hiddenRow"><div class="accordian-body collapse" id="hidden-' +
-                i + '">' +
-                '<table id="tabela-produtos-' + artigos_temp[i].id.slice(1,-1) + '" class="table">' + 
-                '<tr> <th bgcolor="#d3d3d3"> Nome </th> <th bgcolor="#d3d3d3"> Preço </th> <th bgcolor="#d3d3d3"> Quantidade </th> </tr></table> </div> </td></tr>';
+                $('#compras-container').append(''+
+                '<div class="panel panel-default">' +
+              '<div class="panel-heading" style="background-color: rgb(255, 141, 52) !important; color: white" role="tab" id="heading-'+i + '">'+
+                '<h4 class="panel-title">'+
+                  '<a id="' +  artigos_temp[i].id + '" class="collapsed show-order" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-' + i + '" aria-expanded="false" aria-controls="collapse-' + i + '">'+
+                    '<div class="row">'+ 
+                        '<div class="col-lg-4">' + artigos_temp[i].NumDoc + '/' + artigos_temp[i].Serie +'</div>'+
+                        '<div class="col-lg-4">' + d.format("dd/mm/yyyy") + '</div>'+
+                        '<div class="col-lg-4">' + artigos_temp[i].TotalMerc + ' €</div>'+
+                    '</div>'+
+                  '</a>'+
+                '</h4>'+
+              '</div>'+
+              '<div id= "collapse-' + i + '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-' + i + '">'+
+                '<div id="pergunta-'+i + '" class="panel-body">'+
+                  '<table style="text-align: left" id="tabela-produtos-' + artigos_temp[i].id.slice(1,-1) + '" class="table table-hover table-striped">' +
+                '<tr> <th class="col-xs-8"> Nome </th> <th class="col-xs-2"> Preço </th> <th class="col-xs-2"> Quantidade </th> </tr></table> </div> </td></tr>'+
+                '</div>'+
+              '</div>'+
+            '</div></div>');
 
-                $('#tabela-principal').append(top_element);
             }
+ 
+
 
             $('.show-order').on("click",function() {
                 if(!$(this).hasClass('alreadyloaded')){
@@ -72,7 +80,7 @@ function getProdutosCliente(id_cliente){
 
                                 var top_element = 
                                 '<tr id="' +  artigos_temp[i].id + '">'+
-                                '<td>'+artigos_temp[i].DescArtigo+'</td>'+
+                                '<td>'+ '<a href="/product/' + artigos_temp[i].CodArtigo + '"> ' + artigos_temp[i].DescArtigo+'</a></td>'+
                                 '<td>'+artigos_temp[i].PrecoUnitario+'</td>'+
                                 '<td>'+artigos_temp[i].Quantidade+'</td>'+
                                 '</tr>';
@@ -83,9 +91,11 @@ function getProdutosCliente(id_cliente){
                         },
                         type: 'GET'
                     });
+
+
                 }
             });
-
+            
     },
     type: 'GET'
 });

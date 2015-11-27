@@ -11,7 +11,7 @@
 
 	<div class="row">
 
-    <div class="col-lg-12">
+    <div class="col-lg-3">
       <h3> Dados de conta </h3>
       <p> Nome: <%= current_user.nome %> </h2>
       <p> Email: <%= current_user.email %> </p>
@@ -21,23 +21,18 @@
       <p> Localidade: <%= current_user.localidade %> </p>
       <div id="user-id" style="display: none;"><%= current_user.entidade %></div>
 
-
-
 	  <%= link_to "Editar informação", edit_user_registration_path %>
-
-
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-9">
       <h3> As minhas encomendas </h3>
+      <div id="compras-container" class="row text-center">
+    </div>
     </div>
   </div>
   <!-- /.row -->
 
   <!-- Page Features -->
-  <div id="compras-container" class="row text-center">
   </div>
 
 
