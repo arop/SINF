@@ -60,12 +60,12 @@ $(document).ready(function(){
         });
     }
 
-    $('#form-carrinho').submit(function() {
+    /*$('#form-carrinho').submit(function() {
         $("#form-carrinho tbody tr").each(function(){
-            console.log(a);
+            //console.log(a);
         });
         return true;
-    });
+    });*/
 
     
 
