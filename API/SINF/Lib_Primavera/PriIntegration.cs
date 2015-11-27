@@ -210,6 +210,7 @@ namespace SINF.Lib_Primavera
                     myCli.set_Morada(cli.Morada);
                     myCli.set_CodigoPostal(cli.CodPostal);
                     myCli.set_Localidade(cli.Localidade);
+                    myCli.set_LocalidadeCodigoPostal(cli.Localidade);
                     myCli.set_CondPag(cli.CondicaoPag);
 
                     PriEngine.Engine.Comercial.Clientes.Actualiza(myCli);
@@ -934,7 +935,55 @@ namespace SINF.Lib_Primavera
             }
         }
 
-        public static List<Model.DocVenda> Encomendas_List()
+        //isto n funciona. provavelmente converter uma encomenda em factura é mais complexo q isto.    
+        /*public static Model.RespostaErro Converter_Em_Factura(int id_dv)
+        {
+            Lib_Primavera.Model.RespostaErro erro = new Model.RespostaErro();
+            PreencheRelacaoVendas rl = new PreencheRelacaoVendas();
+            bool iniciouTransaccao = false;
+            try
+            {
+                if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
+                {
+                    GcpBEDocumentoVenda myEnc2 = new GcpBEDocumentoVenda();
+                    //PriEngine.Engine.Comercial.Vendas.TransformaDocumento
+
+         
+                    myEnc2 = PriEngine.Engine.Comercial.Vendas.Edita("001", "ECL", "A", id_dv);
+                    myEnc2.set_EmModoEdicao(true);
+                    myEnc2.set_Tipodoc("FS");
+
+                    PriEngine.Engine.IniciaTransaccao();
+                    iniciouTransaccao = true;
+                    PriEngine.Engine.Comercial.Vendas.Actualiza(myEnc2);
+                    PriEngine.Engine.TerminaTransaccao();
+                    iniciouTransaccao = false;
+
+                    erro.Erro = 0;
+                    erro.Descricao = "Sucesso";
+                    return erro;
+                }
+                else
+                {
+                    erro.Erro = 1;
+                    erro.Descricao = "Erro ao abrir empresa";
+                    return erro;
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                if (iniciouTransaccao)
+                    PriEngine.Engine.DesfazTransaccao();
+                erro.Erro = 1;
+                erro.Descricao = ex.Message;
+                return erro;
+            }
+        }*/
+
+
+        public static List<Model.DocVenda> Encomendas_List(int mes, int ano)
         {
 
             StdBELista objListCab;
@@ -947,7 +996,9 @@ namespace SINF.Lib_Primavera
 
             if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
             {
-                objListCab = PriEngine.Engine.Consulta("SELECT id, Entidade, Data, NumDoc, TotalMerc, Serie From CabecDoc where TipoDoc='ECL'");
+                if (mes < 0 || ano < 0)
+                    objListCab = PriEngine.Engine.Consulta("SELECT id, Entidade, Data, NumDoc, TotalMerc, Serie From CabecDoc where TipoDoc='ECL' ORDER BY Data DESC");
+                else objListCab = PriEngine.Engine.Consulta("SELECT id, Entidade, Data, NumDoc, TotalMerc, Serie From CabecDoc where TipoDoc='ECL' AND MONTH(Data) = " + mes + " AND YEAR(Data) = " + ano + " ORDER BY Data DESC");
                 while (!objListCab.NoFim())
                 {
                     dv = new Model.DocVenda();
@@ -1045,7 +1096,7 @@ namespace SINF.Lib_Primavera
 
             if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
             {
-                objListCab = PriEngine.Engine.Consulta("SELECT id, Entidade, Data, NumDoc, TotalMerc, Serie From CabecDoc where TipoDoc='ECL' AND Entidade = '" + clienteID +"'");
+                objListCab = PriEngine.Engine.Consulta("SELECT id, Entidade, Data, NumDoc, TotalMerc, Serie From CabecDoc where TipoDoc='ECL' AND Entidade = '" + clienteID + "' ORDER BY Data DESC");
                 while (!objListCab.NoFim())
                 {
                     dv = new Model.DocVenda();

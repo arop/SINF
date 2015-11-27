@@ -77,3 +77,9 @@
 }
 
 /* list/grid END */
+
+.one-line-elipsis{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

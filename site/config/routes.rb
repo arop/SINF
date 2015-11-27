@@ -17,6 +17,9 @@ Rails.application.routes.draw do
   put 'image' => 'image#create'
   get 'image/id_produto/:id' => 'image#productImg', :id => /.*/
 
+  delete 'product_description/:id' => 'product_description#destroy'
+  put 'product_description' => 'product_description#create'
+
   get 'categoria/:id' => 'categoria#index', :id => /.*/
 
   get 'product/:id' => 'product#show', :id => /.*/

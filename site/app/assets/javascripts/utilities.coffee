@@ -10,7 +10,7 @@
             <div class="thumbnail">
                 <img id="img-artigo-'+product.CodArtigo+'" class="group list-group-image" src="'+img_path+'" alt="" />
                 <div class="caption">
-                    <a href="/product/'+product.CodArtigo+'"><h4 class="group inner list-group-item-heading">'+
+                    <a href="/product/'+product.CodArtigo+'"><h4 class="group inner list-group-item-heading one-line-elipsis">'+
                         product.DescArtigo+'</h4></a>
                     <div class="container-fluid">
                         <div class="row">
@@ -20,7 +20,7 @@
                             </div>
 
                             <div class="col-xs-12 col-md-6">
-                                <a class="btn btn-success" href="/carrinho/adicionar/'+product.CodArtigo+'/1">Add to cart</a>
+                                <a class="btn btn-success" href="/carrinho/adicionar/'+product.CodArtigo+'/1"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Adicionar</a>
                             </div>
                         </div>
                     </div>

@@ -5,45 +5,106 @@
 
 <div class="container">
 	<h1>Carrinho de compras</h1>
-	<form method="POST" action="/carrinho">
+	<form id="form-carrinho" method="POST" action="/carrinho">
 		<%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
-		<table class="table table-hover table-striped">
-			<tr>
-				<th class="col-md-1">Cód.</th>
-				<th class="col-md-6">Produto</th>
-				<th class="col-md-1">Quant.</th>
-				<th class="col-md-2">Preço unit.</th>
-				<th class="col-md-2">Preço total</th>
-			</tr>
-				<% if current_user.cart_products.length == 0 %>
-					<tr>
-						<td></td>
-						<td><i>Carrinho vazio...</i></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-				<% else %>
-					<% current_user.cart_products.each do | product | %>
-						<tr id="artigo-<%=product.id_produto%>">
-							<td class="codigo-artigo-cart"><%=product.id_produto%></td>
-							<td class="descricao"></td>
-							<td class="quantidade"><%=product.quantity%></td>
-							<td class="pvp"></td>
-							<td class="total"></td>
-						</tr>
-						<%= tag(:input, :type => "hidden", :name => 'artigo[]', :value => product.id_produto) %>
-						<%= tag(:input, :type => "hidden", :name => 'quantidade[]', :value => product.quantity) %>
-					<% end %>
-				<% end %>
-			<tr>
-				<th class="col-md-1"></th>
-				<th class="col-md-6"></th>
-				<th class="col-md-1"></th>
-				<th class="col-md-2">Total</th>
-				<th id="total-carrinho"></th>
-			</tr>
-		</table>
+
+		<div>
+
+		  <!-- Nav tabs -->
+		  <ul class="nav nav-tabs" role="tablist">
+		    <li role="presentation" class="active"><a href="#produtos" aria-controls="produtos" role="tab" data-toggle="tab">Produtos</a></li>
+		    <li role="presentation"><a href="#metEnvio" aria-controls="metEnvio" role="tab" data-toggle="tab">Método de envio</a></li>
+		    <li role="presentation"><a href="#metPag" aria-controls="metPag" role="tab" data-toggle="tab">Método de pagamento</a></li>
+		  </ul>
+
+		  <!-- Tab panes -->
+		  <div class="tab-content">
+		    <div role="tabpanel" class="tab-pane fade in active" id="produtos">
+		      <table class="table table-hover table-striped">
+		        <thead>
+		        <tr>
+		          <th class="col-md-1">Cód.</th>
+		          <th class="col-md-6">Produto</th>
+		          <th class="col-md-1">Quant.</th>
+		          <th class="col-md-2">Preço unit.</th>
+		          <th class="col-md-2">Preço total</th>
+		        </tr>
+		        <thead>
+		        <tbody>
+		          <% if current_user.cart_products.length == 0 %>
+		            <tr>
+		              <td></td>
+		              <td><i>Carrinho vazio...</i></td>
+		              <td></td>
+		              <td></td>
+		              <td></td>
+		            </tr>
+		          <% else %>
+		            <% current_user.cart_products.each do | product | %>
+		              <tr id="artigo-<%=product.id_produto%>">
+		                <td class="codigo-artigo-cart"><%=product.id_produto%></td>
+		                <td class="descricao"></td>
+		                <td class="quantidade"><%=product.quantity%></td>
+		                <td class="pvp"></td>
+		                <td class="total"></td>
+		                <%= tag(:input, :type => "hidden", :name => 'artigo[]', :value => product.id_produto) %>
+		                <%= tag(:input, :type => "hidden", :name => 'quantidade[]', :value => product.quantity) %>
+		                <%= tag(:input, :type => "hidden", :name => 'preco[]') %>
+		              </tr>
+
+		            <% end %>
+		          <% end %>
+			        <tr>
+			          <th class="col-md-1"></th>
+			          <th class="col-md-6"></th>
+			          <th class="col-md-1"></th>
+			          <th class="col-md-2">Total</th>
+			          <th id="total-carrinho"></th>
+			        </tr>
+		        </tbody>
+		      </table>
+		    </div>
+
+		    <div role="tabpanel" class="tab-pane fade" id="metEnvio">
+			    <div class="form-group">
+			    	<div class="radio">
+					    <%= radio_button_tag(:metodo_de_envio,:recolha_na_loja, true) %>
+				    	<%= label_tag(:metodo_de_envio_recolha_na_loja,'Recolha na loja') %>
+			    	</div>
+			    	<div class="radio">
+					    <%= radio_button_tag(:metodo_de_envio,:ctt) %>
+					    <%= label_tag(:metodo_de_envio_ctt,'CTT') %>
+				    </div>
+				    <div class="radio">
+					    <%= radio_button_tag(:metodo_de_envio,:transportadora) %>
+					    <%= label_tag(:metodo_de_envio_transportadora,'Transportadora') %>
+				    </div>
+			    </div>
+		    </div>
+		    <div role="tabpanel" class="tab-pane fade" id="metPag">
+			    <div class="form-group">
+			    	<div class="radio">
+					    <%= radio_button_tag(:metodo_de_pagamento,:multibanco, true) %>
+				    	<%= label_tag(:metodo_de_pagamento_multibanco,'Multibanco') %>
+			    	</div>
+			    	<div class="radio">
+					    <%= radio_button_tag(:metodo_de_pagamento,:cartao_credito, true) %>
+				    	<%= label_tag(:metodo_de_pagamento_cartao_credito,'Ajax') %>
+			    	</div>
+			    	<div class="radio">
+					    <%= radio_button_tag(:metodo_de_pagamento,:cobranca) %>
+					    <%= label_tag(:metodo_de_pagamento_cobranca,'À cobrança') %>
+				    </div>
+				    <div class="radio">
+					    <%= radio_button_tag(:metodo_de_pagamento,:paypal) %>
+					    <%= label_tag(:metodo_de_pagamento_paypal,'PayPal') %>
+				    </div>
+			    </div>
+		    </div>
+		  </div>
+
+		</div>
+
 		<% if current_user.cart_products.length != 0 %>
 			<input type="submit" class="btn btn-success" />
 		<% end %>

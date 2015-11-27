@@ -40,7 +40,7 @@ class CartController < ApplicationController
 		linhasDoc = []
 		number_artigos = params[:artigo].length - 1
 		(0..number_artigos).each do |i|
-			artigo = { 'CodArtigo' => params[:artigo][i] , 'Quantidade' => params[:quantidade][i].to_i}
+			artigo = { 'CodArtigo' => params[:artigo][i] , 'Quantidade' => params[:quantidade][i].to_i, 'PVP' => params[:preco][i].to_f}
 			linhasDoc.push artigo
 		end
 		# build the params string
