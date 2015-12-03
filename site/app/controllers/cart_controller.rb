@@ -1,8 +1,26 @@
 class CartController < ApplicationController
-	before_filter :authenticate_user!
+	before_filter :authenticate_user!, only: [:send_cart_primavera]
 	
 	def index
 		
+	end
+
+	def add_to_cart
+		if !params[:artigo].nil? && !params[:artigo][:id].nil? && !params[:artigo][:quantidade].nil?
+
+			if !(defined? session[:carrinho]) || session[:carrinho].nil?
+				session[:carrinho] = Hash.new
+			end
+			#render :json => session[:carrinho].length			
+			if defined? session[:carrinho][params[:artigo][:id]]
+				session[:carrinho][params[:artigo][:id]] = params[:artigo][:quantidade].to_f + session[:carrinho][params[:artigo][:id]].to_f
+			else
+				session[:carrinho][params[:artigo][:id]] = params[:artigo][:quantidade].to_f
+			end
+			render :json => session[:carrinho].length			
+		else 
+			render :json => '{"success" : "false", "error" : "something not defined..."}'
+		end
 	end
 
 	def send_cart_primavera

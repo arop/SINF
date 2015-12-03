@@ -20,7 +20,7 @@
                             </div>
 
                             <div class="col-xs-12 col-md-6">
-                                <a class="btn btn-success" href="/carrinho/adicionar/'+product.CodArtigo+'/1"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Adicionar</a>
+                                <a class="add-to-cart-btn btn btn-success" data-id-artigo="'+product.CodArtigo+'"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Adicionar</a>
                             </div>
                         </div>
                     </div>
@@ -44,14 +44,82 @@
 `
 //<div class="col-xs-6">Quantidade:<input class="form-control" step="1" min="1" max="150" required="required" type="number" value="1"></div>
 $(document).ready(function() {
+
+    $('body').bind("DOMSubtreeModified",function(){
+        $('#list').click(function(event){event.preventDefault();$('#artigos-container .item').removeClass('grid-group-item');$('#artigos-container .item').addClass('list-group-item');});
+        $('#grid').click(function(event){event.preventDefault();$('#artigos-container .item').removeClass('list-group-item');$('#artigos-container .item').addClass('grid-group-item');});
+    });
+
     $('#list').click(function(event){event.preventDefault();$('#artigos-container .item').removeClass('grid-group-item');$('#artigos-container .item').addClass('list-group-item');});
     $('#grid').click(function(event){event.preventDefault();$('#artigos-container .item').removeClass('list-group-item');$('#artigos-container .item').addClass('grid-group-item');});
+
+    $(document).on('click', '.add-to-cart-btn', function(){
+        // what you want to happen when mouseover and mouseout 
+        // occurs on elements that match '.dosomething'
+        //href="/carrinho/adicionar/'+product.CodArtigo+'/1"
+        var artigo = {};
+        artigo.id = $(this).attr('data-id-artigo');
+        artigo.quantidade = 1;
+        var obj = {}; obj.artigo = artigo;
+        var url = '/carrinho/adicionar';
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'json',
+            data: obj,
+            success: function(data){
+                //TODO: animate cart
+                //Scroll to top if cart icon is hidden on top
+                /*$('html, body').animate({
+                    'scrollTop' : $("#cart-icon").position().top
+                });*/
+                //Select item image and pass to the function
+                var itemImg = $(this).parent().find('img').eq(0);
+                flyToElement($('#img-artigo-'+artigo.id), $('#cart-icon'));
+                console.log(data);
+            },
+            error: function(err){
+                console.log(err);
+                console.log(err.responseText);
+            }
+        });
+    });
+
+
 });
 
-$('body').bind("DOMSubtreeModified",function(){
-    $('#list').click(function(event){event.preventDefault();$('#artigos-container .item').removeClass('grid-group-item');$('#artigos-container .item').addClass('list-group-item');});
-    $('#grid').click(function(event){event.preventDefault();$('#artigos-container .item').removeClass('list-group-item');$('#artigos-container .item').addClass('grid-group-item');});
-});
+
+
+function flyToElement(flyer, flyingTo) {
+    var $func = $(this);
+    var divider = 3;
+    var flyerClone = $(flyer).clone();
+    $(flyerClone).css({position: 'absolute', top: $(flyer).offset().top + "px", left: $(flyer).offset().left + "px", opacity: 1, 'z-index': 2000});
+    $('body').append($(flyerClone));
+    var gotoX = $(flyingTo).offset().left + ($(flyingTo).width() / 2) - ($(flyer).width()/divider)/2;
+    var gotoY = $(flyingTo).offset().top + ($(flyingTo).height() / 2) - ($(flyer).height()/divider)/2;
+     
+    $(flyerClone).animate({
+        opacity: 0.4,
+        left: gotoX,
+        top: gotoY,
+        width: $(flyer).width()/divider,
+        height: $(flyer).height()/divider
+    }, 700,
+    function () {
+        $(flyingTo).fadeOut('fast', function () {
+            $(flyingTo).fadeIn('fast', function () {
+                $(flyerClone).fadeOut('fast', function () {
+                    $(flyerClone).remove();
+                });
+            });
+        });
+    });
+}
+
+
+
 
 
 botao_load = '<button class="btn btn-lg btn-warning"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> A carregar...</button>';

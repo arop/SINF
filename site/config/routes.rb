@@ -28,8 +28,9 @@ Rails.application.routes.draw do
   get 'carrinho' => 'cart#index'
   post 'carrinho' => 'cart#send_cart_primavera'
 
-  get 'carrinho/adicionar/:id_produto/:quantity' => 'cart_product#add', :id_produto => /.*/
-
+#  get 'carrinho/adicionar/:id_produto/:quantity' => 'cart_product#add', :id_produto => /.*/
+  post 'carrinho/adicionar' => 'cart#add_to_cart'
+  
   get 'admins' => 'admin#index'
 
   get 'encomenda/:id' => 'encomenda#show', :id => /.*/

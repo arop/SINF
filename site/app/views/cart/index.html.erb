@@ -31,7 +31,7 @@
 		        </tr>
 		        <thead>
 		        <tbody>
-		          <% if current_user.cart_products.length == 0 %>
+		          <% if !(defined? session[:carrinho]) || session[:carrinho].nil? || session[:carrinho].length == 0 %>
 		            <tr>
 		              <td></td>
 		              <td><i>Carrinho vazio...</i></td>
@@ -40,15 +40,15 @@
 		              <td></td>
 		            </tr>
 		          <% else %>
-		            <% current_user.cart_products.each do | product | %>
-		              <tr id="artigo-<%=product.id_produto%>">
-		                <td class="codigo-artigo-cart"><%=product.id_produto%></td>
+		            <% session[:carrinho].each do |id, quantidade| %>
+		              <tr id="artigo-<%=id%>">
+		                <td class="codigo-artigo-cart"><%=id%></td>
 		                <td class="descricao"></td>
-		                <td class="quantidade"><%=product.quantity%></td>
+		                <td class="quantidade"><%=quantidade%></td>
 		                <td class="pvp"></td>
 		                <td class="total"></td>
-		                <%= tag(:input, :type => "hidden", :name => 'artigo[]', :value => product.id_produto) %>
-		                <%= tag(:input, :type => "hidden", :name => 'quantidade[]', :value => product.quantity) %>
+		                <%= tag(:input, :type => "hidden", :name => 'artigo[]', :value => id) %>
+		                <%= tag(:input, :type => "hidden", :name => 'quantidade[]', :value => quantidade) %>
 		                <%= tag(:input, :type => "hidden", :name => 'preco[]') %>
 		              </tr>
 
@@ -105,7 +105,7 @@
 
 		</div>
 
-		<% if current_user.cart_products.length != 0 %>
+		<% if (defined? session[:carrinho]) && !session[:carrinho].nil? && session[:carrinho].length != 0 %>
 			<input type="submit" class="btn btn-success" />
 		<% end %>
 	</form>
