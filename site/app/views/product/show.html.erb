@@ -55,12 +55,27 @@
                     <div id="botao-loading"></div>
                     <h4 class="pull-right" id="prod-price">€</h4>
                     <h4 id="prod-title" data-id-product=<%= @product_id %>></h4>
-                    <a class="btn btn-success pull-right" href="/carrinho/adicionar/<%=@product_id%>/1"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Adicionar</a>
+                    
                     <h5 id="prod-marca">Marca:</h5>
                     <h6>
                         Categoria: <a class="inline" href="#" id="prod-categoria"><em></em></a>
                         <a class="inline" href="#" id="prod-subcategoria"><em></em></a>
                     </h6>
+
+                    <div class="container-fluid">
+                        <div class="row">
+                            <a class="btn btn-success pull-right add-to-cart-btn-product-view" data-id-artigo=<%= @product_id %>><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Adicionar</a>
+
+                            <div class="input-group spinner pull-right quantidade-product-view-container">
+                                <input id="quantidade-product-view" type="text" class="form-control" value="1">
+                                <div class="input-group-btn-vertical">
+                                  <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                  <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
 
                     <div id="description">
                         <% if !@desc.nil? %>

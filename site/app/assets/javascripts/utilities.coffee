@@ -53,6 +53,7 @@ $(document).ready(function() {
     $('#list').click(function(event){event.preventDefault();$('#artigos-container .item').removeClass('grid-group-item');$('#artigos-container .item').addClass('list-group-item');});
     $('#grid').click(function(event){event.preventDefault();$('#artigos-container .item').removeClass('list-group-item');$('#artigos-container .item').addClass('grid-group-item');});
 
+    //add to cart on grid of products
     $(document).on('click', '.add-to-cart-btn', function(){
         // what you want to happen when mouseover and mouseout 
         // occurs on elements that match '.dosomething'
@@ -69,7 +70,6 @@ $(document).ready(function() {
             dataType: 'json',
             data: obj,
             success: function(data){
-                //TODO: animate cart
                 //Scroll to top if cart icon is hidden on top
                 /*$('html, body').animate({
                     'scrollTop' : $("#cart-icon").position().top
@@ -85,6 +85,45 @@ $(document).ready(function() {
             }
         });
     });
+
+    //add to cart on product page
+    $(document).on('click', '.add-to-cart-btn-product-view', function(){
+        // what you want to happen when mouseover and mouseout 
+        // occurs on elements that match '.dosomething'
+        //href="/carrinho/adicionar/'+product.CodArtigo+'/1"
+        var artigo = {};
+        artigo.id = $(this).attr('data-id-artigo');
+
+        var quantidade = $("#quantidade-product-view").val();
+        if (isNaN(quantidade)){
+            $("#quantidade-product-view").val("inv.!");
+            return;
+        }
+        artigo.quantidade = parseInt($("#quantidade-product-view").val());
+        var obj = {}; obj.artigo = artigo;
+        var url = '/carrinho/adicionar';
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'json',
+            data: obj,
+            success: function(data){
+                //Scroll to top if cart icon is hidden on top
+                /*$('html, body').animate({
+                    'scrollTop' : $("#cart-icon").position().top
+                });*/
+                //Select item image and pass to the function
+                flyToElement($('.quantidade-product-view-container'), $('#cart-icon'));
+                console.log(data);
+            },
+            error: function(err){
+                console.log(err);
+                console.log(err.responseText);
+            }
+        });
+    });
+    
 
     (function ($) {
       $('.spinner .btn:first-of-type').on('click', function() {
