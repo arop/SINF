@@ -5,6 +5,13 @@ class CartController < ApplicationController
 		
 	end
 
+	def clear_cart
+		if defined? session[:carrinho] && !(session[:carrinho].nil?)
+			session[:carrinho] = Hash.new
+		end
+		render :json => '{"success" : "true"}'
+	end
+
 	def add_to_cart
 		if !params[:artigo].nil? && !params[:artigo][:id].nil? && !params[:artigo][:quantidade].nil?
 
@@ -13,9 +20,9 @@ class CartController < ApplicationController
 			end
 			#render :json => session[:carrinho].length			
 			if defined? session[:carrinho][params[:artigo][:id]]
-				session[:carrinho][params[:artigo][:id]] = params[:artigo][:quantidade].to_f + session[:carrinho][params[:artigo][:id]].to_f
+				session[:carrinho][params[:artigo][:id]] = params[:artigo][:quantidade].to_i + session[:carrinho][params[:artigo][:id]].to_i
 			else
-				session[:carrinho][params[:artigo][:id]] = params[:artigo][:quantidade].to_f
+				session[:carrinho][params[:artigo][:id]] = params[:artigo][:quantidade].to_i
 			end
 			render :json => session[:carrinho].length			
 		else 

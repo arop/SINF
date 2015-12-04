@@ -24,8 +24,8 @@
 		        <thead>
 		        <tr>
 		          <th class="col-md-1">Cód.</th>
-		          <th class="col-md-6">Produto</th>
-		          <th class="col-md-1">Quant.</th>
+		          <th class="col-md-5">Produto</th>
+		          <th class="col-md-2">Quant.</th>
 		          <th class="col-md-2">Preço unit.</th>
 		          <th class="col-md-2">Preço total</th>
 		        </tr>
@@ -44,7 +44,15 @@
 		              <tr id="artigo-<%=id%>">
 		                <td class="codigo-artigo-cart"><%=id%></td>
 		                <td class="descricao"></td>
-		                <td class="quantidade"><%=quantidade%></td>
+		                <td class="quantidade">
+		                	<div class="input-group spinner">
+			                    <input type="text" class="form-control" value="<%=quantidade%>">
+			                    <div class="input-group-btn-vertical">
+			                      <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+			                      <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+			                    </div>
+		                  	</div>
+		                </td>
 		                <td class="pvp"></td>
 		                <td class="total"></td>
 		                <%= tag(:input, :type => "hidden", :name => 'artigo[]', :value => id) %>
@@ -105,8 +113,9 @@
 
 		</div>
 
+		<input id="clear-cart" type="" class="btn btn-danger" value="Limpar Carrinho"/>
 		<% if (defined? session[:carrinho]) && !session[:carrinho].nil? && session[:carrinho].length != 0 %>
-			<input type="submit" class="btn btn-success" />
+			<input type="submit" class="btn btn-success pull-right" value="Finalizar encomenda"/>
 		<% end %>
 	</form>
 </div>

@@ -30,6 +30,7 @@ Rails.application.routes.draw do
 
 #  get 'carrinho/adicionar/:id_produto/:quantity' => 'cart_product#add', :id_produto => /.*/
   post 'carrinho/adicionar' => 'cart#add_to_cart'
+  get 'carrinho/limpar' => 'cart#clear_cart'
   
   get 'admins' => 'admin#index'
 

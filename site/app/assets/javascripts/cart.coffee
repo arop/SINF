@@ -36,7 +36,7 @@ $(document).ready(function(){
                         
                         $(parent_selector+" .descricao").html(artigos_temp[i].DescArtigo);
                         $(parent_selector+" .pvp").html(artigos_temp[i].PVP+'€');
-                        var quantidade = parseInt($(parent_selector+" .quantidade").html());
+                        var quantidade = parseInt($(parent_selector+" .quantidade input").val());
                         $(parent_selector+" .total").html(parseFloat(artigos_temp[i].PVP)*quantidade+'€');
                         $(parent_selector+' input[name="preco[]"]').val(artigos_temp[i].PVP);
                     }
@@ -60,6 +60,26 @@ $(document).ready(function(){
         });
     }
 
+
+    $("#clear-cart").click(function(){
+        $.ajax({
+            type: "GET",
+            url: '/carrinho/limpar',
+            crossDomain: true,
+            error: function (err) {
+                console.log(err);
+            },
+            success: function (msg) {
+                if (msg) {           
+                    console.log(msg);
+                    location.reload();
+                }
+                else {
+                    console.log("msg not good in clear cart");
+                }
+            }
+        });
+    });
     /*$('#form-carrinho').submit(function() {
         $("#form-carrinho tbody tr").each(function(){
             //console.log(a);
