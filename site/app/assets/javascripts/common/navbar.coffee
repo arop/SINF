@@ -12,20 +12,59 @@ $(document).ready(function () {
             console.log(err);
         },
         success: function(data) {
+
+            //verificar se está na pagina da categoria, para fazer highligh da categoria actual
+            var id_categoria = null;
+            var id_subcategoria = null;
+            if($("#titulo-categoria").length){
+                id_categoria = $("#titulo-categoria").attr("data-id-categoria");
+                if($("#titulo-subcategoria").length){
+                    id_subcategoria = $("#titulo-subcategoria").attr("data-id-subcategoria");
+                }
+            }
+
+            //inserir categorias no html
             var categorias = $.parseJSON(data);
             $('#dropdown-ul').html('');
             for(var  i in categorias){
                 var cat_link_id = "nav-categoria-" + categorias[i].CodCategoria;
+                var collapse_id = "collapse-" + categorias[i].CodCategoria.replace(/\./g, '_');
                 var class_cat = (categorias[i].SubCategorias == null)? "" : 'class="dropdown-submenu"';
 
-                $('#dropdown-ul').append('<li '+class_cat+'id="'+cat_link_id+'"><a href="/categoria/'+
-                    categorias[i].CodCategoria+'">'+categorias[i].DescCategoria+'</a></li>')
+                var collapse_open = "";
+                if(id_categoria != null && id_categoria == categorias[i].CodCategoria)
+                    collapse_open = " in ";
+
+                $("#accordion-container").append(
+                    '<div class="panel-heading">'
+                        +'<h4 class="panel-title">'
+                            +'<a href="/categoria/'+ categorias[i].CodCategoria+'">'+categorias[i].DescCategoria+'</a>'
+                            +'<a class="pull-right" data-toggle="collapse" data-parent="#accordion-sidebar" href="#'+collapse_id+'" ><span class="glyphicon glyphicon-plus">'
+                            +'</span></a>'
+                        +'</h4>'
+                    +'</div>');
+
+                //inserir subcategorias, caso existam
                 if(categorias[i].SubCategorias != 'null'){
-                    $('#'+cat_link_id).append('<ul class="dropdown-menu"></ul>');
-                    for(var j in categorias[i].SubCategorias)
-                        $('#'+cat_link_id+' ul').append('<li><a href="/categoria/'+
-                            categorias[i].CodCategoria+'/'+
-                        categorias[i].SubCategorias[j].CodCategoria+'">'+categorias[i].SubCategorias[j].DescCategoria+'</a></li>');
+
+                    var collapsed_content = 
+                            '<div id="'+collapse_id+'" class="panel-collapse collapse'+collapse_open+'">'+
+                                '<div class="panel-body">'+
+                                    '<table class="table">';
+
+                    /*$('#'+cat_link_id).append('<ul class="dropdown-menu"></ul>');*/
+                    for(var j in categorias[i].SubCategorias){
+                        //verificar se subcategoria actual, para fazer highlight (strong)
+                        var subcat_actual = false;
+                        if(id_subcategoria != null && id_subcategoria == categorias[i].SubCategorias[j].CodCategoria)
+                            subcat_actual = true;
+
+                        collapsed_content = collapsed_content + '<tr><td>'+
+                            '<a href="/categoria/'+categorias[i].CodCategoria+'/'+categorias[i].SubCategorias[j].CodCategoria+'">'+
+                            (subcat_actual? '<strong>' : '') + categorias[i].SubCategorias[j].DescCategoria+(subcat_actual? '</strong>' : '')+'</a></td></tr>';
+                    }
+                    collapsed_content = collapsed_content + '</table></div></div>';
+                    $("#accordion-container").append(collapsed_content);
                 }
             }
         }

@@ -41,7 +41,7 @@
 		            </tr>
 		          <% else %>
 		            <% session[:carrinho].each do |id, quantidade| %>
-		              <tr id="artigo-<%=id%>">
+		              <tr id="artigo-<%= id.dup.gsub! '.', '_' %>"> <!-- pontos nos ids não funcionam... -->
 		                <td class="codigo-artigo-cart"><%=id%></td>
 		                <td class="descricao"></td>
 		                <td class="quantidade">

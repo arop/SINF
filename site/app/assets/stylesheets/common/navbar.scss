@@ -77,7 +77,7 @@
     a{
         color: #FFF;
     }
-    button{
+    button:not(.search-button){
         color: #FFF;
     }
     .navbar-toggle{
@@ -98,4 +98,13 @@
 #navbar-custom{
    background-color: rgb(239, 108, 0);
    border-color: white;
+}
+
+#accordion-container{
+    .panel-heading{
+        background-color: white;
+    }    
+    table{
+        margin: 0;
+    }
 }

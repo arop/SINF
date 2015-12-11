@@ -24,3 +24,5 @@ Rails.application.config.assets.precompile += %w( admin.js )
 Rails.application.config.assets.precompile += %w( product_description.js )
 
 Rails.application.config.assets.precompile += %w( encomenda.js )
+
+Rails.application.config.assets.precompile += %w( search.js )

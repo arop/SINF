@@ -36,6 +36,8 @@ Rails.application.routes.draw do
 
   get 'encomenda/:id' => 'encomenda#show', :id => /.*/
 
+  get 'pesquisa' => 'search#index'
+
   devise_for :users, :controllers => { registrations: 'registration' }
        
 end

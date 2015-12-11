@@ -1,0 +1,39 @@
+<%= render 'common/header' %>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+</head>
+<body>
+<%= render 'common/navbar' %>
+
+<!-- Page Content -->
+<div class="container">
+  
+  <!-- Title -->
+  <div class="well well-sm">
+    <strong>Resultados da pesquisa</strong>
+    <div class="btn-group">
+        <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list"></span>Lista</a> 
+        <a href="#" id="grid" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th"></span>Grelha</a>
+    </div>
+  </div>
+  <!-- /.row -->
+
+  <!-- Page Features -->
+  <div id="artigos-container" class="row list-group">
+  </div>
+  <!--<div id="top-container" class="row text-center">
+  </div>-->
+  <!-- /.row -->
+
+  <hr>
+
+
+
+</div>
+<!-- /.container -->
+
+
+
+<%= render 'common/footer' %>
+<%= javascript_include_tag "search" %>
+

@@ -28,16 +28,17 @@ $(document).ready(function(){
             },
             success: function (msg) {
                 if (msg) {           
-                    console.log(msg);
+                    //console.log(msg);
                     var artigos_temp = $.parseJSON(msg);
                     for(var i in artigos_temp){
                         artigos_carrinho[artigos_temp[i].CodArtigo] = artigos_temp[i];
                         var parent_selector = "#artigo-"+artigos_temp[i].CodArtigo;
+                        parent_selector = parent_selector.replace(/\./g, '_'); //pontos nos ids não funcionam...
                         
                         $(parent_selector+" .descricao").html(artigos_temp[i].DescArtigo);
-                        $(parent_selector+" .pvp").html(artigos_temp[i].PVP+'€');
+                        $(parent_selector+" .pvp").html(artigos_temp[i].PVP.toFixed(2)+'€');
                         var quantidade = parseInt($(parent_selector+" .quantidade input").val());
-                        $(parent_selector+" .total").html(parseFloat(artigos_temp[i].PVP)*quantidade+'€');
+                        $(parent_selector+" .total").html((parseFloat(artigos_temp[i].PVP)*quantidade).toFixed(2)+'€');
                         $(parent_selector+' input[name="preco[]"]').val(artigos_temp[i].PVP);
                     }
 
@@ -46,10 +47,10 @@ $(document).ready(function(){
                         var string_temp = $(this).html();
                         console.log(string_temp);
                         string_temp = string_temp.substring(0, string_temp.length - 1);
-                        console.log(string_temp);
+                        //console.log(string_temp);
                         total += parseFloat(string_temp);
                     })
-                    $("#total-carrinho").html(total+"€"); 
+                    $("#total-carrinho").html(total.toFixed(2)+"€"); 
 
                     //sendDocVenda();
                 }

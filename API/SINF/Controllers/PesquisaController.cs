@@ -15,7 +15,7 @@ namespace SINF.Controllers
     {
 
         [ActionName("artigos")]
-        [System.Web.Http.HttpPost]
+        [System.Web.Http.HttpGet]
         public HttpResponseMessage Artigos(string id)
         {
             List<Artigo> resultado = Lib_Primavera.PriIntegration.ProcurarArtigos(id);

@@ -7,38 +7,42 @@
 
 <!-- Page Content -->
 <div class="container">
+    <div class="row">
+      
+        <%= render 'common/sidebar' %>
 
-  <!-- Jumbotron Header -->
-  <header class="jumbotron hero-spacer">
-    <h1>A Warm Welcome!</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
-    <p><a class="btn btn-primary btn-large">Call to action!</a>
-    </p>
-  </header>
+        <div class="col-xs-9">
+            <!-- Jumbotron Header -->
+            <!--<header class="jumbotron hero-spacer">
+              <h1>A Warm Welcome!</h1>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
+              <p><a class="btn btn-primary btn-large">Call to action!</a>
+              </p>
+            </header>
 
-  <hr>
+            <hr>
+            -->
+            <!-- Title -->
+            <div class="well well-sm">
+              <strong>Artigos mais vendidos</strong>
+              <div class="btn-group">
+                  <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list"></span>Lista</a> 
+                  <a href="#" id="grid" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th"></span>Grelha</a>
+              </div>
+            </div>
+            <!-- /.row -->
 
-  <!-- Title -->
-  <div class="well well-sm">
-    <strong>Artigos mais vendidos</strong>
-    <div class="btn-group">
-        <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list"></span>List</a> 
-        <a href="#" id="grid" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th"></span>Grid</a>
-    </div>
-  </div>
-  <!-- /.row -->
+            <!-- Page Features -->
+            <div id="artigos-container" class="row list-group">
+            </div>
+            <!--<div id="top-container" class="row text-center">
+            </div>-->
+            <!-- /.row -->
 
-  <!-- Page Features -->
-  <div id="artigos-container" class="row list-group">
-  </div>
-  <!--<div id="top-container" class="row text-center">
-  </div>-->
-  <!-- /.row -->
+            <hr>
 
-  <hr>
-
-
-
+        </div><!-- col main -->
+    </div> <!-- row -->
 </div>
 <!-- /.container -->
 

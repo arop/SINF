@@ -14,12 +14,6 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <!--<li>
-          <a href="#">Produtos</a>
-        </li>
-        <li>
-          <a href="#">Services</a>
-        </li>-->
-        <li>
           <div class="dropdown-container">
             <button type="button" class="dropdown-toggle custom-btn" data-toggle="dropdown">
               Categorias <span class="caret"></span>
@@ -27,8 +21,19 @@
             <ul id="dropdown-ul" class="dropdown-menu" role="menu">
             </ul>
           </div>
-        </li>
+        </li>-->
       </ul>
+
+      <div class="col-sm-3 col-md-3">
+        <form class="navbar-form" role="search" method="GET" action="/pesquisa">
+          <div class="input-group">
+              <input id="search-input" type="text" class="form-control" placeholder="Pesquisar..." name="q" <% if !@search_query.nil? %> value="<%=@search_query%>" <% end %>>
+              <div class="input-group-btn">
+                  <button  class="btn btn-default search-button" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+              </div>
+          </div>
+        </form>
+      </div>
 
       <ul class="nav navbar-nav navbar-right">
 
