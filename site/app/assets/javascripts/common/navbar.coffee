@@ -31,24 +31,29 @@ $(document).ready(function () {
                 var collapse_id = "collapse-" + categorias[i].CodCategoria.replace(/\./g, '_');
                 var class_cat = (categorias[i].SubCategorias == null)? "" : 'class="dropdown-submenu"';
 
-                var collapse_open = "";
+                var collapse_open = false;
                 if(id_categoria != null && id_categoria == categorias[i].CodCategoria)
-                    collapse_open = " in ";
+                    collapse_open = true;
+
+                var has_subcategorias = false;
+                if(categorias[i].SubCategorias != null && categorias[i].SubCategorias.length > 0)
+                    has_subcategorias = true
 
                 $("#accordion-container").append(
                     '<div class="panel-heading">'
                         +'<h4 class="panel-title">'
                             +'<a href="/categoria/'+ categorias[i].CodCategoria+'">'+categorias[i].DescCategoria+'</a>'
-                            +'<a class="pull-right" data-toggle="collapse" data-parent="#accordion-sidebar" href="#'+collapse_id+'" ><span class="glyphicon glyphicon-plus">'
-                            +'</span></a>'
+                            +'<a class="pull-right" data-toggle="collapse" data-parent="#accordion-sidebar" href="#'+collapse_id+'" >'
+                            +(has_subcategorias? '<span class="glyphicon glyphicon-plus"></span>' : '')
+                            +'</a>'
                         +'</h4>'
                     +'</div>');
 
                 //inserir subcategorias, caso existam
-                if(categorias[i].SubCategorias != 'null'){
+                if(has_subcategorias){
 
                     var collapsed_content = 
-                            '<div id="'+collapse_id+'" class="panel-collapse collapse'+collapse_open+'">'+
+                            '<div id="'+collapse_id+'" class="panel-collapse collapse'+(collapse_open? " in " : "")+'">'+
                                 '<div class="panel-body">'+
                                     '<table class="table">';
 
@@ -61,7 +66,7 @@ $(document).ready(function () {
 
                         collapsed_content = collapsed_content + '<tr><td>'+
                             '<a href="/categoria/'+categorias[i].CodCategoria+'/'+categorias[i].SubCategorias[j].CodCategoria+'">'+
-                            (subcat_actual? '<strong>' : '') + categorias[i].SubCategorias[j].DescCategoria+(subcat_actual? '</strong>' : '')+'</a></td></tr>';
+                            (collapse_open && subcat_actual? '<strong>' : '') + categorias[i].SubCategorias[j].DescCategoria+(collapse_open && subcat_actual? '</strong>' : '')+'</a></td></tr>';
                     }
                     collapsed_content = collapsed_content + '</table></div></div>';
                     $("#accordion-container").append(collapsed_content);
