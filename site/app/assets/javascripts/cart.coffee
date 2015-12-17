@@ -28,13 +28,14 @@ $(document).ready(function(){
             },
             success: function (msg) {
                 if (msg) {           
-                    //console.log(msg);
+                    console.log(msg);
                     var artigos_temp = $.parseJSON(msg);
                     for(var i in artigos_temp){
                         artigos_carrinho[artigos_temp[i].CodArtigo] = artigos_temp[i];
                         var parent_selector = "#artigo-"+artigos_temp[i].CodArtigo;
                         parent_selector = parent_selector.replace(/\./g, '_'); //pontos nos ids não funcionam...
-                        
+                        console.log(parent_selector);
+
                         $(parent_selector+" .descricao").html(artigos_temp[i].DescArtigo);
                         $(parent_selector+" .pvp").html(artigos_temp[i].PVP.toFixed(2)+'€');
                         var quantidade = parseInt($(parent_selector+" .quantidade input").val());
@@ -51,7 +52,7 @@ $(document).ready(function(){
                         total += parseFloat(string_temp);
                     })
                     $("#total-carrinho").html(total.toFixed(2)+"€"); 
-
+                    $("#finazalizar-btn").removeAttr("disabled");
                     //sendDocVenda();
                 }
                 else {
@@ -61,6 +62,11 @@ $(document).ready(function(){
         });
     }
 
+    $("#finazalizar-btn").click(function(e){
+        e.preventDefault();
+        $(this).attr("disabled", "disabled");
+        $("#form-carrinho").submit();
+    });
 
     $("#clear-cart").click(function(){
         $.ajax({

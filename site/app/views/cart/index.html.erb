@@ -41,7 +41,7 @@
 		            </tr>
 		          <% else %>
 		            <% session[:carrinho].each do |id, quantidade| %>
-		              <tr id="artigo-<%= id.dup.gsub! '.', '_' %>"> <!-- pontos nos ids não funcionam... -->
+		              <tr id="artigo-<%= id.dup.gsub /\./, '_' %>"> <!-- pontos nos ids não funcionam... -->
 		                <td class="codigo-artigo-cart"><%=id%></td>
 		                <td class="descricao"></td>
 		                <td class="quantidade">
@@ -115,7 +115,7 @@
 
 		<input id="clear-cart" type="" class="btn btn-danger" value="Limpar Carrinho"/>
 		<% if (defined? session[:carrinho]) && !session[:carrinho].nil? && session[:carrinho].length != 0 %>
-			<input type="submit" class="btn btn-success pull-right" value="Finalizar encomenda"/>
+			<input id="finazalizar-btn" type="submit" class="btn btn-success pull-right" value="Finalizar encomenda" disabled="disabled" />
 		<% end %>
 	</form>
 </div>

@@ -25,7 +25,7 @@ $(document).ready(function () {
 
             //inserir categorias no html
             var categorias = $.parseJSON(data);
-            $('#dropdown-ul').html('');
+            //$('#dropdown-ul').html('');
             for(var  i in categorias){
                 var cat_link_id = "nav-categoria-" + categorias[i].CodCategoria;
                 var collapse_id = "collapse-" + categorias[i].CodCategoria.replace(/\./g, '_');

@@ -401,9 +401,9 @@ namespace SINF.Lib_Primavera
             {
 
                 //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
-                string query = "SELECT a.Artigo, a.Descricao, a.Marca, a.Modelo, a.Peso, a.UnidadeBase," +
-                        " m.PVP1, m.Moeda" +
-                        " FROM Artigo AS a JOIN ArtigoMoeda AS m ON a.Artigo = m.Artigo  WHERE a.Familia = '" + categoria + "'";
+                string query = "SELECT a.*," +
+                        " m.*" +
+                        " FROM Artigo AS a JOIN ArtigoMoeda AS m ON a.Artigo = m.Artigo  WHERE a.Familia = '" + categoria + "' AND a.TipoArtigo = 3";
                 objList = PriEngine.Engine.Consulta(query);
 
 
@@ -442,7 +442,7 @@ namespace SINF.Lib_Primavera
                 //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
                 string query = "SELECT a.Artigo, a.Descricao, a.Marca, a.Modelo, a.Peso, a.UnidadeBase," +
                         " m.PVP1, m.Moeda" +
-                        " FROM Artigo AS a JOIN ArtigoMoeda AS m ON a.Artigo = m.Artigo  WHERE a.SubFamilia = '" + categoria + "'";
+                        " FROM Artigo AS a JOIN ArtigoMoeda AS m ON a.Artigo = m.Artigo  WHERE a.SubFamilia = '" + categoria + "' AND a.TipoArtigo = 3";
                 objList = PriEngine.Engine.Consulta(query);
 
 
@@ -481,7 +481,7 @@ namespace SINF.Lib_Primavera
                 string query = "SELECT a.Artigo, a.Descricao, a.Marca, a.Modelo, a.Peso, a.UnidadeBase, a.Familia, a.SubFamilia, " +
                         " m.PVP1, m.Moeda" +
                         " FROM Artigo AS a JOIN ArtigoMoeda AS m ON a.Artigo = m.Artigo  WHERE a.Artigo LIKE '%" + termoProcura + "%' OR " +
-                        " a.Descricao LIKE '%" + termoProcura + "%'";
+                        " a.Descricao LIKE '%" + termoProcura + "%' AND a.TipoArtigo = 3";
                 objList = PriEngine.Engine.Consulta(query);
 
 
@@ -510,9 +510,6 @@ namespace SINF.Lib_Primavera
                 return null;
         }
 
-
-        
-
         public static List<Lib_Primavera.Model.Artigo> Top_artigos(int quantidade , string categoria)
         {
 
@@ -526,7 +523,7 @@ namespace SINF.Lib_Primavera
                                                                 " FROM  LinhasDoc" +
                                                                 " GROUP BY Artigo) as v" +
                                         " ON a.Artigo = v.Artigo JOIN ArtigoMoeda AS m ON a.Artigo = m.Artigo" +
-                                        ((categoria == null) ? " " : " WHERE a.Familia = '" + categoria + "' ") +
+                                        ((categoria == null) ? " " : " WHERE a.Familia = '" + categoria + "' AND a.TipoArtigo = 3 ") +
                                         " ORDER BY itemcount DESC";
 
                 //       objListLin = PriEngine.Engine.Consulta("SELECT TOP 20 Artigo, COUNT(*) as itemcount from LinhasDoc JOIN Artigo ON Artigo.Artigo GROUP BY Artigo ORDER BY itemcount");
