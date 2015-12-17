@@ -39,7 +39,7 @@ function getProdutosCliente(id_cliente){
                     '<div class="row">'+ 
                         '<div class="col-lg-4">' + artigos_temp[i].NumDoc + '/' + artigos_temp[i].Serie +'</div>'+
                         '<div class="col-lg-4">' + d.format("dd/mm/yyyy") + '</div>'+
-                        '<div class="col-lg-4">' + artigos_temp[i].TotalMerc + ' €</div>'+
+                        '<div class="col-lg-4">' + artigos_temp[i].TotalMerc.toFixed(2) + ' €</div>'+
                     '</div>'+
                   '</a>'+
                 '</h4>'+
@@ -81,7 +81,7 @@ function getProdutosCliente(id_cliente){
                                 var top_element = 
                                 '<tr id="' +  artigos_temp[i].id + '">'+
                                 '<td>'+ '<a href="/product/' + artigos_temp[i].CodArtigo + '"> ' + artigos_temp[i].DescArtigo+'</a></td>'+
-                                '<td>'+artigos_temp[i].PrecoUnitario+'</td>'+
+                                '<td>'+artigos_temp[i].TotalLiquido.toFixed(2)+'€</td>'+
                                 '<td>'+artigos_temp[i].Quantidade+'</td>'+
                                 '</tr>';
                                 $('#tabela-produtos-' + idParentDiv).append(top_element);

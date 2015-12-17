@@ -16,7 +16,7 @@
                         <div class="row">
                             <div class="col-xs-12 col-md-6">
                                 <p class="lead">'+
-                                    product.PVP+'€</p>
+                                    product.PVP.toFixed(2)+'€</p>
                             </div>
 
                             <div class="col-xs-12 col-md-6">
