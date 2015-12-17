@@ -251,10 +251,10 @@ namespace SINF.Lib_Primavera
 
             if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
             {
-                string query = "SELECT a.*, m.*, f.Descricao as familiaDesc "+
-                    "FROM Artigo as a, ArtigoMoeda as m, Familias as f "+
+                string query = "SELECT a.*, m.*, f.Descricao as familiaDesc, i.Taxa "+
+                    "FROM Artigo as a, ArtigoMoeda as m, Familias as f, Iva as i "+
                     "where a.Artigo = m.Artigo AND a.Artigo='" + codArtigo+"' "+
-                    "AND a.Familia = f.Familia";
+                    "AND a.Familia = f.Familia AND i.Iva = a.Iva";
 
                 objListLin = PriEngine.Engine.Consulta(query);
 
@@ -273,6 +273,7 @@ namespace SINF.Lib_Primavera
                     artigo.Marca = objListLin.Valor("Marca");
                     artigo.Modelo = objListLin.Valor("Modelo");
                     artigo.Peso = objListLin.Valor("Peso");
+                    artigo.IVA = objListLin.Valor("Taxa");
 
                     if (artigo.SubCategoria != "") {
                         string querySubFamilia = "SELECT * FROM SubFamilias WHERE SubFamilias.SubFamilia = '" + artigo.SubCategoria + "'";
@@ -306,10 +307,10 @@ namespace SINF.Lib_Primavera
                 foreach(String codArtigo in car.Produtos_id){
                     Lib_Primavera.Model.Artigo artigo = new Lib_Primavera.Model.Artigo();
 
-                    string query = "SELECT a.*, m.*, f.Descricao as familiaDesc " +
-                    "FROM Artigo as a, ArtigoMoeda as m, Familias as f " +
+                    string query = "SELECT a.*, m.*, f.Descricao as familiaDesc, i.Taxa, i.Iva " +
+                    "FROM Artigo as a, ArtigoMoeda as m, Familias as f, Iva as i " +
                     "where a.Artigo = m.Artigo AND a.Artigo='" + codArtigo + "' " +
-                    "AND a.Familia = f.Familia";
+                    "AND a.Familia = f.Familia AND i.Iva = a.Iva";
 
                     objListLin = PriEngine.Engine.Consulta(query);
 
@@ -328,6 +329,7 @@ namespace SINF.Lib_Primavera
                         artigo.Marca = objListLin.Valor("Marca");
                         artigo.Modelo = objListLin.Valor("Modelo");
                         artigo.Peso = objListLin.Valor("Peso");
+                        artigo.IVA = objListLin.Valor("Taxa");
 
                         if (artigo.SubCategoria != "")
                         {
@@ -402,8 +404,8 @@ namespace SINF.Lib_Primavera
 
                 //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
                 string query = "SELECT a.*," +
-                        " m.*" +
-                        " FROM Artigo AS a JOIN ArtigoMoeda AS m ON a.Artigo = m.Artigo  WHERE a.Familia = '" + categoria + "' AND a.TipoArtigo = 3";
+                        " m.*, i.Taxa " +
+                        " FROM Artigo AS a JOIN ArtigoMoeda AS m ON a.Artigo = m.Artigo JOIN Iva as i ON a.Iva = i.Iva WHERE a.Familia = '" + categoria + "' AND a.TipoArtigo = 3";
                 objList = PriEngine.Engine.Consulta(query);
 
 
@@ -418,7 +420,8 @@ namespace SINF.Lib_Primavera
                         UnidadeBase = objList.Valor("UnidadeBase"),
                         Marca = objList.Valor("Marca"),
                         Modelo = objList.Valor("Modelo"),
-                        Peso = objList.Valor("Peso")
+                        Peso = objList.Valor("Peso"),
+                        IVA = objList.Valor("Taxa")
                     });
                     objList.Seguinte();
 
@@ -440,9 +443,9 @@ namespace SINF.Lib_Primavera
             {
 
                 //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
-                string query = "SELECT a.Artigo, a.Descricao, a.Marca, a.Modelo, a.Peso, a.UnidadeBase," +
-                        " m.PVP1, m.Moeda" +
-                        " FROM Artigo AS a JOIN ArtigoMoeda AS m ON a.Artigo = m.Artigo  WHERE a.SubFamilia = '" + categoria + "' AND a.TipoArtigo = 3";
+                string query = "SELECT a.Artigo, a.Descricao, a.Marca, a.Modelo, a.Peso, a.UnidadeBase, a.Iva, " +
+                        " m.PVP1, m.Moeda, i.Taxa" +
+                        " FROM Artigo AS a JOIN ArtigoMoeda AS m ON a.Artigo = m.Artigo JOIN Iva as i ON a.Iva = i.Iva  WHERE a.SubFamilia = '" + categoria + "' AND a.TipoArtigo = 3";
                 objList = PriEngine.Engine.Consulta(query);
 
 
@@ -457,7 +460,8 @@ namespace SINF.Lib_Primavera
                         UnidadeBase = objList.Valor("UnidadeBase"),
                         Marca = objList.Valor("Marca"),
                         Modelo = objList.Valor("Modelo"),
-                        Peso = objList.Valor("Peso")
+                        Peso = objList.Valor("Peso"),
+                        IVA = objList.Valor("Taxa")
                     });
                     objList.Seguinte();
 
@@ -478,9 +482,9 @@ namespace SINF.Lib_Primavera
             {
 
                 //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
-                string query = "SELECT a.Artigo, a.Descricao, a.Marca, a.Modelo, a.Peso, a.UnidadeBase, a.Familia, a.SubFamilia, " +
+                string query = "SELECT a.Artigo, a.Descricao, a.Marca, a.Modelo, a.Peso, a.UnidadeBase, a.Familia, a.SubFamilia, a.CodIva, i.Taxa, " +
                         " m.PVP1, m.Moeda" +
-                        " FROM Artigo AS a JOIN ArtigoMoeda AS m ON a.Artigo = m.Artigo  WHERE a.Artigo LIKE '%" + termoProcura + "%' OR " +
+                        " FROM Artigo AS a JOIN ArtigoMoeda AS m ON a.Artigo = m.Artigo JOIN Iva as i ON a.CodIva = i.Iva WHERE a.Artigo LIKE '%" + termoProcura + "%' OR " +
                         " a.Descricao LIKE '%" + termoProcura + "%' AND a.TipoArtigo = 3";
                 objList = PriEngine.Engine.Consulta(query);
 
@@ -498,7 +502,8 @@ namespace SINF.Lib_Primavera
                         UnidadeBase = objList.Valor("UnidadeBase"),
                         Marca = objList.Valor("Marca"),
                         Modelo = objList.Valor("Modelo"),
-                        Peso = objList.Valor("Peso")
+                        Peso = objList.Valor("Peso"),
+                        IVA = objList.Valor("Taxa")
                     });
                     objList.Seguinte();
 
@@ -518,12 +523,13 @@ namespace SINF.Lib_Primavera
 
             if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
             {
-                string query = "SELECT TOP " + quantidade + " a.Artigo, a.Descricao, a.Marca, a.Modelo, a.Peso, a.UnidadeBase, m.PVP1, m.moeda, a.Familia, a.SubFamilia, v.itemcount" +
+                string query = "SELECT TOP " + quantidade + " a.Artigo, a.Descricao, a.Marca, a.Modelo, a.Peso, a.UnidadeBase, m.PVP1, m.moeda, a.Familia, a.SubFamilia, v.itemcount, a.Iva, i.Taxa" +
                                         " FROM Artigo as a JOIN (SELECT Artigo, COUNT(*) as itemcount" +
                                                                 " FROM  LinhasDoc" +
                                                                 " GROUP BY Artigo) as v" +
-                                        " ON a.Artigo = v.Artigo JOIN ArtigoMoeda AS m ON a.Artigo = m.Artigo" +
-                                        ((categoria == null) ? " " : " WHERE a.Familia = '" + categoria + "' AND a.TipoArtigo = 3 ") +
+                                        " ON a.Artigo = v.Artigo JOIN ArtigoMoeda AS m ON a.Artigo = m.Artigo JOIN Iva as i ON a.Iva = i.Iva" +
+                                        ((categoria == null) ? " " : " WHERE a.Familia = '" + categoria + "'") + 
+                                        ((categoria == null) ? " WHERE " : " AND ") + " a.TipoArtigo = 3 "+ //3 -> Mercadoria
                                         " ORDER BY itemcount DESC";
 
                 //       objListLin = PriEngine.Engine.Consulta("SELECT TOP 20 Artigo, COUNT(*) as itemcount from LinhasDoc JOIN Artigo ON Artigo.Artigo GROUP BY Artigo ORDER BY itemcount");
@@ -544,7 +550,8 @@ namespace SINF.Lib_Primavera
                         UnidadeBase = objListLin.Valor("UnidadeBase"),
                         Marca = objListLin.Valor("Marca"),
                         Modelo = objListLin.Valor("Modelo"),
-                        Peso = objListLin.Valor("Peso")
+                        Peso = objListLin.Valor("Peso"),
+                        IVA = objListLin.Valor("Taxa")
                     });
 
                     objListLin.Seguinte();
@@ -932,54 +939,7 @@ namespace SINF.Lib_Primavera
             }
         }
 
-        //isto n funciona. provavelmente converter uma encomenda em factura é mais complexo q isto.    
-        /*public static Model.RespostaErro Converter_Em_Factura(int id_dv)
-        {
-            Lib_Primavera.Model.RespostaErro erro = new Model.RespostaErro();
-            PreencheRelacaoVendas rl = new PreencheRelacaoVendas();
-            bool iniciouTransaccao = false;
-            try
-            {
-                if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
-                {
-                    GcpBEDocumentoVenda myEnc2 = new GcpBEDocumentoVenda();
-                    //PriEngine.Engine.Comercial.Vendas.TransformaDocumento
-
-         
-                    myEnc2 = PriEngine.Engine.Comercial.Vendas.Edita("001", "ECL", "A", id_dv);
-                    myEnc2.set_EmModoEdicao(true);
-                    myEnc2.set_Tipodoc("FS");
-
-                    PriEngine.Engine.IniciaTransaccao();
-                    iniciouTransaccao = true;
-                    PriEngine.Engine.Comercial.Vendas.Actualiza(myEnc2);
-                    PriEngine.Engine.TerminaTransaccao();
-                    iniciouTransaccao = false;
-
-                    erro.Erro = 0;
-                    erro.Descricao = "Sucesso";
-                    return erro;
-                }
-                else
-                {
-                    erro.Erro = 1;
-                    erro.Descricao = "Erro ao abrir empresa";
-                    return erro;
-
-                }
-
-            }
-            catch (Exception ex)
-            {
-                if (iniciouTransaccao)
-                    PriEngine.Engine.DesfazTransaccao();
-                erro.Erro = 1;
-                erro.Descricao = ex.Message;
-                return erro;
-            }
-        }*/
-
-
+     
         public static List<Model.DocVenda> Encomendas_List(int mes, int ano)
         {
 
@@ -994,8 +954,8 @@ namespace SINF.Lib_Primavera
             if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
             {
                 if (mes < 0 || ano < 0)
-                    objListCab = PriEngine.Engine.Consulta("SELECT id, Entidade, Data, NumDoc, TotalMerc, Serie From CabecDoc where TipoDoc='ECL' ORDER BY Data DESC, NumDoc DESC");
-                else objListCab = PriEngine.Engine.Consulta("SELECT id, Entidade, Data, NumDoc, TotalMerc, Serie From CabecDoc where TipoDoc='ECL' AND MONTH(Data) = " + mes + " AND YEAR(Data) = " + ano + " ORDER BY Data DESC, NumDoc DESC");
+                    objListCab = PriEngine.Engine.Consulta("SELECT id, Entidade, Data, NumDoc, TotalMerc, TotalIva, Serie From CabecDoc where TipoDoc='ECL' ORDER BY Data DESC, NumDoc DESC");
+                else objListCab = PriEngine.Engine.Consulta("SELECT id, Entidade, Data, NumDoc, TotalMerc, TotalIva, Serie From CabecDoc where TipoDoc='ECL' AND MONTH(Data) = " + mes + " AND YEAR(Data) = " + ano + " ORDER BY Data DESC, NumDoc DESC");
                 while (!objListCab.NoFim())
                 {
                     dv = new Model.DocVenda();
@@ -1004,11 +964,12 @@ namespace SINF.Lib_Primavera
                     dv.NumDoc = objListCab.Valor("NumDoc");
                     dv.Data = objListCab.Valor("Data");
                     dv.TotalMerc = objListCab.Valor("TotalMerc");
+                    dv.TotalIva = objListCab.Valor("TotalIva");
                     dv.Serie = objListCab.Valor("Serie");
-                    objListLin = PriEngine.Engine.Consulta("SELECT idCabecDoc, Artigo, Descricao, Quantidade, Unidade, PrecUnit, Desconto1, TotalILiquido, PrecoLiquido from LinhasDoc where IdCabecDoc='" + dv.id + "' order By NumLinha");
+                    objListLin = PriEngine.Engine.Consulta("SELECT * from LinhasDoc where IdCabecDoc='" + dv.id + "' order By NumLinha");
                     listlindv = new List<Model.LinhaDocVenda>();
 
-                    while (!objListLin.NoFim())
+                   /* while (!objListLin.NoFim())
                     {
                         lindv = new Model.LinhaDocVenda();
                         lindv.IdCabecDoc = objListLin.Valor("idCabecDoc");
@@ -1020,10 +981,11 @@ namespace SINF.Lib_Primavera
                         lindv.PrecoUnitario = objListLin.Valor("PrecUnit");
                         lindv.TotalILiquido = objListLin.Valor("TotalILiquido");
                         lindv.TotalLiquido = objListLin.Valor("PrecoLiquido");
+                        lindv.IVA = objListLin.Valor("IVA");
 
                         listlindv.Add(lindv);
                         objListLin.Seguinte();
-                    }
+                    }*/
 
                     dv.LinhasDoc = listlindv;
                     listdv.Add(dv);
@@ -1045,7 +1007,7 @@ namespace SINF.Lib_Primavera
             {
 
 
-                string st = "SELECT id, Entidade, Data, NumDoc, TotalMerc, Serie From CabecDoc where TipoDoc='ECL' and NumDoc='" + numdoc + "'";
+                string st = "SELECT id, Entidade, Data, NumDoc, TotalMerc, TotalIva Serie From CabecDoc where TipoDoc='ECL' and NumDoc='" + numdoc + "'";
                 objListCab = PriEngine.Engine.Consulta(st);
                 dv = new Model.DocVenda();
                 dv.id = objListCab.Valor("id");
@@ -1053,22 +1015,24 @@ namespace SINF.Lib_Primavera
                 dv.NumDoc = objListCab.Valor("NumDoc");
                 dv.Data = objListCab.Valor("Data");
                 dv.TotalMerc = objListCab.Valor("TotalMerc");
+                dv.TotalIva = objListCab.Valor("TotalIva");
                 dv.Serie = objListCab.Valor("Serie");
-                objListLin = PriEngine.Engine.Consulta("SELECT idCabecDoc, Artigo, Descricao, Quantidade, Unidade, PrecUnit, Desconto1, TotalILiquido, PrecoLiquido from LinhasDoc where IdCabecDoc='" + dv.id + "' order By NumLinha");
+                objListLin = PriEngine.Engine.Consulta("SELECT LinhasDoc.*, Iva.* from LinhasDoc JOIN Iva ON Iva.Iva = LinhasDoc.CodIva where IdCabecDoc='" + dv.id + "' order By NumLinha");
                 listlindv = new List<Model.LinhaDocVenda>();
 
                 while (!objListLin.NoFim())
                 {
                     lindv = new Model.LinhaDocVenda();
-                    lindv.IdCabecDoc = objListLin.Valor("idCabecDoc");
-                    lindv.CodArtigo = objListLin.Valor("Artigo");
-                    lindv.DescArtigo = objListLin.Valor("Descricao");
-                    lindv.Quantidade = objListLin.Valor("Quantidade");
-                    lindv.Unidade = objListLin.Valor("Unidade");
-                    lindv.Desconto = objListLin.Valor("Desconto1");
-                    lindv.PrecoUnitario = objListLin.Valor("PrecUnit");
-                    lindv.TotalILiquido = objListLin.Valor("TotalILiquido");
-                    lindv.TotalLiquido = objListLin.Valor("PrecoLiquido");
+                    lindv.IdCabecDoc = objListLin.Valor("LinhasDoc.idCabecDoc");
+                    lindv.CodArtigo = objListLin.Valor("LinhasDoc.Artigo");
+                    lindv.DescArtigo = objListLin.Valor("LinhasDoc.Descricao");
+                    lindv.Quantidade = objListLin.Valor("LinhasDoc.Quantidade");
+                    lindv.Unidade = objListLin.Valor("LinhasDoc.Unidade");
+                    lindv.Desconto = objListLin.Valor("LinhasDoc.Desconto1");
+                    lindv.PrecoUnitario = objListLin.Valor("LinhasDoc.PrecUnit");
+                    lindv.TotalILiquido = objListLin.Valor("LinhasDoc.TotalILiquido");
+                    lindv.TotalLiquido = objListLin.Valor("LinhasDoc.PrecoLiquido");
+                    lindv.IVA = objListLin.Valor("Iva.Taxa");
                     listlindv.Add(lindv);
                     objListLin.Seguinte();
                 }
@@ -1093,7 +1057,7 @@ namespace SINF.Lib_Primavera
 
             if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
             {
-                objListCab = PriEngine.Engine.Consulta("SELECT id, Entidade, Data, NumDoc, TotalMerc, Serie From CabecDoc where TipoDoc='ECL' AND Entidade = '" + clienteID + "' ORDER BY Data DESC, NumDoc DESC");
+                objListCab = PriEngine.Engine.Consulta("SELECT id, Entidade, Data, NumDoc, TotalMerc, TotalIva, Serie From CabecDoc where TipoDoc='ECL' AND Entidade = '" + clienteID + "' ORDER BY Data DESC, NumDoc DESC");
                 while (!objListCab.NoFim())
                 {
                     dv = new Model.DocVenda();
@@ -1103,6 +1067,7 @@ namespace SINF.Lib_Primavera
                     dv.Data = objListCab.Valor("Data");
                     dv.TotalMerc = objListCab.Valor("TotalMerc");
                     dv.Serie = objListCab.Valor("Serie");
+                    dv.TotalIva = objListCab.Valor("TotalIva");
                     
                     objListLin = PriEngine.Engine.Consulta("SELECT idCabecDoc, Artigo, Descricao, Quantidade, Unidade, PrecUnit, Desconto1, TotalILiquido, PrecoLiquido from LinhasDoc where IdCabecDoc='" + dv.id + "' order By NumLinha");
                     listlindv = new List<Model.LinhaDocVenda>();
@@ -1145,7 +1110,7 @@ namespace SINF.Lib_Primavera
 
             if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
             {
-                objListCab = PriEngine.Engine.Consulta("SELECT id, Entidade, Data, NumDoc, TotalMerc, Serie From CabecDoc where TipoDoc='ECL' AND Entidade = '" + clienteId + "' AND id='"+docVendaId+"'");
+                objListCab = PriEngine.Engine.Consulta("SELECT * From CabecDoc where TipoDoc='ECL' AND Entidade = '" + clienteId + "' AND id='"+docVendaId+"'");
                 if (!objListCab.NoFim())
                 {
                     dv = new Model.DocVenda();
@@ -1156,7 +1121,7 @@ namespace SINF.Lib_Primavera
                     dv.TotalMerc = objListCab.Valor("TotalMerc");
                     dv.Serie = objListCab.Valor("Serie");
 
-                    objListLin = PriEngine.Engine.Consulta("SELECT idCabecDoc, Artigo, Descricao, Quantidade, Unidade, PrecUnit, Desconto1, TotalILiquido, PrecoLiquido from LinhasDoc where IdCabecDoc='" + dv.id + "' order By NumLinha");
+                    objListLin = PriEngine.Engine.Consulta("SELECT ld.idCabecDoc, ld.Artigo, ld.Descricao, ld.Quantidade, ld.Unidade, ld.Desconto1, ld.PrecUnit, ld.TotalILiquido, ld.PrecoLiquido, i.Taxa from LinhasDoc as ld JOIN Iva as i ON i.Iva = ld.CodIva where ld.IdCabecDoc='" + dv.id + "' order By ld.NumLinha");
                     listlindv = new List<Model.LinhaDocVenda>();
 
                     while (!objListLin.NoFim())
@@ -1171,6 +1136,7 @@ namespace SINF.Lib_Primavera
                         lindv.PrecoUnitario = objListLin.Valor("PrecUnit");
                         lindv.TotalILiquido = objListLin.Valor("TotalILiquido");
                         lindv.TotalLiquido = objListLin.Valor("PrecoLiquido");
+                        lindv.IVA = objListLin.Valor("Taxa");
 
                         listlindv.Add(lindv);
                         objListLin.Seguinte();

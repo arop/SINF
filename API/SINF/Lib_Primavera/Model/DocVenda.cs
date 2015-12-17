@@ -7,6 +7,11 @@ namespace SINF.Lib_Primavera.Model
 {
     public class DocVenda
     {
+        public double TotalIva
+        {
+            get;
+            set;
+        }
 
         public string id
         {

@@ -65,6 +65,12 @@ namespace SINF.Lib_Primavera.Model
             set;
         }
 
+        public float IVA
+        {
+            get;
+            set;
+        }
+
 
     }
 }

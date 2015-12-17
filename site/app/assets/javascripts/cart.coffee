@@ -35,11 +35,14 @@ $(document).ready(function(){
                         var parent_selector = "#artigo-"+artigos_temp[i].CodArtigo;
                         parent_selector = parent_selector.replace(/\./g, '_'); //pontos nos ids não funcionam...
                         console.log(parent_selector);
+                        
+                        var preco_iva = artigos_temp[i].PVP*(1+artigos_temp[i].IVA/100.0);
 
+                        console.log(artigos_temp[i]);
                         $(parent_selector+" .descricao").html(artigos_temp[i].DescArtigo);
-                        $(parent_selector+" .pvp").html(artigos_temp[i].PVP.toFixed(2)+'€');
+                        $(parent_selector+" .pvp").html(preco_iva.toFixed(2)+'€');
                         var quantidade = parseInt($(parent_selector+" .quantidade input").val());
-                        $(parent_selector+" .total").html((parseFloat(artigos_temp[i].PVP)*quantidade).toFixed(2)+'€');
+                        $(parent_selector+" .total").html((preco_iva*quantidade).toFixed(2)+'€');
                         $(parent_selector+' input[name="preco[]"]').val(artigos_temp[i].PVP);
                     }
 

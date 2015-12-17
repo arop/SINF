@@ -61,7 +61,7 @@ class CartController < ApplicationController
 		# get the url that we need to post to
 		url = URI.parse('http://localhost:49526/api/docvenda')
 		http = Net::HTTP.new(url.host, url.port)
-		http.read_timeout = 200 #Default is 60 seconds
+		http.read_timeout = 300 #Default is 60 seconds
 		linhasDoc = []
 		number_artigos = params[:artigo].length - 1
 		(0..number_artigos).each do |i|
@@ -76,6 +76,7 @@ class CartController < ApplicationController
 		if response.code == '201'
 			CartProduct.where(:user_id => current_user.id).destroy_all
 			#render :json => {"success" => response.code}
+			session[:carrinho] = Hash.new
 			redirect_to profile_path(current_user.id)
 		else
 			#render :json => {"erro" => response.code}

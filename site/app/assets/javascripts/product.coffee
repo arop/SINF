@@ -41,10 +41,11 @@ function getProduto(id){
     success: function(data) {
       $('#prod-title').html(data.DescArtigo);
       var price = data.PVP;
-      if(data.Moeda == 'EUR') price+='€'; 
-      else price+='$';
+      var preco_iva = data.PVP*(1+data.IVA/100.0);
+      preco_iva+='€'; 
 
-      $('#prod-price').html(price);
+
+      $('#prod-price').html(preco_iva);
 
       if(data.MarcaDesc != null) {
         $('#prod-marca').html('Marca: ' + data.MarcaDesc);
