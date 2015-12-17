@@ -64,7 +64,7 @@ $(document).ready(function () {
                         if(id_subcategoria != null && id_subcategoria == categorias[i].SubCategorias[j].CodCategoria)
                             subcat_actual = true;
 
-                        collapsed_content = collapsed_content + '<tr><td>'+
+                        collapsed_content = collapsed_content + '<tr class="border-bottom-only"><td>'+
                             '<a href="/categoria/'+categorias[i].CodCategoria+'/'+categorias[i].SubCategorias[j].CodCategoria+'">'+
                             (collapse_open && subcat_actual? '<strong>' : '') + categorias[i].SubCategorias[j].DescCategoria+(collapse_open && subcat_actual? '</strong>' : '')+'</a></td></tr>';
                     }

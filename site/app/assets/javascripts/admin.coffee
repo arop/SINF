@@ -72,7 +72,7 @@ function encomendas () {
 	});
 }
 
-function produtos () {
+function produtos() {
 
 	var url_encomendas = base_url_primavera + '/artigos/top/10';	
 	$("#loading_2").html(botao_load);	
@@ -87,11 +87,12 @@ function produtos () {
 		success: function(data) {
 			$("#loading_2").remove();
             //console.log(data);
-            data=$.parseJSON(data);
-            console.log(data);
-            var table = $("#produto_tabela tbody"); 
-             try{    
+            data = $.parseJSON(data);
+            var table = $("#produto_tabela_body"); 
+            table.html('');
+            try{    
             	for(var i in data){
+            		console.log(i);
             		var tr = $('<tr></tr>');
             		tr.append('<td><a href="product/'+data[i]['CodArtigo']+'">'+data[i]['CodArtigo']+'</a></td>');
 	            	tr.append('<td>'+data[i]['DescArtigo']+'</td>');

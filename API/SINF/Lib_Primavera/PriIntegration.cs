@@ -523,9 +523,14 @@ namespace SINF.Lib_Primavera
 
             if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
             {
-                string query = "SELECT TOP " + quantidade + " a.Artigo, a.Descricao, a.Marca, a.Modelo, a.Peso, a.UnidadeBase, m.PVP1, m.moeda, a.Familia, a.SubFamilia, v.itemcount, a.Iva, i.Taxa" +
+
+                var current_date = DateTime.Now;
+                var newDate = current_date.AddYears(-1);
+                string query = "SELECT TOP " + quantidade + " a.Artigo, a.Descricao, a.Marca, a.Modelo, a.Peso, a.UnidadeBase, m.PVP1, m.moeda, a.Familia, a.SubFamilia, v.itemcount, a.Iva, i.Taxa " +
                                         " FROM Artigo as a JOIN (SELECT Artigo, COUNT(*) as itemcount" +
-                                                                " FROM  LinhasDoc" +
+                                                                " FROM  LinhasDoc JOIN CabecDoc ON" +
+                                                                " LinhasDoc.IdCabecDoc = CabecDoc.id" +
+                                                                " WHERE CabecDoc.Data > dateadd(year, -1, getdate())" +
                                                                 " GROUP BY Artigo) as v" +
                                         " ON a.Artigo = v.Artigo JOIN ArtigoMoeda AS m ON a.Artigo = m.Artigo JOIN Iva as i ON a.Iva = i.Iva" +
                                         ((categoria == null) ? " " : " WHERE a.Familia = '" + categoria + "'") + 

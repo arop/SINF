@@ -3,7 +3,7 @@
 <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 </head>
 <body>
-  <%= render 'common/navbar_admin' %>
+  <%= render 'common/navbar' %>
 
 <% if current_user.try(:admin?) %>
   <!-- Page Content -->
@@ -16,7 +16,7 @@
         <!-- Default panel contents -->
         <div class="panel-heading">
           <p>Encomendas</p> 
-          <form class="form-inline" action="#">
+          <form class="form-inline">
             <div class="form-group"> 
               <select id="data-encomendas-mes" class="form-control">
                 <option <% if @mes == '1' %>selected<% end %> value="1">Janeiro</option>
@@ -33,7 +33,7 @@
                 <option <% if @mes == '12' %>selected<% end %> value="12">Dezembro</option>
               </select>
               <input id="data-encomendas-ano" style="width: 100px" class="form-control" type="number" value=<%= @ano %> min="2000" max="2100" />
-              <input id="data-encomendas-botao" type="submit" class="btn btn-success" value="Ver Encomendas" />
+              <input id="data-encomendas-botao" type="button" class="btn btn-success" value="Ver Encomendas" />
             </div>
           </form>
         </div>
@@ -66,7 +66,7 @@
             <th>Marca</th>
             <th>PVP</th>
           </thead>
-          <tbody>
+          <tbody id="produto_tabela_body">
           </tbody>
           <tr id="loading_2"></tr>
         </table>

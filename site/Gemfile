@@ -65,3 +65,4 @@ gem 'autoprefixer-rails'
 
 # images
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
+gem 'will_paginate', '~> 3.0.6'

@@ -169,7 +169,7 @@ function enviarVenda() {
 
     var docVenda = {};
     docVenda.LinhasDoc = linhasDocVenda;
-    docVenda.Entidade = cliente['CodCliente'];
+    //docVenda.Entidade = cliente['CodCliente'];
     docVenda.Serie = "C";
 
 

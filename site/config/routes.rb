@@ -19,6 +19,8 @@ Rails.application.routes.draw do
 
   delete 'product_description/:id' => 'product_description#destroy'
   put 'product_description' => 'product_description#create'
+  post 'reviews' => 'review#create'
+  delete 'review/:id' => 'review#destroy'
 
   get 'categoria/:id' => 'categoria#index', :id => /.*/
 

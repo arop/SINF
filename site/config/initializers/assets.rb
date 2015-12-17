@@ -22,6 +22,9 @@ Rails.application.config.assets.precompile += %w( categoria.css )
 
 Rails.application.config.assets.precompile += %w( admin.js )
 Rails.application.config.assets.precompile += %w( product_description.js )
+Rails.application.config.assets.precompile += %w( review.js )
+Rails.application.config.assets.precompile += %w( external/star-rating.min.js )
+Rails.application.config.assets.precompile += %w( external/star-rating.css )
 
 Rails.application.config.assets.precompile += %w( encomenda.js )
 
