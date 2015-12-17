@@ -77,9 +77,9 @@ namespace SINF.Controllers
          *  Obter subcategoria
          */
         [System.Web.Http.HttpGet]
-        public HttpResponseMessage Subcategoria(string id)
+        public HttpResponseMessage Subcategoria(string id2, string id)
         {
-            Categoria categoria = Lib_Primavera.PriIntegration.GetSubCategoria(id);
+            Categoria categoria = Lib_Primavera.PriIntegration.GetSubCategoria(id2, id);
             if (categoria == null)
             {
                 var response = Request.CreateResponse(HttpStatusCode.NotFound);
