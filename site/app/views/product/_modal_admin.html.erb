@@ -1,0 +1,19 @@
+<div id="descricao-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modificar descrição</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                <textarea class="form-control" rows="5" id="description-input"><% if !@desc.nil? %><%= @desc.description %><% end %></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-submit-description" type="button" class="btn btn-warning" data-dismiss="modal">Submeter descrição</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
