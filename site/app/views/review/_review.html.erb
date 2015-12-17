@@ -1,0 +1,15 @@
+<div class="row">
+    <div class="col-md-12">
+    <% if !review.rating.blank? %>
+      <% (1..review.rating).each do |i| %>
+        <span class="glyphicon glyphicon-star"></span>
+      <% end %>
+      <% (review.rating..4).each do |i| %>
+        <span class="glyphicon glyphicon-star-empty"></span>
+      <% end %>
+    <% end %>
+        <%= User.find(review.user_id).nome %>
+        <span class="pull-right"><%= review.created_at.strftime("%d/%m/%Y - %H:%M") %></span>
+        <p><%= review.comment %></p>
+    </div>
+</div>

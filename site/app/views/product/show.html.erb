@@ -91,71 +91,38 @@
                             </div>
                         </div>
                         <div class="ratings">
-                            <p class="pull-right">3 reviews</p>
+                            <p class="pull-right"><%= @reviews.count %> reviews</p>
                             <p>
+                              <% (1..@avg.to_i).each do |i| %>
                                 <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
+                              <% end %>
+                              <% (@avg.to_i..4).each do |i| %>
                                 <span class="glyphicon glyphicon-star-empty"></span>
-                                4.0 stars
+                              <% end %>
+                              <%= @avg.to_i %> estrelas
                             </p>
                         </div>
                         </div>
 
                         <div class="well">
                             <div class="text-right">
-                                <a class="btn btn-success">Leave a Review</a>
+                            <% if !@review_exists %>
+                                <a id="leave-review-btn" class="btn btn-success">Deixar uma review</a>
+                            <% else %>
+                                <a class="btn btn-success" disabled>Já deixou uma review</a>
+                            <% end %>
                             </div>
 
                             <hr>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    Anonymous
-                                    <span class="pull-right">10 days ago</span>
-                                    <p>This product was great in terms of quality. I would definitely buy another!</p>
-                                </div>
-                            </div>
-
-                            <hr>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    Anonymous
-                                    <span class="pull-right">12 days ago</span>
-                                    <p>I've alredy ordered another one!</p>
-                                </div>
-                            </div>
-
-                            <hr>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    Anonymous
-                                    <span class="pull-right">15 days ago</span>
-                                    <p>I've seen some better than this, but not at this price. I definitely recommend this item.</p>
-                                </div>
-                            </div>
+                            <% if !@reviews.blank? %>
+                                <% @reviews.each do |review| %>
+                                    <%= render 'review/review', :review => review %>
+                                    <hr>
+                                <% end %>
+                                <%= will_paginate @reviews %>
+                            <% end %>
                         </div>
-
                     </div>
-
                 </div>
 
                 <% if current_user.try(:admin?) %>
@@ -177,11 +144,34 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button id="btn-submit-description" type="button" class="btn btn-warning" data-dismiss="modal">Submeter descrição</button>
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                <% end %>
+
+                <% if !@review_exists %>
+                <div id="review-modal" class="modal fade" role="dialog">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Criar review</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="5" id="review-input"></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <input id="rating-system" type="number" class="rating" min="1" max="5" step="1">
+                                <button id="btn-submit-review" type="button" class="btn btn-warning" data-dismiss="modal">Submeter review</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <% end %>
             
             </div><!-- col right -->
@@ -191,3 +181,4 @@
 <%= render 'common/footer' %>
 <%= javascript_include_tag "product" %>
 <%= javascript_include_tag "product_description" %>
+<%= javascript_include_tag "review" %>

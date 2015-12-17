@@ -3,12 +3,12 @@ class ProductDescriptionController < ApplicationController
   	p params[:product_description][:idProduto]
   	old = ProductDescription.where(:idProduto => params[:product_description][:idProduto]).take
   	if old.nil?
-		@desc = ProductDescription.new(desc_params)
-	else
-		old.description = params[:product_description][:description]
-		@desc = old
-	end
-	if @desc.save
+		  @desc = ProductDescription.new(desc_params)
+	  else
+		  old.description = params[:product_description][:description]
+		  @desc = old
+	  end
+	  if @desc.save
         render :json => @desc
    	else 
        	render :json => @desc.errors
@@ -24,6 +24,6 @@ class ProductDescriptionController < ApplicationController
 
   private
   def desc_params
-	params.require(:product_description).permit(:description,:idProduto)
+	  params.require(:product_description).permit(:description,:idProduto)
   end
 end
