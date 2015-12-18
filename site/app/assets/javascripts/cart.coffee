@@ -43,7 +43,9 @@ $(document).ready(function(){
                         var preco_iva = artigos_temp[i].PVP*(1+artigos_temp[i].IVA/100.0);
 
                         console.log(artigos_temp[i]);
-                        $(parent_selector+" .descricao").html(artigos_temp[i].DescArtigo);
+
+                        $(parent_selector+" .descricao").html(
+                            '<a href="/product/'+artigos_temp[i].CodArtigo+'">'+artigos_temp[i].DescArtigo+'</a>');
                         $(parent_selector+" .pvp").html(preco_iva.toFixed(2)+'€');
                         var quantidade = parseInt($(parent_selector+" .quantidade").html());
                         $(parent_selector+" .total").html((preco_iva*quantidade).toFixed(2)+'€');
@@ -149,8 +151,9 @@ function removeFromCarrinho(id) {
             console.log("Error: " + error);
         },
         success: function (data) {
-            if(data.success == "true")
-                $("tr#artigo-"+id).remove();
+            /*if(data.success == "true")
+                $("tr#artigo-"+id).remove();*/
+                window.location.reload(true);        
         }
     });
 }
