@@ -20,7 +20,7 @@ $(document).ready(function () {
 	if(subcategoria.length){
 		is_subcategoria = true;
 		id_subcategoria = subcategoria.attr('data-id-subcategoria');
-		url_subcategoria = base_url_primavera + '/categorias/subcategoria/' + id_subcategoria;
+		url_subcategoria = base_url_primavera + '/categorias/'+id_categoria+'/subcategoria/' + id_subcategoria;
 	}
 	
 	$.ajax({

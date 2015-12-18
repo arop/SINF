@@ -703,7 +703,7 @@ namespace SINF.Lib_Primavera
         }
 
 
-        public static Model.Categoria GetSubCategoria(string idCategoria)
+        public static Model.Categoria GetSubCategoria(string idCategoria, string idSubCategoria)
         {
 
             StdBELista objList;
@@ -713,7 +713,7 @@ namespace SINF.Lib_Primavera
 
                 //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
 
-                objList = PriEngine.Engine.Consulta("SELECT SubFamilia, Descricao FROM SubFamilias WHERE SubFamilia = '" + idCategoria + "'");
+                objList = PriEngine.Engine.Consulta("SELECT SubFamilia, Descricao FROM SubFamilias WHERE SubFamilia = '" + idSubCategoria + "' AND Familia = '" + idCategoria + "'");
 
                 if (objList.NoFim())
                 {
