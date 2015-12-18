@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   resources :profiles
 
+  delete 'carrinho/single/:id' => 'cart#remove_from_cart'
   resources :cart
   
   root 'home#index'

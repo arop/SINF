@@ -24,10 +24,11 @@
 		        <thead>
 		        <tr>
 		          <th class="col-md-1">Cód.</th>
-		          <th class="col-md-5">Produto</th>
+		          <th class="col-md-4">Produto</th>
 		          <th class="col-md-2">Quant.</th>
 		          <th class="col-md-2">Preço unit.</th>
 		          <th class="col-md-2">Preço total</th>
+		          <th class="col-md-1">Remover</th>
 		        </tr>
 		        <thead>
 		        <tbody>
@@ -55,6 +56,7 @@
 		                </td>
 		                <td class="pvp"></td>
 		                <td class="total"></td>
+		                <td class="remove"><a id="remove-<%= id.dup.gsub /\./, '_' %>" class="remove-from-carrinho glyphicon glyphicon-remove"></a></td>
 		                <%= tag(:input, :type => "hidden", :name => 'artigo[]', :value => id) %>
 		                <%= tag(:input, :type => "hidden", :name => 'quantidade[]', :value => quantidade) %>
 		                <%= tag(:input, :type => "hidden", :name => 'preco[]') %>
