@@ -58,7 +58,6 @@ function encomendas () {
 	            		tr.append('<td>'+data[i]['Entidade']+'</td>');
 	            		tr.append('<td><a href="encomenda/'+data[i]['NumDoc']+'">'+data[i]['NumDoc']+'</a></td>');
 	            		tr.append('<td>'+data_array[0]+"-"+data_array[1]+"-"+data_array[2].split("T")[0]+'</td>');
-	            		tr.append('<td>'+'Estado'+'</td>');
 	            		tr.append('<td>'+data[i]['TotalMerc']+' €</td>');
 	            		//tr.append('<td>'+'<button data-id-doc="'+data[i]['NumDoc']+'" class="btn btn-success btn-facturar">Facturar</button>'+'</td>');
 	            		table.append(tr);

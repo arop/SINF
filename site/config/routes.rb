@@ -41,6 +41,8 @@ Rails.application.routes.draw do
 
   get 'pesquisa' => 'search#index'
 
+  get 'encomendas/user/:id' => 'encomenda#getUser'
+
   devise_for :users, :controllers => { registrations: 'registration' }
        
 end
