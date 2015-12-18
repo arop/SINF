@@ -45,7 +45,7 @@ $(document).ready(function(){
                         console.log(artigos_temp[i]);
                         $(parent_selector+" .descricao").html(artigos_temp[i].DescArtigo);
                         $(parent_selector+" .pvp").html(preco_iva.toFixed(2)+'€');
-                        var quantidade = parseInt($(parent_selector+" .quantidade input").val());
+                        var quantidade = parseInt($(parent_selector+" .quantidade").html());
                         $(parent_selector+" .total").html((preco_iva*quantidade).toFixed(2)+'€');
                         $(parent_selector+' input[name="preco[]"]').val(artigos_temp[i].PVP);
                     }
