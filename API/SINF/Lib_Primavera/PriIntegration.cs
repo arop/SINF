@@ -251,7 +251,7 @@ namespace SINF.Lib_Primavera
 
             if (PriEngine.InitializeCompany(SINF.Properties.Settings.Default.Company.Trim(), SINF.Properties.Settings.Default.User.Trim(), SINF.Properties.Settings.Default.Password.Trim()) == true)
             {
-                string query = "SELECT a.*, m.*, f.Descricao as familiaDesc, i.Taxa "+
+                string query = "SELECT a.Artigo, a.Descricao, a.Familia, a.SubFamilia, m.PVP1, a.Marca, a.Modelo, a.Peso,a.UnidadeBase, m.Moeda, f.Descricao as familiaDesc, i.Taxa " +
                     "FROM Artigo as a, ArtigoMoeda as m, Familias as f, Iva as i "+
                     "where a.Artigo = m.Artigo AND a.Artigo='" + codArtigo+"' "+
                     "AND a.Familia = f.Familia AND i.Iva = a.Iva";
@@ -264,9 +264,7 @@ namespace SINF.Lib_Primavera
                     artigo.DescArtigo = objListLin.Valor("Descricao");
                     artigo.Categoria = objListLin.Valor("Familia");
                     artigo.SubCategoria = objListLin.Valor("SubFamilia");
-
                     artigo.CategoriaDesc = objListLin.Valor("familiaDesc");
-                    
                     artigo.PVP = objListLin.Valor("PVP1");
                     artigo.Moeda = objListLin.Valor("Moeda");
                     artigo.UnidadeBase = objListLin.Valor("UnidadeBase");
@@ -276,7 +274,7 @@ namespace SINF.Lib_Primavera
                     artigo.IVA = objListLin.Valor("Taxa");
 
                     if (artigo.SubCategoria != "") {
-                        string querySubFamilia = "SELECT * FROM SubFamilias WHERE SubFamilias.SubFamilia = '" + artigo.SubCategoria + "'";
+                        string querySubFamilia = "SELECT * FROM SubFamilias WHERE SubFamilias.SubFamilia = '" + artigo.SubCategoria + "' AND SubFamilias.Familia = '"+ artigo.Categoria+"'";
                         StdBELista subfam = PriEngine.Engine.Consulta(querySubFamilia);
                         if(!subfam.NoFim())
                             artigo.SubCategoriaDesc = subfam.Valor("Descricao");
@@ -433,7 +431,7 @@ namespace SINF.Lib_Primavera
                 return null;
         }
 
-        public static List<Model.Artigo> GetArtigosSubCategoria(string categoria)
+        public static List<Model.Artigo> GetArtigosSubCategoria(string categoria, string subcategoria)
         {
             StdBELista objList;
 
@@ -445,7 +443,7 @@ namespace SINF.Lib_Primavera
                 //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
                 string query = "SELECT a.Artigo, a.Descricao, a.Marca, a.Modelo, a.Peso, a.UnidadeBase, a.Iva, " +
                         " m.PVP1, m.Moeda, i.Taxa" +
-                        " FROM Artigo AS a JOIN ArtigoMoeda AS m ON a.Artigo = m.Artigo JOIN Iva as i ON a.Iva = i.Iva  WHERE a.SubFamilia = '" + categoria + "' AND a.TipoArtigo = 3";
+                        " FROM Artigo AS a JOIN ArtigoMoeda AS m ON a.Artigo = m.Artigo JOIN Iva as i ON a.Iva = i.Iva  WHERE a.SubFamilia = '" + subcategoria + "' AND a.Familia = '"+categoria+"'AND a.TipoArtigo = 3";
                 objList = PriEngine.Engine.Consulta(query);
 
 
@@ -482,9 +480,9 @@ namespace SINF.Lib_Primavera
             {
 
                 //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
-                string query = "SELECT a.Artigo, a.Descricao, a.Marca, a.Modelo, a.Peso, a.UnidadeBase, a.Familia, a.SubFamilia, a.CodIva, i.Taxa, " +
+                string query = "SELECT a.Artigo, a.Descricao, a.Marca, a.Modelo, a.Peso, a.UnidadeBase, a.Familia, a.SubFamilia, a.Iva, i.Taxa, " +
                         " m.PVP1, m.Moeda" +
-                        " FROM Artigo AS a JOIN ArtigoMoeda AS m ON a.Artigo = m.Artigo JOIN Iva as i ON a.CodIva = i.Iva WHERE a.Artigo LIKE '%" + termoProcura + "%' OR " +
+                        " FROM Artigo AS a JOIN ArtigoMoeda AS m ON a.Artigo = m.Artigo JOIN Iva as i ON a.Iva = i.Iva WHERE a.Artigo LIKE '%" + termoProcura + "%' OR " +
                         " a.Descricao LIKE '%" + termoProcura + "%' AND a.TipoArtigo = 3";
                 objList = PriEngine.Engine.Consulta(query);
 

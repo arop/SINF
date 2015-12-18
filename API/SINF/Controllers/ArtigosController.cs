@@ -59,9 +59,9 @@ namespace SINF.Controllers
         }
 
         [System.Web.Http.HttpPost]
-        public HttpResponseMessage SubCategoria(string id)
+        public HttpResponseMessage SubCategoria(string id, string id2)
         {
-            List<Artigo> produtosCategoria = Lib_Primavera.PriIntegration.GetArtigosSubCategoria(id);
+            List<Artigo> produtosCategoria = Lib_Primavera.PriIntegration.GetArtigosSubCategoria(id, id2);
             if (produtosCategoria == null)
             {
                 return Request.CreateResponse(HttpStatusCode.Forbidden);

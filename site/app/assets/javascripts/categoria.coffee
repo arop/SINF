@@ -36,7 +36,7 @@ $(document).ready(function () {
             var desc_categoria = categoria_temp.DescCategoria;
             $("#titulo-categoria").html(desc_categoria);
             if (!is_subcategoria)
-                getProdutosCategoria(id_categoria);
+                getProdutosCategoria(id_categoria, null);
             
         }
 	});
@@ -54,17 +54,17 @@ $(document).ready(function () {
 	            var categoria_temp = $.parseJSON(data);
 	            var desc_categoria = categoria_temp.DescCategoria;
 	            $("#titulo-subcategoria").html(desc_categoria);
-	            getProdutosCategoria(id_subcategoria);
+	            getProdutosCategoria(id_categoria, id_subcategoria);
 	        }
 		});
 	}	
 
 });
 
-function getProdutosCategoria(id_cat){
+function getProdutosCategoria(id_cat, id_subcat){
 	var url_prods_categoria = null;
 	if(is_subcategoria)
-		url_prods_categoria = base_url_primavera + '/artigos/subcategoria/'+id_cat;
+		url_prods_categoria = base_url_primavera + '/artigos/categoria/'+id_cat+'/subcategoria/'+id_subcat;
 	else url_prods_categoria = base_url_primavera + '/artigos/categoria/'+id_cat;
 	$.ajax({
         url: url_prods_categoria,

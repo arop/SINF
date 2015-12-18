@@ -59,6 +59,12 @@ namespace SINF
                 routeTemplate: "api/categorias/{id}/",
                 defaults: new { controller = "Categorias", action = "Get" }
             );
+
+            config.Routes.MapHttpRoute(
+                name: "GetArtigosSubCategoria",
+                routeTemplate: "api/artigos/categoria/{id}/subcategoria/{id2}",
+                defaults: new { controller = "Artigos", action = "Subcategoria" }
+            );
             //fim categoria
 
 
