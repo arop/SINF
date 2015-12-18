@@ -8,6 +8,10 @@ $(document).ready(function(){
     var carrinho = {};
     var lista = new Array();
 
+    $(".remove-from-carrinho").click(function() {
+        removeFromCarrinho($(this).attr('id').split('-')[1]);
+    });
+
     if($(".codigo-artigo-cart").length){
         $(".codigo-artigo-cart").each(function(){
             lista.push($(this).html());
@@ -132,4 +136,23 @@ function sendDocVenda(){
 	    }
 	});
 }
+
+function removeFromCarrinho(id) {
+    $.ajax({
+        type: "DELETE",
+        url: '/carrinho/single/'+id,
+        error: function (xhr, status, error) {
+            console.log("Error: " + xhr);
+            console.log(xhr);
+            console.log(xhr.responseText);
+            console.log("Error: " + status);
+            console.log("Error: " + error);
+        },
+        success: function (data) {
+            if(data.success == "true")
+                $("tr#artigo-"+id).remove();
+        }
+    });
+}
+
 `

@@ -12,6 +12,15 @@ class CartController < ApplicationController
 		render :json => '{"success" : "true"}'
 	end
 
+	def remove_from_cart
+		if defined? session[:carrinho][params[:id]]
+			session[:carrinho].delete(params[:id])
+			render :json => '{"success" : "true"}'
+		else
+			render :json => '{"success" : "false"}'
+		end
+	end
+
 	def add_to_cart
 		if !params[:artigo].nil? && !params[:artigo][:id].nil? && !params[:artigo][:quantidade].nil?
 

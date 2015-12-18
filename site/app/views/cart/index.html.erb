@@ -24,10 +24,11 @@
 		        <thead>
 		        <tr>
 		          <th class="col-md-1">Cód.</th>
-		          <th class="col-md-5">Produto</th>
+		          <th class="col-md-4">Produto</th>
 		          <th class="col-md-2">Quant.</th>
 		          <th class="col-md-2">Preço unit.</th>
 		          <th class="col-md-2">Preço total</th>
+		          <th class="col-md-1">Remover</th>
 		        </tr>
 		        <thead>
 		        <tbody>
@@ -44,17 +45,12 @@
 		              <tr id="artigo-<%= id.dup.gsub /\./, '_' %>"> <!-- pontos nos ids não funcionam... -->
 		                <td class="codigo-artigo-cart"><%=id%></td>
 		                <td class="descricao"></td>
-		                <td class="quantidade">
-		                	<div class="input-group spinner">
-			                    <input type="text" class="form-control" value="<%=quantidade%>">
-			                    <div class="input-group-btn-vertical">
-			                      <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-			                      <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
-			                    </div>
-		                  	</div>
-		                </td>
+		                <td class="quantidade"><%=quantidade%></td>
 		                <td class="pvp"></td>
 		                <td class="total"></td>
+		                <td class="remove" style="text-align: center">
+		                	<a id="remove-<%= id.dup.gsub /\./, '_' %>" class="remove-from-carrinho glyphicon glyphicon-remove" style="color:red"></a>
+		                </td>
 		                <%= tag(:input, :type => "hidden", :name => 'artigo[]', :value => id) %>
 		                <%= tag(:input, :type => "hidden", :name => 'quantidade[]', :value => quantidade) %>
 		                <%= tag(:input, :type => "hidden", :name => 'preco[]') %>
